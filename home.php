@@ -81,11 +81,9 @@
                           </svg> <b class="caret"></b></a>
                         <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="seleccionarPerfil.php">Administrar perfiles</a>
-                            <a class="dropdown-item"href="cambiarPerfil.php">Cambiar Perfil</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="cuenta.php">Cuenta</a>
-                            <a class="dropdown-item" href="preguntasfrecuentes.php">Preguntas Frecuentes</a>
-                            
+                            <a class="dropdown-item" href="preguntasfrecuentes.php">Preguntas Frecuentes</a>                            
                             <a class="dropdown-item" href="BaseDatosYConex/salir.php">Cerrar sesión</a>
                         </div>
                     </li>
