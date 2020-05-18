@@ -39,6 +39,9 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
+                    <a href="home.php">
+                    <button type="button" class="btn btn-danger " style="width: max-content;">Volver al inicio </button>
+                    </a> &nbsp &nbsp
                     <a href="BaseDatosYConex/salir.php">
                     <button type="button" class="btn btn-danger " style="width: max-content;">Cerrar Sesión</button>
                     </a>
