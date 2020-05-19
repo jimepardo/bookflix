@@ -94,8 +94,9 @@
             </div>
 
 		<?php	
-			break;
-		case 2:?>
+		break;
+		case 2:
+        ?>
 			<!--Esta es la barra de navegacion del usuario registrado premium -->
             <div class="barranavegacion">
                 <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
@@ -166,8 +167,9 @@
          </div>
 
         <?php
-			break;
-		case 3:?>
+		break;
+		case 3:
+        ?>
 			<!--Esta es la barra de navegacion para el administrador -->
             <div class="barranavegacionAdmi">
                 <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
@@ -188,9 +190,7 @@
 
 		<?php
             break;
-		?>
-
-        <?php   
+        }  
      
 	}
     ?>
@@ -216,16 +216,6 @@
                     </div>
                 </nav>
             </div>
-<?php
-
-}
-?>
-     
-
-  
-
-
-
 </head>
 
 <body style="background-color: #221f1f;">
