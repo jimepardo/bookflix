@@ -84,7 +84,7 @@
     <div class="list-group list-group-sm">
         <a href="modificarCuentaUsuario.php" class="list-group-item list-group-item-action list-group-item-secondary">Modificar contraseña</a>
         <a href="cambiarplan.php" class="list-group-item list-group-item-action list-group-item-secondary">Cambiar plan de suscripción</a>
-        <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">No se que haga algo mas </a>
+       <!-- <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">No se que haga algo mas </a>-->
 </div>
 
 </div>
