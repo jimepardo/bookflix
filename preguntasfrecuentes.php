@@ -62,8 +62,8 @@
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
             <div class="card-body">
-                Podés registrarte haciendo click en el siguiente enlace 
-                <a href="registrarse.php"><button type="button" class="btn btn-link">Registrate</button></a>
+                Podés registrarte haciendo click en el siguiente enlace <p>
+                <a href="registrarse.php"><button type="button" class="btn btn-link">Registrate</button></a></p>
             </div>
             </div>
         </div>
