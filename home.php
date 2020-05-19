@@ -26,7 +26,7 @@
     if (isset($_SESSION['PERMISO'])) {   
    
     switch ($_SESSION['PERMISO']) {
-		case 1:?>
+		case "1":?>
             <!--Esta es la barra de navegacion del usuario registrado basico-->
             <div class="barranavegacion">
                 <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
@@ -95,7 +95,7 @@
 
 		<?php	
 		break;
-		case 2:
+		case "2":
         ?>
 			<!--Esta es la barra de navegacion del usuario registrado premium -->
             <div class="barranavegacion">
@@ -168,7 +168,7 @@
 
         <?php
 		break;
-		case 3:
+		case "3":
         ?>
 			<!--Esta es la barra de navegacion para el administrador -->
             <div class="barranavegacionAdmi">
@@ -192,7 +192,7 @@
             break;
         }  
      
-	}
+	}else{
     ?>
                 <!--Esta es la barra de navegacion para los usuarios no registrados  -->
             <div class="barranavegacionNoReg">
@@ -216,6 +216,9 @@
                     </div>
                 </nav>
             </div>
+ <?php
+}
+ ?>
 </head>
 
 <body style="background-color: #221f1f;">
