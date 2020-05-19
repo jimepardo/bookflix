@@ -31,7 +31,22 @@
   <input class="btn btn-danger" type="submit" value="Guardar cambios " > 
   
 
-    <form>
+ <form>
+ <?php
+	if(isset($_GET['ERROR'])){
+?> 
+  <div  class="alert alert-danger" role="alert">
+     <?= $_GET['ERROR'] ?>
+  </div>                
+<?php
+    }else if(isset($_GET['EXITO'])){
+?>
+	<div class="alert alert-success">
+		<?= $_GET['EXITO'] ?>		
+	</div>
+<?php 
+}
+?>
 
 </div>
 

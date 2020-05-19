@@ -22,7 +22,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <?php 
+    <?php     
+    if (isset($_SESSION['PERMISO'])) {   
+   
     switch ($_SESSION['PERMISO']) {
 		case 1:?>
             <!--Esta es la barra de navegacion del usuario registrado basico-->
@@ -186,8 +188,13 @@
 
 		<?php
             break;
-		case false: ?>
-            <!--Esta es la barra de navegacion para los usuarios no registrados  -->
+		?>
+
+        <?php   
+     
+	}
+    ?>
+                <!--Esta es la barra de navegacion para los usuarios no registrados  -->
             <div class="barranavegacionNoReg">
                 <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
                     <a class="navbar-brand" href="#">
@@ -209,9 +216,10 @@
                     </div>
                 </nav>
             </div>
-        <?php    
-        break;
-	}?>
+<?php
+
+}
+?>
      
 
   
@@ -242,28 +250,35 @@
                 </div>
             
     <?php 
-      if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2)){
-          /* si es basico o premium ademas deberia ver las sugerencias, el administrador no */?>
-             <div class="netflix-slider mx-5">
-                    <h2 class="titulo">Sugerencias </h2>
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <?php  
-                                for ($i=0; $i < 7 ; $i++) { 
-                            ?>  
-                            <div class="swiper-slide"><img src="img/6.jpg" alt="foto"></div><?php 
-                            } ?>
+        if (isset($_SESSION['PERMISO'])) {
+            
+        
+          if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2)){
+              /* si es basico o premium ademas deberia ver las sugerencias, el administrador no */?>
+                 <div class="netflix-slider mx-5">
+                        <h2 class="titulo">Sugerencias </h2>
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <?php  
+                                    for ($i=0; $i < 7 ; $i++) { 
+                                ?>  
+                                <div class="swiper-slide"><img src="img/6.jpg" alt="foto"></div><?php 
+                                } ?>
+                            </div>
+                            <!-- Add Pagination -->
+                            <!-- <div class="swiper-pagination"></div> -->
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
                         </div>
-                        <!-- Add Pagination -->
-                        <!-- <div class="swiper-pagination"></div> -->
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
                     </div>
-                </div>
-     <?php }?>
+     <?php 
+         }
+         }
+     ?>
 
                 
     <?php
+        if(isset($_SESSION['PERMISO'])){
         if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2) || ($_SESSION['PERMISO'] == 3)){
             /* cualquier usuario registrado, sea basico/premium/administrador puede ver novedades + generos*/ ?>
             <?php
@@ -299,7 +314,11 @@
                     } 
                 ?>
         
-       <?php }?>
+       <?php 
+     }
+     }
+
+       ?>
 
 
 
