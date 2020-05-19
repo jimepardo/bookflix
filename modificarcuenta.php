@@ -1,5 +1,4 @@
 <?php 
-    
     include_once "BaseDatosYConex/conexion.php";
     session_start();
 	require_once "claseSesion.php";
@@ -20,10 +19,8 @@
     
 
     <!-- Demo styles -->
-    <style>
-           
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="css/modificarcuenta.css">
+    
     <div class="barranavegacion">
         <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
             <a class="navbar-brand" href="#">
@@ -75,21 +72,33 @@
 
 </head>
 
-<body style="background-color: #221f1f;">
+<body>
 
 
 <div class="container-fluid">
-<br><br><br>
-    <h2 style="color:#f1f1f5">Cuenta</h2>
-    <div class="list-group list-group-sm">
-        <a href="modificarcuenta.php" class="list-group-item list-group-item-action list-group-item-secondary">Ver datos de la cuenta</a>
-        <a href="cambiarplan.php" class="list-group-item list-group-item-action list-group-item-secondary">Cambiar plan de suscripción</a>
-       <!-- <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">No se que haga algo mas </a>-->
-</div>
+
+    <h2><strong>Cuenta</strong></h2><br>
+    <p> Tus datos de usuario</p>
+
+    <form>  
+        <div class="form-row">
+            <div class="col-3">
+                <label  class="col-form-label">Nombre de usuario</label>
+            <!--    <input type="text" class="form-control mb-2 mr-sm-2" value="<?php echo $_SESSION['nombreUsuario'] ?>" name="nombreUsuario">-->
+            </div>
+            <div class="col-3">
+                <label  class="col-form-label">Email</label>
+               <!-- <input type="text" class="form-control mb-2 mr-sm-2" value="<?php echo $_SESSION['emailUsuario'] ?>" name="email" >-->
+            </div>
+            <div class="col-3">
+                <label class="col-form-label" for="inlineFormInputName2">Contraseña</label>
+               <!-- <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"> -->
+                <a href="cambiarpass.php"><button type="button" class="btn btn-danger">Modificar</button></a>            
+            </div>            
+        </div>
+    </form>
 
 </div>
-
-
 
      <!-- Logout Modal-->
      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >

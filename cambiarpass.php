@@ -1,5 +1,4 @@
 <?php 
-    
     include_once "BaseDatosYConex/conexion.php";
     session_start();
 	require_once "claseSesion.php";
@@ -20,10 +19,8 @@
     
 
     <!-- Demo styles -->
-    <style>
-           
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="css/modificarcuenta.css">
+    
     <div class="barranavegacion">
         <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
             <a class="navbar-brand" href="#">
@@ -75,21 +72,30 @@
 
 </head>
 
-<body style="background-color: #221f1f;">
+<body>
 
 
 <div class="container-fluid">
-<br><br><br>
-    <h2 style="color:#f1f1f5">Cuenta</h2>
-    <div class="list-group list-group-sm">
-        <a href="modificarcuenta.php" class="list-group-item list-group-item-action list-group-item-secondary">Ver datos de la cuenta</a>
-        <a href="cambiarplan.php" class="list-group-item list-group-item-action list-group-item-secondary">Cambiar plan de suscripción</a>
-       <!-- <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">No se que haga algo mas </a>-->
+
+    <p>Modificar contraseña</p>
+    <hr width="100% " color="gray "><br>
+        <form action="modpassuser.php" method="POST">
+            <div class="form-group col-3 ">
+            <label for="formGroupExampleInput2">Contraseña antigua</label>    
+            <input type="text" class="form-control algo" id="formGroupExampleInput2" name="pass" placeholder="Ingrese su antigua contraseña">
+            <br>
+            <label for="formGroupExampleInput2">Contraseña nueva</label>
+            <input type="text" class="form-control algo" id="formGroupExampleInput2" name="pass1" placeholder="Ingrese su nueva contraseña">
+            <br>
+            <label for="formGroupExampleInput2">Repetir contraseña</label>
+            <input type="text" class="form-control algo" id="formGroupExampleInput2" name="pass2" placeholder="Repita su nueva contraseña">
+            <br>
+            <input type="hidden" name="id" value="<?php echo $_SESSION['ID'] ?>">
+            <input class="btn btn-danger algo" type="submit" value="Guardar cambios">
+        </div>
+        
+        </form>
 </div>
-
-</div>
-
-
 
      <!-- Logout Modal-->
      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
@@ -118,7 +124,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js " integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6 " crossorigin="anonymous "></script>
     <!-- pie de pagina -->
     <br><br>
-    <hr width="92.5% " color="gray ">
+    <hr width="97.5% " color="gray ">
     <footer>
         <a class="pfrecuentes" href="preguntasFrecuentes.php"><u>Preguntas Frecuentes</u></a>
         <hr>
