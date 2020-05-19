@@ -58,7 +58,7 @@
                         <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="seleccionarPerfil.php">Administrar perfiles</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Cuenta</a>
+                            <a class="dropdown-item" href="cuenta.php">Cuenta</a>
                             <a class="dropdown-item" href="preguntasfrecuentes.php">Preguntas Frecuentes</a>
                             <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal" >Cerrar sesión</a>
                         </div>
@@ -78,23 +78,25 @@
 <div class="container-fluid">
 
     <h2><strong>Cuenta</strong></h2><br>
-    <p> Tus datos de usuario</p>
+    <p> &nbsp Tus datos de usuario</p>
 
+   
     <form>  
-        <div class="form-row">
+        <div class="form">
             <div class="col-3">
                 <label  class="col-form-label">Nombre de usuario</label>
-            <!--    <input type="text" class="form-control mb-2 mr-sm-2" value="<?php echo $_SESSION['nombreUsuario'] ?>" name="nombreUsuario">-->
+            <input class="form-control mb-2 mr-sm-2" id="disabledInput" type="text" value="<?php echo $_SESSION['NOMBRE'] ?>"  disabled>
             </div>
             <div class="col-3">
-                <label  class="col-form-label">Email</label>
-               <!-- <input type="text" class="form-control mb-2 mr-sm-2" value="<?php echo $_SESSION['emailUsuario'] ?>" name="email" >-->
+                <label  class="col-form-label">Email </label>
+                <input class="form-control mb-2 mr-sm-2" id="disabledInput" type="text" value="<?php echo $_SESSION['EMAIL'] ?>" disabled>
             </div>
+
             <div class="col-3">
                 <label class="col-form-label" for="inlineFormInputName2">Contraseña</label>
-               <!-- <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"> -->
+                <input class="form-control mb-2 mr-sm-2" id="disabledInput" type="password" value="*******" disabled>
                 <a href="cambiarpass.php"><button type="button" class="btn btn-danger">Modificar</button></a>            
-            </div>            
+            </div>
         </div>
     </form>
 
