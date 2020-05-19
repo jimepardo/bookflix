@@ -17,7 +17,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    
+    <link rel="stylesheet" type="text/css" href="css/modificarcuenta.css">
 
     <!-- Demo styles -->
     <style>
@@ -61,7 +61,7 @@
                         <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="seleccionarPerfil.php">Administrar perfiles</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Cuenta</a>
+                            <a class="dropdown-item" href="cuenta.php">Cuenta</a>
                             <a class="dropdown-item" href="preguntasfrecuentes.php">Preguntas Frecuentes</a>
                             <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal" >Cerrar sesión</a>
                         </div>
@@ -79,9 +79,10 @@
 
 
 <div class="container-fluid">
-<br><br><br>
+
     <h2 style="color:#f1f1f5">Cuenta</h2>
-    <div class="list-group list-group-sm">
+    <hr width="100% " color="gray "><br>
+    <div class="list-group list-group-sm col-3">
         <a href="modificarcuenta.php" class="list-group-item list-group-item-action list-group-item-secondary">Ver datos de la cuenta</a>
         <a href="cambiarplan.php" class="list-group-item list-group-item-action list-group-item-secondary">Cambiar plan de suscripción</a>
        <!-- <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">No se que haga algo mas </a>-->
@@ -118,7 +119,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js " integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6 " crossorigin="anonymous "></script>
     <!-- pie de pagina -->
     <br><br>
-    <hr width="92.5% " color="gray ">
+    <hr width="97.5% " color="gray ">
     <footer>
         <a class="pfrecuentes" href="preguntasFrecuentes.php"><u>Preguntas Frecuentes</u></a>
         <hr>
