@@ -1,0 +1,42 @@
+body,
+html {
+    background-color: #221f1f;
+    color: #f1f1f5;
+    position: relative;
+    height: 100%;
+}
+
+body {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    padding-top: 6%;
+}
+
+p {
+    font-size: 23px;
+}
+
+.fas {
+    color: #f1f1f5;
+}
+
+.algo {
+    text-align: center;
+}
+
+footer {
+    margin: 20px auto 0;
+    padding: 0 4%;
+    display: flex;
+    -webkit-box-direction: normal;
+    text-align: center;
+}
+
+.pfrecuentes {
+    margin: 0px 0px 14px 0px;
+    padding: 0px;
+    font-size: 13px;
+    display: flex;
+    color: #808080;
+    text-align: center;
+}
