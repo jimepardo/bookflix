@@ -42,18 +42,18 @@
                                 <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="generos.php">Todos</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Acción</a>
-                                    <a class="dropdown-item" href="#">Argentina</a>
-                                    <a class="dropdown-item" href="#">Aventura</a>
-                                    <a class="dropdown-item" href="#">Ciencia Ficción</a>
-                                    <a class="dropdown-item" href="#">Comedia</a>
-                                    <a class="dropdown-item" href="#">Drama</a>
-                                    <a class="dropdown-item" href="#">Infantiles</a>
-                                    <a class="dropdown-item" href="#">Misterio</a>
-                                    <a class="dropdown-item" href="#">Policiales</a>
-                                    <a class="dropdown-item" href="#">Romance</a>
-                                    <a class="dropdown-item" href="#">Terror</a>
-                                    <a class="dropdown-item" href="#">Thrillers</a>
+                                    <?php
+                                        $query = mysqli_query ($conexion,"SELECT idGenero,nombreGenero FROM genero");
+                                        while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
+                                            echo '<a class="dropdown-item" href="gridgeneros.php" value="'.$valores['idGenero'].'"'; 
+                                            if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
+                                                echo " selected > ".$valores['nombreGenero']." </a>";
+                                            }else{
+                                                
+                                                echo '>'.$valores['nombreGenero'].'</a>';
+                                            }
+                                        }
+                                    ?>
                                 </div>
                             <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
                             </li>
@@ -83,7 +83,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="cuenta.php">Cuenta</a>
                                 <a class="dropdown-item" href="preguntasfrecuentes.php">Preguntas Frecuentes</a>                            
-                                <a class="dropdown-item" href="BaseDatosYConex/salir.php">Cerrar sesión</a>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal" >Cerrar sesión</a>
                             </div>
                         </li>
                         </ul>
@@ -112,18 +112,18 @@
                                     <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="generos.php">Todos</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Acción</a>
-                                        <a class="dropdown-item" href="#">Argentina</a>
-                                        <a class="dropdown-item" href="#">Aventura</a>
-                                        <a class="dropdown-item" href="#">Ciencia Ficción</a>
-                                        <a class="dropdown-item" href="#">Comedia</a>
-                                        <a class="dropdown-item" href="#">Drama</a>
-                                        <a class="dropdown-item" href="#">Infantiles</a>
-                                        <a class="dropdown-item" href="#">Misterio</a>
-                                        <a class="dropdown-item" href="#">Policiales</a>
-                                        <a class="dropdown-item" href="#">Romance</a>
-                                        <a class="dropdown-item" href="#">Terror</a>
-                                        <a class="dropdown-item" href="#">Thrillers</a>
+                                        <?php
+                                        $query = mysqli_query ($conexion,"SELECT idGenero,nombreGenero FROM genero");
+                                        while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
+                                            echo '<a class="dropdown-item" href="gridgeneros.php" value="'.$valores['idGenero'].'"'; 
+                                            if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
+                                                echo " selected > ".$valores['nombreGenero']." </a>";
+                                            }else{
+                                                
+                                                echo '>'.$valores['nombreGenero'].'</a>';
+                                            }
+                                        }
+                                    ?>
                                     </div>
                                     <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
                                 </li>
@@ -155,7 +155,7 @@
                                         <a class="dropdown-item" href="cuenta.php">Cuenta</a>
                                         <a class="dropdown-item" href="preguntasfrecuentes.php">Preguntas Frecuentes</a>
                                         
-                                        <a class="dropdown-item" href="BaseDatosYConex/salir.php">Cerrar sesión</a>
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal" >Cerrar sesión</a>
                                     </div>
                                 </li>
                             </ul>
@@ -273,6 +273,27 @@
             },
         });
     </script>
+
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #221f1f;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro que querés cerrar la sesión?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color:#f1f1f5;">×</span>
+            </button>
+                    </div>
+                    <div class="modal-body">Selecciona "Cerrar sesión" abajo si estás listo para terminar con la sesión actual.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-danger" href="BaseDatosYConex/salir.php">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     <!--Scripts de bootstrap -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js " integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n " crossorigin="anonymous "></script>
