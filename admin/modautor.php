@@ -3,25 +3,33 @@
 <!--Inicio del contenido principal-->
 <div class="container"> 
 
-<form>
+<form action="updateautor.php" method="POST">
     <div class="form-group">
-    <label for="formGroupExampleInput2">Autor</label>
-    <select class="custom-select" required>
-      <option value="">Seleccione un autor para modificar</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-    <div class="invalid-feedback">Campo inválido</div>
-  </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput">Nuevo nombre autor</label>
-    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese el nuevo nombre del autor">
-  </div>
+    <select name="estado"> 
+				<option value="0">Seleccione el autor que desea modificar </option>
+				<?php
+					$query = mysqli_query ($conexion,"SELECT idAutor,nombreAutor FROM autor");
+					while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
+						echo '<option value="'.$valores['idAutor'].'"'; 
+						if (isset($_GET['autor']) && $valores['idAutor'] == $_GET['autor']){
+							echo " selected > ".$valores['nombreAutor']." </option>";
+						}else{
+							
+							echo '>'.$valores['nombreAutor'].'</option>';
+						}
+					}
+				?>
+        <div class="invalid-feedback">Campo inválido</div>
+			</select>
 
-
-  <input class="btn btn-danger" type="submit" value="Guardar cambios">
-</form>
+    </div>
+    <div class="form-group">
+      <label for="formGroupExampleInput">Nuevo nombre autor</label>
+      <input type="text" class="form-control" name="autor" placeholder="Ingrese el nuevo nombre del autor">
+    </div>
+    
+    <input class="btn btn-danger" type="submit" value="Guardar cambios">
+  </form>
 
 
 </div>
