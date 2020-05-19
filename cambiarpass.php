@@ -1,5 +1,4 @@
 <?php 
-    
     include_once "BaseDatosYConex/conexion.php";
     session_start();
 	require_once "claseSesion.php";
@@ -17,13 +16,11 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/modificarcuenta.css">
+    
 
     <!-- Demo styles -->
-    <style>
-           
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="css/modificarcuenta.css">
+    
     <div class="barranavegacion">
         <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
             <a class="navbar-brand" href="#">
@@ -75,22 +72,30 @@
 
 </head>
 
-<body style="background-color: #221f1f;">
+<body>
 
 
 <div class="container-fluid">
 
-    <h2 style="color:#f1f1f5">Cuenta</h2>
+    <p>Modificar contraseña</p>
     <hr width="100% " color="gray "><br>
-    <div class="list-group list-group-sm col-3">
-        <a href="modificarcuenta.php" class="list-group-item list-group-item-action list-group-item-secondary">Ver datos de la cuenta</a>
-        <a href="cambiarplan.php" class="list-group-item list-group-item-action list-group-item-secondary">Cambiar plan de suscripción</a>
-       <!-- <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">No se que haga algo mas </a>-->
+        <form action="modpassuser.php" method="POST">
+            <div class="form-group col-3 ">
+            <label for="formGroupExampleInput2">Contraseña antigua</label>    
+            <input type="text" class="form-control algo" id="formGroupExampleInput2" name="pass" placeholder="Ingrese su antigua contraseña">
+            <br>
+            <label for="formGroupExampleInput2">Contraseña nueva</label>
+            <input type="text" class="form-control algo" id="formGroupExampleInput2" name="pass1" placeholder="Ingrese su nueva contraseña">
+            <br>
+            <label for="formGroupExampleInput2">Repetir contraseña</label>
+            <input type="text" class="form-control algo" id="formGroupExampleInput2" name="pass2" placeholder="Repita su nueva contraseña">
+            <br>
+            <input type="hidden" name="id" value="<?php echo $_SESSION['ID'] ?>">
+            <input class="btn btn-danger algo" type="submit" value="Guardar cambios">
+        </div>
+        
+        </form>
 </div>
-
-</div>
-
-
 
      <!-- Logout Modal-->
      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >

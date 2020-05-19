@@ -1,5 +1,4 @@
 <?php 
-    
     include_once "BaseDatosYConex/conexion.php";
     session_start();
 	require_once "claseSesion.php";
@@ -17,13 +16,11 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/modificarcuenta.css">
+    
 
     <!-- Demo styles -->
-    <style>
-           
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="css/modificarcuenta.css">
+    
     <div class="barranavegacion">
         <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
             <a class="navbar-brand" href="#">
@@ -75,22 +72,35 @@
 
 </head>
 
-<body style="background-color: #221f1f;">
+<body>
 
 
 <div class="container-fluid">
 
-    <h2 style="color:#f1f1f5">Cuenta</h2>
-    <hr width="100% " color="gray "><br>
-    <div class="list-group list-group-sm col-3">
-        <a href="modificarcuenta.php" class="list-group-item list-group-item-action list-group-item-secondary">Ver datos de la cuenta</a>
-        <a href="cambiarplan.php" class="list-group-item list-group-item-action list-group-item-secondary">Cambiar plan de suscripción</a>
-       <!-- <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">No se que haga algo mas </a>-->
-</div>
+    <h2><strong>Cuenta</strong></h2><br>
+    <p> &nbsp Tus datos de usuario</p>
+
+   
+    <form>  
+        <div class="form">
+            <div class="col-3">
+                <label  class="col-form-label">Nombre de usuario</label>
+            <input class="form-control mb-2 mr-sm-2" id="disabledInput" type="text" value="<?php echo $_SESSION['NOMBRE'] ?>"  disabled>
+            </div>
+            <div class="col-3">
+                <label  class="col-form-label">Email </label>
+                <input class="form-control mb-2 mr-sm-2" id="disabledInput" type="text" value="<?php echo $_SESSION['EMAIL'] ?>" disabled>
+            </div>
+
+            <div class="col-3">
+                <label class="col-form-label" for="inlineFormInputName2">Contraseña</label>
+                <input class="form-control mb-2 mr-sm-2" id="disabledInput" type="password" value="*******" disabled>
+                <a href="cambiarpass.php"><button type="button" class="btn btn-danger">Modificar</button></a>            
+            </div>
+        </div>
+    </form>
 
 </div>
-
-
 
      <!-- Logout Modal-->
      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
@@ -119,7 +129,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js " integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6 " crossorigin="anonymous "></script>
     <!-- pie de pagina -->
     <br><br>
-    <hr width="97.5% " color="gray ">
+    <hr width="92.5% " color="gray ">
     <footer>
         <a class="pfrecuentes" href="preguntasFrecuentes.php"><u>Preguntas Frecuentes</u></a>
         <hr>

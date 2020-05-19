@@ -222,38 +222,91 @@
 
 <body style="background-color: #221f1f;">
 
+ <!--las novedades las ven todos, registrados, no registrados y administrador
+        deberia haber un carrusel fijo para las novedades-->
+        <div class="netflix-slider mx-5">
+                    <h2 class="titulo">Novedades </h2>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <?php  
+                                for ($i=0; $i < 7 ; $i++) { 
+                            ?>  
+                            <div class="swiper-slide"><img src="img/10.jpg" alt="foto"></div><?php 
+                            } ?>
+                        </div>
+                        <!-- Add Pagination -->
+                        <!-- <div class="swiper-pagination"></div> -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            
+    <?php 
+      if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2)){
+          /* si es basico o premium ademas deberia ver las sugerencias, el administrador no */?>
+             <div class="netflix-slider mx-5">
+                    <h2 class="titulo">Sugerencias </h2>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <?php  
+                                for ($i=0; $i < 7 ; $i++) { 
+                            ?>  
+                            <div class="swiper-slide"><img src="img/6.jpg" alt="foto"></div><?php 
+                            } ?>
+                        </div>
+                        <!-- Add Pagination -->
+                        <!-- <div class="swiper-pagination"></div> -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+     <?php }?>
+
+                
+    <?php
+        if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2) || ($_SESSION['PERMISO'] == 3)){
+            /* cualquier usuario registrado, sea basico/premium/administrador puede ver novedades + generos*/ ?>
+            <?php
+
+                $sql="SELECT nombreGenero FROM genero"; // no se como seguir para que le quede la cantidad de libros para despues recorrer 
+                $sql2= "SELECT *
+                        FROM libro  
+                            INNER JOIN genero  ON (libro.idGenero = genero.idGenero) 
+                        WHERE libro.idGenero= genero.idGenero";
+                $query= mysqli_query($conexion,$sql);
+                $query2= mysqli_query($conexion,$sql2);
+                while ($name = mysqli_fetch_array($query)) {
+                ?>
+                <!--primer slide de recomendados -->
+                <div class="netflix-slider mx-5">
+                    <h2 class="titulo"><?php echo $name["nombreGenero"]?> </h2>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <?php  
+                                for ($i=0; $i < mysqli_num_rows($query2) ; $i++) { 
+                            ?>  
+                            <div class="swiper-slide"><img src="img/1.jpg" alt="X-Men"></div><?php 
+                            } ?>
+                        </div>
+                        <!-- Add Pagination -->
+                        <!-- <div class="swiper-pagination"></div> -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            
+                <?php
+                    } 
+                ?>
+        
+       <?php }?>
+
+
+
+      
 
     <!-- Swiper -->
-    <?php
-    $sql="SELECT nombreGenero FROM genero";
-    $query= mysqli_query($conexion,$sql);
-    while ($name = mysqli_fetch_array($query)) {
-    ?>
-    <!--primer slide de recomendados -->
-    <div class="netflix-slider mx-5">
-        <h2 class="titulo"><?php echo $name["nombreGenero"]?> </h2>
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <?php  
-                    for ($i=0; $i < 14 ; $i++) { 
-                 ?>
-                    
-                <div class="swiper-slide"><img src="img/1.jpg" alt="X-Men"></div>
-                  
-                <?php 
-                }
-                ?>
-            </div>
-            <!-- Add Pagination -->
-            <!-- <div class="swiper-pagination"></div> -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-    </div>
-   
-    <?php
-        } 
-    ?>
+    
     <!-- Swiper JS -->
     <script src="package/js/swiper.min.js"></script>
 

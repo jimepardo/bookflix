@@ -1,14 +1,14 @@
 <?php 
     include_once "../BaseDatosYConex/conexion.php";
   
-  $nombre= $_POST['genero'];
-  $id= $_get['idGenero'];
+  $nombre= $_POST['nombreGen'];
+  $estado= $_POST['estado'];
   
   
-  if (isset($nombre) && !empty($nombre)){
+  if (isset($nombre) && !empty($nombre) && !empty($estado)){
     $sql="UPDATE genero 
     SET nombreGenero ='$nombre'
-    WHERE idGenero= '$id'  ";  
+    WHERE idGenero= '$estado' ";  
     $query = mysqli_query($conexion, $sql); 
     header("Location: modgen.php");
 }else{
