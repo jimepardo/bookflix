@@ -40,7 +40,7 @@
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
                     <a href="home.php">
-                    <button type="button" class="btn btn-danger " style="width: max-content;">Volver al inicio </button>
+                    <button type="button" class="btn btn-danger " style="width: max-content;">Inicio </button>
                     </a> &nbsp &nbsp
                     <a href="BaseDatosYConex/salir.php">
                     <button type="button" class="btn btn-danger " style="width: max-content;">Cerrar Sesión</button>
