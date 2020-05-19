@@ -1,5 +1,7 @@
 <?php
 	function uploadImg($name){
+		$fileName=$_FILES['file']['name'];
+		if (isset($fileName) && !empty($fileName)) {
 		session_start();
 		$id= strval($_SESSION['ID']);
 		$fileName=$_FILES['file']['name'];
@@ -19,16 +21,18 @@
 					return $fileNameNew;
 				}else{
 					return 1;
-					header("Location: test.php?2big");
 				}
 			}else{
 				return 2;
-				header("Location: test.php?error");
 			}
 		}else{
 			return 3;
-			header("Location: test.php?notallow");
 		}
+	}else{
+		$fileName="avatar.png";
+		return $fileName;
 	}
+
+}
 
 ?>

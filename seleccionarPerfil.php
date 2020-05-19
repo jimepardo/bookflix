@@ -52,29 +52,30 @@
 </head>
 <body style="background-color: #221f1f;margin-top: 6%">
 
-	<div class="container">
+    <div class="container">
 
-	<div class="row">
-		<?php
-		$sql="SELECT * FROM perfil WHERE   borradoLogico = 0 AND idUsuario = '" . $_SESSION['ID'] . "' ";
-		$query= mysqli_query($conexion,$sql);
-		$cantidad= mysqli_num_rows($query);
-		while ($result= mysqli_fetch_array($query)) { 
-		$name=$result['nombrePerfil'];
-		$id=$result['idPerfil'];
-		?>
-	<div class="modal-dialog text-center  ">	
+    <div class="row">
+        <?php
+        $sql="SELECT * FROM perfil WHERE   borradoLogico = 0 AND idUsuario = '" . $_SESSION['ID'] . "' ";
+        $query= mysqli_query($conexion,$sql);
+        $cantidad= mysqli_num_rows($query);
+        while ($result= mysqli_fetch_array($query)) { 
+        $name=$result['nombrePerfil'];
+        $id=$result['idPerfil'];
+        $img=$result['imagenPerfil'];
+        ?>
+    <div class="modal-dialog text-center  ">    
 
         <div class="col-sm-3 " >
             <div class="modal-content" style="height: 24em;width: 15em;">
             
                 <div class="col-6 user-img">
-                    <svg class="bi bi-person-bounding-box" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">	
-                        <img src="img/PatoLucas.png" width="150px" height="140px">
+                    <svg class="bi bi-person-bounding-box" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> 
+                        <img   style="width: 150px; height: 133px;" src=<?=$img ?>  >
                       </svg>
                 </div>
                 <legend>
-                	<h4> <?= $name ?></h4>
+                    <h4> <?= $name ?></h4>
                 </legend>
                 <div class="col-12">
                     
@@ -101,8 +102,8 @@
         </div>
     </div>
         <?php
-		}
-		?>
+        }
+        ?>
 
 
     <?php
@@ -120,12 +121,16 @@
             
                 <form class="col-12" action="crearPerfil.php" method="POST" enctype="multipart/form-data">
                 <div class="col-12">
-                <div class="form-group" id="user-group">
-                </div>
+             <div class="form-group" id="user-group">                     
+              </div>
                 <legend>
-                    <h4 >Crear Perfil</h4>
+                    <h4 style="font-size: 27px;">Crear Perfil</h4>
                 </legend>            
                 <div class="form-group" id="user-group">
+                    
+                    <div class="col-6 user-img">
+                        <img src="profileImages/avatar.png" style="width: 138px;height: 131px;margin-top: 42px;margin-left: -13px;">                  
+                    </div>
                     <label for="file-upload" class="btn btn-danger ">
                      Subir Foto!
                     </label>
@@ -155,7 +160,6 @@
     <?php
     }
     ?>
-    </div>
     </div>
 
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js " integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n " crossorigin="anonymous "></script>
