@@ -9,7 +9,7 @@
       <select class="custom-select col-12" name="estado" required>
         <option value="0">Seleccione un libro</option>
         <?php  
-          $query = mysqli_query ($conexion,"SELECT ISBN,nombreLibro FROM libro WHERE borradoLogico=0 AND borradoParanoagregar=0 ");
+          $query = mysqli_query ($conexion,"SELECT ISBN,nombreLibro FROM libro WHERE borradoLogico=0 ");
             while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
               echo '<option value="'.$valores['ISBN'].'"';                
               echo '>'.$valores['nombreLibro'].'</option>';
