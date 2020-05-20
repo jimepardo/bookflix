@@ -14,13 +14,14 @@
 		header("Location: login.php/ERROR=$error");
 	}
 	if (isset($_POST['nombrePerfil']) && !empty($_POST['nombrePerfil'])) {	
-		$nombre=$_POST['nombrePerfil'];
+		$nombre=$_POST['nombrePerfil'];	
 		$sql="SELECT * FROM perfil WHERE nombrePerfil='$nombre' AND idUsuario='$id' AND borradoLogico=0";
 		$query=mysqli_query($conexion,$sql);
 		$cantQ=mysqli_num_rows($query);
 		if ($cantQ == 1 ) {
 			$error="Ya existe un usuario con ese nombre";
 			header("Location: verPerfil.php?ERRORUSR=$error");
+			die();
 		}
 		$sqlName="nombrePerfil ='$nombre'";
 		$arg[$cantArg]=$sqlName;
