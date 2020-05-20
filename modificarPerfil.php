@@ -15,12 +15,12 @@
 	}
 	if (isset($_POST['nombrePerfil']) && !empty($_POST['nombrePerfil'])) {	
 		$nombre=$_POST['nombrePerfil'];
-		$sql="SELECT * FROM perfil WHERE nombrePerfil='$nombre' AND idUsuario=$id AND borradoLogico=0";
+		$sql="SELECT * FROM perfil WHERE nombrePerfil='$nombre' AND idUsuario='$id' AND borradoLogico=0";
 		$query=mysqli_query($conexion,$sql);
 		$cantQ=mysqli_num_rows($query);
-		if ($cantQ == 0 ) {
+		if ($cantQ == 1 ) {
 			$error="Ya existe un usuario con ese nombre";
-			header("Location: verPerfil.php/ERRORUSR=$error");
+			header("Location: verPerfil.php?ERRORUSR=$error");
 		}
 		$sqlName="nombrePerfil ='$nombre'";
 		$arg[$cantArg]=$sqlName;
@@ -79,7 +79,6 @@
 		$arg[$cantArg]=$sqlImg;
 		$cantArg++;
 		$_SESSION['PERFILIMG']=$pathImg;
-
 	}	
 	for ($i=0; $i <$cantArg ; $i++) { 
 		$sql.=" , ".$arg[$i];	
@@ -87,7 +86,7 @@
 	
 	$sql.=" WHERE nombrePerfil='$nombrePerfil' AND idUsuario=$id";
 	$query=mysqli_query($conexion,$sql);
-	header("Location: verPerfil.php?Result=$cantQ");
+	header("Location: verPerfil.php?Exito=$cantQ");
 
 
 ?>
