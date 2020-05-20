@@ -27,7 +27,7 @@ function compararFechas($primera, $segunda)
 
 function uploadImg($isbn){
 		$fileName=$_FILES['portada']['name'];
-		if (isset($_FILES['file']) && !empty($fileName)) {
+		if (isset($_FILES['portada']) && !empty($fileName)) {
 		session_start();
 		$id= strval($_SESSION['ID']);
 		$fileName=$_FILES['portada']['name'];

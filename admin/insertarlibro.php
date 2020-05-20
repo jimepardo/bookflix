@@ -22,21 +22,21 @@
 									if ( $editorial!=0) {
 										if (empty($hasta)) {
 											$hasta="NULL";
+											//header("Location: cargarlibro.php?vacio");
 										}else if ( (compararFechas($desde,$hasta)<0) ) {
 											$error="Las fechas no deben cruzarse";
 											header("Location: cargarlibro.php?errorDesde=$error");		
-										}else{
-											$sql="SELECT ISBN FROM libro Where ISBN=$isbn";
-											$query=mysqli_query($conexion,$sql);
-											if( (mysqli_num_rows($query))!=0 ){
-												$error="El isbn no es unico";
-												header("Location: cargarlibro.php?errorIsbn=$error");		
-											}else{
-												$sql="INSERT INTO `libro` (`ISBN`, `nombreLibro`, `descripcionLibro`, `borradoLogico`, `portadaLibro`, `fechaLanzamiento`, `idGenero`, `idAutor`, `idEditorial`, `fechaDesde`, `fechaHasta`) VALUES ('$isbn', '$nombre', '$desc', '0', '$path', CURRENT_DATE(), '$genero', '$autor', '$editorial', '$desde', $hasta)";
-												$query=mysqli_query($conexion,$sql);
-												header("Location: cargarlibro.php?exito");
-											}
-										}								
+										}
+										$sql="SELECT ISBN FROM libro Where ISBN=$isbn";
+										$query=mysqli_query($conexion,$sql);
+										if( (mysqli_num_rows($query))!=0 ){
+											$error="El isbn no es unico";
+											header("Location: cargarlibro.php?errorIsbn=$error");		
+										}
+										$sql="INSERT INTO `libro` (`ISBN`, `nombreLibro`, `descripcionLibro`, `borradoLogico`, `portadaLibro`, `fechaLanzamiento`, `idGenero`, `idAutor`, `idEditorial`, `fechaDesde`, `fechaHasta`) VALUES ('$isbn', '$nombre', '$desc', '0', '$path', CURRENT_DATE(), '$genero', '$autor', '$editorial', '$desde', $hasta)";
+										$query=mysqli_query($conexion,$sql);
+										header("Location: cargarlibro.php?exito");											
+																		
 									}else{
 										$error="Debe seleccionar una editorial";
 										header("Location: cargarlibro.php?errorEditorial=$error");		
