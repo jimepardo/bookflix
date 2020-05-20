@@ -218,6 +218,10 @@
 ?>
 </head>
 <body style="background-color: #221f1f; padding-top: 6%;">
+
+<?php $sql="SELECT libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro FROM libro INNER JOIN novedadlibro ON libro.ISBN = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.ISBN=novedadlibro.idLibro"; 
+    $query= mysqli_query($conexion,$sql);  
+    ?>
 <h3 style="color:#f1f1f5"> &nbsp &nbsp NOVEDADES</h3>
 <div class="container-fluid">
 	<div class="row">
@@ -229,11 +233,8 @@
 						<div class="container">
 						 	<div class="row">
                              <?php 
-                        $sql="SELECT libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro FROM libro INNER JOIN novedadlibro ON libro.ISBN = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.ISBN=novedadlibro.idLibro"; 
-                        $query= mysqli_query($conexion,$sql);               
-                        while ($name = mysqli_fetch_array($query)) {
-                           
-                    ?>
+                                while ($name = mysqli_fetch_array($query))  {                           
+                            ?>
 						 		<div class="col-sm-12 col-lg-4">
 						 			<div class="card" style="width: 300px;margin: auto;">
 						 				<img src="<?php echo $name["portadaLibro"]?>" class="card-img-top">
