@@ -92,7 +92,7 @@
                         <a class="collapse-item" href="modgen.php">Modificar género</a>
                         <a class="collapse-item" href="borrargen.php">Borrar género</a>
                         <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Novedades/Sugerencias:</h6>
+                        <h6 class="collapse-header">Novedades:</h6>
                         <a class="collapse-item" href="cargarnovedades.php">Cargar Novedades</a>
                     </div>
                 </div>
