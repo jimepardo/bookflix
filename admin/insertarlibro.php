@@ -9,7 +9,7 @@
 	$genero=$_POST['genero'];
 	$autor=$_POST['autor'];
 	$editorial=$_POST['editorial'];
-	$pathImg="../bookImages/";
+	$pathImg="bookImages/";
 	if (!empty($nombre)) {
 		if (!empty($desc)) {
 			$result=uploadImg($isbn);

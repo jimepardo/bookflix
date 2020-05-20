@@ -2,8 +2,8 @@
     
     include "BaseDatosYConex\conexion.php";
     session_start();
-	require "claseSesion.php";
-	$sesion = new manejadorSesiones;
+    require "claseSesion.php";
+    $sesion = new manejadorSesiones;
 ?>
 
 
@@ -12,7 +12,7 @@
 <head>
     <title>Bookflix</title>
     <link rel="icon" href="img/logo2.png">
-	<meta charset="utf-8">
+    <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -24,7 +24,7 @@
     if (isset($_SESSION['PERMISO'])) {   
    
     switch ($_SESSION['PERMISO']) {
-		case "1":?>
+        case "1":?>
             <!--Esta es la barra de navegacion del usuario registrado basico-->
             <div class="barranavegacion">
                 <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
@@ -91,11 +91,11 @@
                 </nav>
             </div>
 
-		<?php	
-		break;
-		case "2":
+        <?php   
+        break;
+        case "2":
         ?>
-			<!--Esta es la barra de navegacion del usuario registrado premium -->
+            <!--Esta es la barra de navegacion del usuario registrado premium -->
             <div class="barranavegacion">
                 <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
                         <a class="navbar-brand" href="#">
@@ -164,10 +164,10 @@
          </div>
 
         <?php
-		break;
-		case "3":
+        break;
+        case "3":
         ?>
-			<!--Esta es la barra de navegacion para el administrador -->
+            <!--Esta es la barra de navegacion para el administrador -->
             <div class="barranavegacionAdmi">
                 <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
                     <a class="navbar-brand" href="#">
@@ -185,11 +185,11 @@
                 </nav>
             </div>
 
-		<?php
+        <?php
             break;
         }  
      
-	}else{
+    }else{
     ?>
                 <!--Esta es la barra de navegacion para los usuarios no registrados  -->
             <div class="barranavegacionNoReg">
@@ -224,14 +224,14 @@
     ?>
 <h3 style="color:#f1f1f5"> &nbsp &nbsp NOVEDADES</h3>
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-12">
-			<div id="inam" class="carousel slide" data-ride="carousel">
-				<div class="carousel-inner">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="inam" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
                     
-					<div class="carousel-item active ">
-						<div class="container">
-						 	<div class="row">
+                    <div class="carousel-item active ">
+                        <div class="container">
+                            <div class="row">
                              <?php 
                                 while ($name = mysqli_fetch_array($query))  {                           
                             ?>
@@ -242,88 +242,88 @@
 						 					<h4 class="card-title"><?php echo $name["nombreLibro"]?></h4>
 						 					<p class="card-text"><?php echo $name["descripcion"]?></p>
                                             <a> <button type="button" class="btn btn-danger">Leer</button></a>
-                                            <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a> 					
-						 				</div>
-						 			</div>
-						 		</div>
-						 		<!-- <div class="col-sm-12 col-lg-4">
-						 			<div class="card" style="width: 300px;">
-						 				<img src="<?php echo $name["portadaLibro"]?>" class="card-img-top">
-						 				<div class="card-body">
-						 					<h4 class="card-title"><?php echo $name["nombreLibro"]?></h4>
-						 					<p class="card-text"><?php echo $name["descripcionLibro"]?></p>
+                                            <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>                    
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-sm-12 col-lg-4">
+                                    <div class="card" style="width: 300px;">
+                                        <img src="<?php echo $name["portadaLibro"]?>" class="card-img-top">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><?php echo $name["nombreLibro"]?></h4>
+                                            <p class="card-text"><?php echo $name["descripcionLibro"]?></p>
                                              <a> <button type="button" class="btn btn-danger">Leer</button></a>
                                              <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>
-						 				</div>
-						 			</div>
-						 		</div>
-						 		<div class="col-sm-12 col-lg-4">
-						 			<div class="card" style="width: 300px;">
-						 				<img src="<?php echo $name["portadaLibro"]?>" class="card-img-top">
-						 				<div class="card-body">
-						 					<h4 class="card-title"><?php echo $name["nombreLibro"]?></h4></h4>
-						 					<p class="card-text"><?php echo $name["descripcionLibro"]?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="card" style="width: 300px;">
+                                        <img src="<?php echo $name["portadaLibro"]?>" class="card-img-top">
+                                        <div class="card-body">
+                                            <h4 class="card-title"><?php echo $name["nombreLibro"]?></h4></h4>
+                                            <p class="card-text"><?php echo $name["descripcionLibro"]?></p>
                                              <a> <button type="button" class="btn btn-danger">Leer</button></a>
                                              <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>
-						 				</div>
-						 			</div>
-						 		</div>
-						 	</div>
-						</div>
-					</div>fin carousel-item active-->
-					<!-- <div class="carousel-item">
-						<div class="container">
-						 	<div class="row">
-						 		<div class="col-sm-12 col-lg-4">
-						 			<div class="card" style="width: 300px;margin: auto;">
-						 				<img src="img/3.jpg" class="card-img-top">
-						 				<div class="card-body">
-						 					<h4 class="card-title">Libro Z</h4>
-						 					<p class="card-text">Skin masks help us to make are skin fresh and also they protect our skin from the harm rays of sun</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>fin carousel-item active-->
+                    <!-- <div class="carousel-item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="card" style="width: 300px;margin: auto;">
+                                        <img src="img/3.jpg" class="card-img-top">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Libro Z</h4>
+                                            <p class="card-text">Skin masks help us to make are skin fresh and also they protect our skin from the harm rays of sun</p>
                                              <a> <button type="button" class="btn btn-danger">Leer</button></a>
                                              <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>
-						 				</div>
-						 			</div>
-						 		</div>
-						 		<div class="col-sm-12 col-lg-4">
-						 			<div class="card" style="width: 300px;">
-						 				<img src="img/4.jpg" class="card-img-top">
-						 				<div class="card-body">
-						 					<h4 class="card-title">Libro M</h4>
-						 					<p class="card-text">Skin masks help us to make are skin fresh and also they protect our skin from the harm rays of sun</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="card" style="width: 300px;">
+                                        <img src="img/4.jpg" class="card-img-top">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Libro M</h4>
+                                            <p class="card-text">Skin masks help us to make are skin fresh and also they protect our skin from the harm rays of sun</p>
                                              <a> <button type="button" class="btn btn-danger">Leer</button></a>
                                              <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>
-						 				</div>
-						 			</div>
-						 		</div>
-						 		<div class="col-sm-12 col-lg-4">
-						 			<div class="card" style="width: 300px;">
-						 				<img src="img/10.jpg" class="card-img-top">
-						 				<div class="card-body">
-						 					<h4 class="card-title">Libro N</h4>
-						 					<p class="card-text">Skin masks help us to make are skin fresh and also they protect our skin from the harm rays of sun</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="card" style="width: 300px;">
+                                        <img src="img/10.jpg" class="card-img-top">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Libro N</h4>
+                                            <p class="card-text">Skin masks help us to make are skin fresh and also they protect our skin from the harm rays of sun</p>
                                              <a> <button type="button" class="btn btn-danger">Leer</button></a>
                                              <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>
-						 				</div>						 				
-						 			</div>						 			
-						 		</div>						 		
-						 	</div>						 	
-						</div>						
-					</div> carousel-item fin -->
+                                        </div>                                      
+                                    </div>                                  
+                                </div>                              
+                            </div>                          
+                        </div>                      
+                    </div> carousel-item fin -->
                     <?php
                     } 
                 ?>
-				</div> <!-- carousel-inner fin-->
-				<a href="#inam" class="carousel-control-prev" data-slide="prev">
-					<span class="carousel-control-prev-icon"></span>
-				</a>
-				<a href="#inam" class="carousel-control-next" data-slide="next">
-					<span class="carousel-control-next-icon"></span>
-				</a>
-			</div> <!-- fin inam-->			
-		</div> <!-- fin col-sm 12-->	
-	</div> <!-- fin row-->	
-</div> <!-- fin container-fluid-->	
+                </div> <!-- carousel-inner fin-->
+                <a href="#inam" class="carousel-control-prev" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a href="#inam" class="carousel-control-next" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div> <!-- fin inam-->         
+        </div> <!-- fin col-sm 12-->    
+    </div> <!-- fin row-->  
+</div> <!-- fin container-fluid-->  
 
                
 

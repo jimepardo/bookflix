@@ -29,8 +29,9 @@
 			return 3;
 		}
 	}else{
-		$fileName="avatar.png";
-		return $fileName;
+		//$fileName="avatar.png";
+		//return $fileName;
+		return 4;
 	}
 
 }

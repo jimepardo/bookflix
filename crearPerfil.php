@@ -22,9 +22,10 @@
 				$error="El tipo de archivo no esta permitido";
 				header("Location: seleccionarPerfil.php?ERROR=$error");
 				break;
-		}
-		$error="Hubo un error al cargar la imagen,seleccione una imagen jpg";
-		header("Location: seleccionarPerfil.php?ERROR=$error");
+			case 4:
+				$result="avatar.png";
+				break;
+		}	
 	}
 	$pathImg=$pathImg.$result;
 	$sql="SELECT nombrePerfil FROM perfil WHERE idUsuario='$id' AND nombrePerfil='$perfilNombre' AND borradoLogico=0";
