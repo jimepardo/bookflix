@@ -196,11 +196,12 @@
     <p> &nbsp Tus datos de perfil</p>
 
    
-    <form >  
+    <form action="modificarPerfil.php" method="POST" enctype="multipart/form-data">  
         <div class="form">
-               <div class="col-3">
+            <input type="hidden" name="idUser" value="<?=$_SESSION['ID']?>">
+            <div class="col-3">
                 <label  class="col-form-label">Nombre de Perfil</label>
-            <input class="form-control mb-2 mr-sm-2" id="disabledInput" type="text" value="<?php echo $_SESSION['PERFIL'] ?>"  disabled>
+            <input class="form-control mb-2 mr-sm-2" name="nombrePerfil" type="text" placeholder="<?php echo $_SESSION['PERFIL'] ?>">
             </div>
          
             <div class="col-3">
@@ -241,9 +242,15 @@
 
             <div class="col-3">
                 <label class="col-form-label">Foto de Perfil</label>
-                <img src="<?=$_SESSION['PERFILIMG']?>">          
+                <img src="<?=$_SESSION['PERFILIMG']?>"  style= "height: 241px;width: 214px;margin-bottom: 20px;">          
             </div>
-            <input type="submit" class="btn btn-danger" name="submit" value="MODIFICAR">
+            <div class="col-3">
+                <label class="col-form-label">Modificar foto de perfil</label>
+                <input type="file" name="file" value="Seleccionar foto de perfil">
+            </div>
+            <br>
+
+            <input type="submit" class="btn btn-danger" name="submit" value="Cambiar Datos">
         </div>
     </form>
 

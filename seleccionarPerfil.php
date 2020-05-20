@@ -63,8 +63,8 @@
         $name=$result['nombrePerfil'];
         $id=$result['idPerfil'];
         $img=$result['imagenPerfil'];
-        $genfav=$result['idAutor'];
-        $autorfav=$result['idGenero'];
+        $genfav=$result['idGenero'];
+        $autorfav=$result['idAutor'];
         ?>
     <div class="modal-dialog text-center  ">    
 

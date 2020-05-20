@@ -225,20 +225,21 @@
 			<div id="inam" class="carousel slide" data-ride="carousel">
 				<div class="carousel-inner">
                     <?php 
-                        $sql="SELECT libro.ISBN, libro.nombreLibro, libro.descripcionLibro, libro.portadaLibro FROM libro INNER JOIN novedadlibro ON libro.ISBN = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.ISBN=novedadlibro.idLibro"; 
+                        $sql='SELECT libro.ISBN, libro.nombreLibro, libro.descripcionLibro, libro.portadaLibro FROM libro INNER JOIN novedadlibro ON (libro.ISBN = novedadlibro.idLibro) WHERE libro.borradoLogico = 0 AND libro.ISBN=novedadlibro.idLibro'; 
                         $query= mysqli_query($conexion,$sql);               
                         while ($name = mysqli_fetch_array($query)) {
+                        	$img=$name["portadaLibro"];
                            
                     ?>
-					<div class="carousel-item ">
+					<div class="carousel-item active ">
 						<div class="container">
 						 	<div class="row">
 						 		<div class="col-sm-12 col-lg-4">
 						 			<div class="card" style="width: 300px;margin: auto;">
-						 				<img src="<?php echo $name["libro.portadaLibro"]?>" class="card-img-top">
+						 				<img src=" <?= $img  ?>" class="card-img-top"> 
 						 				<div class="card-body">
-						 					<h4 class="card-title"><?php echo $name["libro.nombreLibro"]?></h4>
-						 					<p class="card-text"><?php echo $name["libro.descripcionLibro"]?></p>
+						 					<h4 class="card-title"><?= $name["nombreLibro"]?></h4> 
+						 					<p class="card-text"><?= $name["descripcionLibro"]?></p>
                                             <a> <button type="button" class="btn btn-danger">Leer</button></a>
                                             <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a> 					
 						 				</div>
