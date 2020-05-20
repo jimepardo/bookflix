@@ -228,12 +228,15 @@
         <div class="col-sm-12">
             <div id="inam" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    
+                    <?php $totalResultados=mysqli_num_rows($query); 
+                    $cantidadResultados=3;
+                    $totalDePaginas = ceil($totalResultados / $cantidadResultados);
+                    ?>
                     <div class="carousel-item active ">
                         <div class="container">
                             <div class="row">
                              <?php 
-                                while ($name = mysqli_fetch_array($query))  {                           
+                                while (($name = mysqli_fetch_array($query)) $$ ) {                           
                             ?>
 						 		<div class="col-sm-12 col-lg-4">
 						 			<div class="card" style="width: 300px;margin: auto;">
