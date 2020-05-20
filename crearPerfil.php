@@ -30,7 +30,7 @@
 	$sql="SELECT nombrePerfil FROM perfil WHERE idUsuario='$id' AND nombrePerfil='$perfilNombre' AND borradoLogico=0";
 	$query=mysqli_query($conexion,$sql);
 	if($perfilNombre!='' && (mysqli_num_rows($query)==0)){
-	$sql="INSERT INTO perfil (nombrePerfil,idUsuario,imagenPerfil) VALUES ('$perfilNombre','$id','$pathImg')";
+	$sql="INSERT INTO perfil (nombrePerfil,idUsuario,imagenPerfil,idAutor,idGenero) VALUES ('$perfilNombre','$id','$pathImg',NULL,NULL)";
 	$query= mysqli_query($conexion,$sql);
 	header("Location: seleccionarPerfil.php");
 	}else{

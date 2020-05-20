@@ -3,7 +3,7 @@
 	include "compararFechas.php";	
 	$nombre=$_POST['nombre'];
 	$desc=$_POST['desc'];
-	$isbn=$_POST['isbn'];
+	$isbn=(int)$_POST['isbn'];
 	$desde=$_POST['desde'];
 	$hasta=$_POST['hasta'];
 	$genero=$_POST['genero'];
@@ -35,7 +35,7 @@
 										}
 										$sql="INSERT INTO `libro` (`ISBN`, `nombreLibro`, `descripcionLibro`, `borradoLogico`, `portadaLibro`, `fechaLanzamiento`, `idGenero`, `idAutor`, `idEditorial`, `fechaDesde`, `fechaHasta`) VALUES ('$isbn', '$nombre', '$desc', '0', '$path', CURRENT_DATE(), '$genero', '$autor', '$editorial', '$desde', $hasta)";
 										$query=mysqli_query($conexion,$sql);
-										header("Location: cargarlibro.php?exito");											
+										header("Location: cargarlibro.php?exito=$query");											
 																		
 									}else{
 										$error="Debe seleccionar una editorial";

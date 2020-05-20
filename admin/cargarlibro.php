@@ -2,6 +2,14 @@
 <h3> &nbsp Cargar libro</h3>
 <!--Inicio del contenido principal-->
 <div class="container"> 
+  <?php
+  if (isset($_GET['exito'])) {
+  ?>
+  
+    <?= $_GET['exito'] ?>
+  <?php
+  }
+  ?>
 
 <form action="insertarlibro.php" method="POST" enctype="multipart/form-data">
   <div class="form-group">
