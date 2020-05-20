@@ -179,12 +179,12 @@
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Novedades/Sugerencias</div>
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Novedades</div>
             <a href="cargarnovedades.php" class="btn btn-light btn-icon-split">
                     <span class="icon text-gray-600">
                       <i class="fas fa-arrow-right"></i>
                     </span>
-                    <span class="text">Cargar novedades/ sugerencias</span>
+                    <span class="text">Cargar novedades</span>
                   </a>
                   
           </div>
