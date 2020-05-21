@@ -202,6 +202,15 @@
             <div class="col-3">
                 <label  class="col-form-label">Nombre de Perfil</label>
             <input class="form-control mb-2 mr-sm-2" name="nombrePerfil" type="text" placeholder="<?php echo $_SESSION['PERFIL'] ?>">
+                <?php
+                if(isset($_GET['ERRORUSR'])){
+                ?> 
+                <div  class="alert alert-danger" role="alert">
+                    <?= $_GET['ERRORUSR'] ?>
+                </div>                
+                <?php
+                }
+                ?>
             </div>
          
             <div class="col-3">
@@ -247,9 +256,20 @@
             <div class="col-3">
                 <label class="col-form-label">Modificar foto de perfil</label>
                 <input type="file" name="file" value="Seleccionar foto de perfil">
+                <?php
+                if(isset($_GET['ERRORIMG'])){
+                ?> 
+                <br>
+                <br>
+                <div  class="alert alert-danger" role="alert">
+                    <?= $_GET['ERRORIMG'] ?>
+                </div> 
+                <br><br>               
+            <?php
+            }
+            ?>
             </div>
             <br>
-
             <input type="submit" class="btn btn-danger" name="submit" value="Cambiar Datos">
         </div>
     </form>

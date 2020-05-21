@@ -2,29 +2,31 @@
     
     include "BaseDatosYConex\conexion.php";
     session_start();
-    require "claseSesion.php";
-    $sesion = new manejadorSesiones;
+	require "claseSesion.php";
+	$sesion = new manejadorSesiones;
 ?>
 
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="utf-8">
     <title>Bookflix</title>
     <link rel="icon" href="img/logo2.png">
-    <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <!-- <link rel="stylesheet" href="css/styles.css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
-  <?php     
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="package/css/swiper.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <?php     
     if (isset($_SESSION['PERMISO'])) {   
    
     switch ($_SESSION['PERMISO']) {
-        case "1":?>
+		case "1":?>
             <!--Esta es la barra de navegacion del usuario registrado basico-->
             <div class="barranavegacion">
                 <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
@@ -91,11 +93,11 @@
                 </nav>
             </div>
 
-        <?php   
-        break;
-        case "2":
+		<?php	
+		break;
+		case "2":
         ?>
-            <!--Esta es la barra de navegacion del usuario registrado premium -->
+			<!--Esta es la barra de navegacion del usuario registrado premium -->
             <div class="barranavegacion">
                 <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
                         <a class="navbar-brand" href="#">
@@ -154,7 +156,8 @@
                                         <a class="dropdown-item"href="cambiarPerfil.php">Cambiar Perfil</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="cuenta.php">Cuenta</a>
-                                        <a class="dropdown-item" href="preguntasfrecuentes.php">Preguntas Frecuentes</a>                                        
+                                        <a class="dropdown-item" href="preguntasfrecuentes.php">Preguntas Frecuentes</a>
+                                        
                                         <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal" >Cerrar sesión</a>
                                     </div>
                                 </li>
@@ -164,10 +167,10 @@
          </div>
 
         <?php
-        break;
-        case "3":
+		break;
+		case "3":
         ?>
-            <!--Esta es la barra de navegacion para el administrador -->
+			<!--Esta es la barra de navegacion para el administrador -->
             <div class="barranavegacionAdmi">
                 <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
                     <a class="navbar-brand" href="#">
@@ -185,11 +188,11 @@
                 </nav>
             </div>
 
-        <?php
+		<?php
             break;
         }  
      
-    }else{
+	}else{
     ?>
                 <!--Esta es la barra de navegacion para los usuarios no registrados  -->
             <div class="barranavegacionNoReg">
@@ -215,83 +218,89 @@
             </div>
  <?php
 }
-?>
+ ?>
 </head>
-<body style="background-color: #221f1f; padding-top: 6%;">
 
-<h3 style="color:#f1f1f5"> &nbsp &nbsp NOVEDADES</h3>
-<div class="container-fluid"> 
-          <div class="row">
-            <div class="col-sm-12">
-                <div id="inam" class="carousel slide" data-ride="carousel">
-                    <?php
-                       $sql="SELECT libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro FROM libro INNER JOIN novedadlibro ON libro.ISBN = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.ISBN=novedadlibro.idLibro"; 
-                        $query= mysqli_query($conexion,$sql);  
-                       /* $totalResultados=mysqli_num_rows($query); 
-                        $cantidadResultados=3;
-                        $totalDePaginas = ceil($totalResultados / $cantidadResultados);
-                        for ($i=0; $i < 32; $i++) { 
-                        $offset=$i*3;   
-                        $offset=0;                    
-                        $result=mysqli_query($conexion,"$sql LIMIT $offset,$cantidadResultados");  */
-                       
-                    ?>                    >            
-                    <div class="carousel-inner"> 
-                         <?php
-                               for ($i=0; $i <4 ; $i++) {     
-                                ?>    
-                        <div class="carousel-item active ">
+<body style="background-color: #221f1f;">
+                <?php
 
-                            <div class="container">
-                               
-                                <div class="row">
-                                    <?php
-                                     while (($name = mysqli_fetch_array($query)) ) {
-                                     ?>
-                                    <div class="col-sm-12 col-lg-4">
-                                        <div class="card" style="width: 300px;margin: auto;">
-                                            <img src="<?php echo $name["portadaLibro"]?>" class="card-img-top">                                 
-                                            <div class="card-body">
-                                                <h4 class="card-title">asdas<?php echo $name["nombreLibro"]?></h4>
-                                                <p class="card-text"><?php echo $name["descripcion"]?></p>
-                                                <a> <button type="button" class="btn btn-danger">Leer</button></a>
-                                                <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>                    
-                                            </div> <!-- fin card-body --> 
-                                        </div> <!-- fin card--> 
-                                    </div>  <!-- fin col-sm-12 col-lg-4-->   
-                                    <?php
-                                        }
-                                    ?>                         
-                                </div>  <!-- fin row--> 
-
-                            </div>  <!-- fin container--> 
-
-                        </div>  <!-- fin carousel-item active-->  
-                    <?php
-                        }
-                    ?>
-                    <a href="#inam" class="carousel-control-prev" data-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </a>
-                    <a href="#inam" class="carousel-control-next" data-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </a>
-
-                </div>  <!-- fin carrusel inner-->
-            </div>   <!-- fin inam-->   
-
-        </div> <!-- fin col-sm 12-->       
-     </div> <!-- fin row-->  
- 
- </div>  <!-- fin container-fluid-->
+                $sql="SELECT novedadlibro.idNovedadLibro, libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro FROM libro INNER JOIN novedadlibro ON libro.ISBN = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.ISBN=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE()"; 
+                $query= mysqli_query($conexion,$sql);  
+                $totalResultados=mysqli_num_rows($query); 
+              
+                if ($totalResultados>0) {                  
                
+                ?>
+                <!--primer slide -->
+                <div class="netflix-slider mx-5">
+                
+                    <h2 class="titulo">Novedades </h2>
+                   <!--  <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <?php  /*
+                                for ($i=0; $i < mysqli_num_rows($query2) ; $i++) { */
+                            ?>  
+                            <div class="swiper-slide"><img src="img/1.jpg" alt="X-Men"></div><?php 
+                           /* }*/ ?>
+                        </div> -->
+                       
+                        <div class="swiper-container">
+                       
+                        <div class="swiper-wrapper">
+                        <?php  while ($name = mysqli_fetch_array($query)) {?>
+
+                        <div class="swiper-slide">
+                            <div class="card" style="width: 18rem;">
+                                <img class="card-img-top" src="<?php echo $name['portadaLibro']?>" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title" style= "font-weight: bold; color:#221f1f"><?php echo $name['nombreLibro']?></h5>
+                                    <p class="card-text" style="color:#221f1f"><?php echo $name['descripcion']?></p>
+                                </div>
+                            </div>
+                        </div><?php 
+                            } ?>
+                        <!-- Add Pagination -->
+                        <!-- <div class="swiper-pagination"></div> -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>      
+
+    <!-- Swiper -->
+    
+    <!-- Swiper JS -->
+    <script src="package/js/swiper.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 6,
+            spaceBetween: 10,
+            slidesPerGroup: 2,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+    <?php
+    }else{
+        ?>
+         <h2 class="titulo">Novedades </h2>
+         <div >Lista vacia</div>
+    <?php
+    }
+    ?>
 
 
-
- <!-- Logout Modal-->
- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
             <div class="modal-dialog" role="document">
-                <div class="modal-content" >
+                <div class="modal-content" style="background-color: #221f1f;">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro que querés cerrar la sesión?</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -307,13 +316,19 @@
             </div>
         </div>
 
- <!-- pie de pagina -->
- <br><br>
+
+    <!--Scripts de bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js " integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n " crossorigin="anonymous "></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js " integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo " crossorigin="anonymous "></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js " integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6 " crossorigin="anonymous "></script>
+    <!-- pie de pagina -->
+    <br><br>
     <hr width="92.5% " color="gray ">
-    <footer style="margin: 20px auto 0;  padding: 0 4%;  display: flex; -webkit-box-direction: normal; text-align: center;">
-    <a class="pfrecuentes" href="preguntasfrecuentes.php" style="margin: 0px 0px 14px 0px; padding: 0px; font-size: 13px; display: flex; color: #808080;text-align: center;"><u>Preguntas Frecuentes</u></a>
+    <footer>
+    <a class="pfrecuentes" href="preguntasfrecuentes.php"><u>Preguntas Frecuentes</u></a>
         <hr>
         <hr>
     </footer>
 </body>
+
 </html>

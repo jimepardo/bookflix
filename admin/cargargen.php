@@ -9,6 +9,17 @@
     <label for="formGroupExampleInput">Nombre género</label>
     <input type="text" class="form-control" name="nombreGenero" placeholder="Ingrese el nombre del género">
   </div>
+<?php
+if(isset($_GET['ERROR'])){
+?> 
+<div  class="alert alert-danger" role="alert">
+    <?= $_GET['ERROR'] ?>
+</div>                
+<?php
+}
+?>
+
+  
   <input class="btn btn-danger" type="submit" value="Cargar género">
 
 

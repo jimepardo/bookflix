@@ -23,6 +23,11 @@
 			header("Location: verPerfil.php?ERRORUSR=$error");
 			die();
 		}
+		if (strlen($nombre)>8) {
+			$error="El nombre excede los 8 caracteres";
+			header("Location: verPerfil.php?ERRORUSR=$error");
+			die();
+		}
 		$sqlName="nombrePerfil ='$nombre'";
 		$arg[$cantArg]=$sqlName;
 		$cantArg++;
@@ -58,16 +63,19 @@
 			case 1:
 				$error="El archivo es muy grande";
 				header("Location: verPerfil.php?ERRORIMG=$error");
+				die();
 			break;
 
 			case 2:
 				$error="Hubo un error al cargar el archivo,vuelva a intentarlo";
 				header("Location: verPerfil.php?ERRORIMG=$error");
+				die();
 			break;
 
 			case 3:
 				$error="El tipo de archivo no esta permitido";
 				header("Location: verPerfil.php?ERRORIMG=$error");
+				die();
 			break;
 
 			case 4:

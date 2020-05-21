@@ -31,9 +31,14 @@
 	$sql="SELECT nombrePerfil FROM perfil WHERE idUsuario='$id' AND nombrePerfil='$perfilNombre' AND borradoLogico=0";
 	$query=mysqli_query($conexion,$sql);
 	if($perfilNombre!='' && (mysqli_num_rows($query)==0)){
-	$sql="INSERT INTO perfil (nombrePerfil,idUsuario,imagenPerfil,idAutor,idGenero) VALUES ('$perfilNombre','$id','$pathImg',NULL,NULL)";
-	$query= mysqli_query($conexion,$sql);
-	header("Location: seleccionarPerfil.php");
+		if (strlen($perfilNombre)<=8) {
+			$sql="INSERT INTO perfil (nombrePerfil,idUsuario,imagenPerfil,idAutor,idGenero) VALUES ('$perfilNombre','$id','$pathImg',NULL,NULL)";
+			$query= mysqli_query($conexion,$sql);
+			header("Location: seleccionarPerfil.php");
+		}else{
+			$error="Debe ingresar un nombre para el perfil,el mismo no exceder los 8 caracteres";
+			header("Location: seleccionarPerfil.php?ERROR=$error");
+		}
 	}else{
 		$error="Debe ingresar un nombre para el perfil,el mismo no puede repetirse";
 		header("Location: seleccionarPerfil.php?ERROR=$error");

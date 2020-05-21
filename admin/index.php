@@ -136,7 +136,7 @@
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Género</div>
             
-            <a href="#cargargen.php" class="btn btn-light btn-icon-split">
+            <a href="cargargen.php" class="btn btn-light btn-icon-split">
                     <span class="icon text-gray-600">
                       <i class="fas fa-arrow-right"></i>
                     </span>

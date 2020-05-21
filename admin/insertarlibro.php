@@ -25,7 +25,8 @@
 											//header("Location: cargarlibro.php?vacio");
 										}else if ( (compararFechas($desde,$hasta)<0) ) {
 											$error="Las fechas no deben cruzarse";
-											header("Location: cargarlibro.php?errorDesde=$error");		
+											header("Location: cargarlibro.php?errorDesde=$error");	
+											die();	
 										}
 										$sql="SELECT ISBN FROM libro Where ISBN=$isbn";
 										$query=mysqli_query($conexion,$sql);
