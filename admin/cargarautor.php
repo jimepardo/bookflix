@@ -10,6 +10,16 @@
     <label for="formGroupExampleInput">Nombre autor</label>
     <input type="text" class="form-control" placeholder="Ingrese el nombre del autor" name='nombreAutor'>
   </div>
+<?php
+if(isset($_GET['ERROR'])){
+?> 
+<div  class="alert alert-danger" role="alert">
+    <?= $_GET['ERROR'] ?>
+</div>                
+<?php
+}
+?>
+
   <input class="btn btn-danger" type="submit" value="Cargar autor">
 
 

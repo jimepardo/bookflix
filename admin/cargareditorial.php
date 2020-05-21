@@ -8,6 +8,16 @@
     <label for="formGroupExampleInput">Nombre editorial</label>
     <input type="text" class="form-control" name="nombreEditorial" placeholder="Ingrese el nombre de la editorial">
   </div>
+
+<?php
+if(isset($_GET['ERROR'])){
+?> 
+<div  class="alert alert-danger" role="alert">
+    <?= $_GET['ERROR'] ?>
+</div>                
+<?php
+}
+?>  
   <input class="btn btn-danger" type="submit" value="Cargar editorial">
 
 

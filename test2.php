@@ -220,70 +220,128 @@
 <body style="background-color: #221f1f; padding-top: 6%;">
 
 <h3 style="color:#f1f1f5"> &nbsp &nbsp NOVEDADES</h3>
-<div class="container-fluid"> 
-          <div class="row">
-            <div class="col-sm-12">
-                <div id="inam" class="carousel slide" data-ride="carousel">
-                    <?php
-                       $sql="SELECT libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro FROM libro INNER JOIN novedadlibro ON libro.ISBN = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.ISBN=novedadlibro.idLibro"; 
-                        $query= mysqli_query($conexion,$sql);  
-                       /* $totalResultados=mysqli_num_rows($query); 
-                        $cantidadResultados=3;
-                        $totalDePaginas = ceil($totalResultados / $cantidadResultados);
-                        for ($i=0; $i < 32; $i++) { 
-                        $offset=$i*3;   
-                        $offset=0;                    
-                        $result=mysqli_query($conexion,"$sql LIMIT $offset,$cantidadResultados");  */
-                       
-                    ?>                    >            
-                    <div class="carousel-inner"> 
-                         <?php
-                               for ($i=0; $i <4 ; $i++) {     
-                                ?>    
-                        <div class="carousel-item active ">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
 
-                            <div class="container">
-                               
-                                <div class="row">
-                                    <?php
-                                     while (($name = mysqli_fetch_array($query)) ) {
-                                     ?>
-                                    <div class="col-sm-12 col-lg-4">
-                                        <div class="card" style="width: 300px;margin: auto;">
-                                            <img src="<?php echo $name["portadaLibro"]?>" class="card-img-top">                                 
-                                            <div class="card-body">
-                                                <h4 class="card-title">asdas<?php echo $name["nombreLibro"]?></h4>
-                                                <p class="card-text"><?php echo $name["descripcion"]?></p>
-                                                <a> <button type="button" class="btn btn-danger">Leer</button></a>
-                                                <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>                    
-                                            </div> <!-- fin card-body --> 
-                                        </div> <!-- fin card--> 
-                                    </div>  <!-- fin col-sm-12 col-lg-4-->   
-                                    <?php
-                                        }
-                                    ?>                         
-                                </div>  <!-- fin row--> 
+            <!--
+            <div id="inam" class="carousel slide" data-ride="carousel">            
+                <div class="carousel-inner">     
+                    <div class="carousel-item active">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="card" style="width: 300px;margin: auto;">
+                                        <img src="img/3.jpg" class="card-img-top">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Libro Z</h4>
+                                            <p class="card-text">Skin masks help us to make are skin fresh and also they protect our skin from the harm rays of sun</p>
+                                             <a> <button type="button" class="btn btn-danger">Leer</button></a>
+                                             <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="card" style="width: 300px;">
+                                        <img src="img/4.jpg" class="card-img-top">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Libro M</h4>
+                                            <p class="card-text">Skin masks help us to make are skin fresh and also they protect our skin from the harm rays of sun</p>
+                                             <a> <button type="button" class="btn btn-danger">Leer</button></a>
+                                             <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <div class="col-sm-12 col-lg-4 ">
+                                    <div class="card" style="width: 300px;">
+                                        <img src="img/10.jpg" class="card-img-top">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Libro N</h4>
+                                            <p class="card-text">Skin masks help us to make are skin fresh and also they protect our skin from the harm rays of sun</p>
+                                             <a> <button type="button" class="btn btn-danger">Leer</button></a>
+                                             <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>
+                                        </div>                                      
+                                    </div>                                  
+                                </div>                              
+                            </div>                          
+                        </div>                    
+                    </div> 
+                </div> 
+                <a href="#inam" class="carousel-control-prev" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a href="#inam" class="carousel-control-next" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
 
-                            </div>  <!-- fin container--> 
+            </div> --> <!-- fin inam-->  
 
-                        </div>  <!-- fin carousel-item active-->  
-                    <?php
-                        }
-                    ?>
-                    <a href="#inam" class="carousel-control-prev" data-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </a>
-                    <a href="#inam" class="carousel-control-next" data-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </a>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
 
-                </div>  <!-- fin carrusel inner-->
-            </div>   <!-- fin inam-->   
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="col-sm-12 col-lg-4 ">
+                <img src="img/10.jpg" class="card-img-top">
+                <div class="card-body">
+                    <h4 class="card-title">Libro N</h4>
+                    <p class="card-text">Skin masks help us to make are skin fresh and also they protect our skin from the harm rays of sun</p>
+                    <a> <button type="button" class="btn btn-danger">Leer</button></a>
+                    <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>
+                </div>                                      
+            </div>                               
+        </div>
+        <div class="item">
+            <div class="col-sm-12 col-lg-4 ">
+                <img src="img/10.jpg" class="card-img-top">
+                <div class="card-body">
+                    <h4 class="card-title">Libro N</h4>
+                    <p class="card-text">Skin masks help us to make are skin fresh and also they protect our skin from the harm rays of sun</p>
+                    <a> <button type="button" class="btn btn-danger">Leer</button></a>
+                    <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>
+                </div>                                      
+            </div>                                  
+        </div>
+        <div class="item">
+            <div class="col-sm-12 col-lg-4 ">
+                <img src="img/10.jpg" class="card-img-top">
+                <div class="card-body">
+                    <h4 class="card-title">Libro N</h4>
+                    <p class="card-text">Skin masks help us to make are skin fresh and also they protect our skin from the harm rays of sun</p>
+                    <a> <button type="button" class="btn btn-danger">Leer</button></a>
+                    <a> <button type="button" class="btn btn-danger">Agregar a Mi lista</button></a>
+                </div>                                      
+            </div>                                  
+        </div>                                
 
-        </div> <!-- fin col-sm 12-->       
-     </div> <!-- fin row-->  
- 
- </div>  <!-- fin container-fluid-->
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+
+
+
+        </div> <!-- fin col-sm 12-->        
+    </div> <!-- fin row-->  
+  
+</div> <!-- fin container-fluid-->  
+   
                
 
 
@@ -311,7 +369,8 @@
  <br><br>
     <hr width="92.5% " color="gray ">
     <footer style="margin: 20px auto 0;  padding: 0 4%;  display: flex; -webkit-box-direction: normal; text-align: center;">
-    <a class="pfrecuentes" href="preguntasfrecuentes.php" style="margin: 0px 0px 14px 0px; padding: 0px; font-size: 13px; display: flex; color: #808080;text-align: center;"><u>Preguntas Frecuentes</u></a>
+    <a class="pfrecuentes" href="preguntasfrecuentes.php" style="margin: 0px 0px 14px 0px; padding: 0px; font-size: 13px; display: flex; color: #808080;
+    text-align: center;"><u>Preguntas Frecuentes</u></a>
         <hr>
         <hr>
     </footer>
