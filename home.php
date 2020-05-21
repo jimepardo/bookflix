@@ -249,11 +249,11 @@
                         <div class="swiper-wrapper">
                             <?php /* 
                             $sql="SELECT nombreGenero FROM genero"; // no se como seguir para que le quede la cantidad de libros para despues recorrer 
-                $sql2= "SELECT *
-                        FROM libro  
-                            INNER JOIN genero  ON (libro.idGenero = genero.idGenero) 
-                        WHERE libro.idGenero= genero.idGenero";
-                        $query2= mysqli_query($conexion,$sql2);
+                            $sql2= "SELECT *
+                                FROM libro  
+                                INNER JOIN genero  ON (libro.idGenero = genero.idGenero) 
+                                WHERE libro.idGenero= genero.idGenero";
+                                $query2= mysqli_query($conexion,$sql2);
 */
                              /*   for ($i=0; $i < 7 ; $i++) { */
                             ?>  
@@ -335,11 +335,11 @@
                                 </div> <!--fin swiper-slide-->
                                 <?php 
                                 } ?><!--fin while-php-->
+                                </div> <!--fin swiper-wraper-->
                                 <!-- Add Pagination -->
                                 <div class="swiper-pagination"></div> 
                                 <div class="swiper-button-next"></div>
                                 <div class="swiper-button-prev"></div>
-                            </div> <!--fin swiper-wraper-->
                         </div> <!--fin swiper-container-->
                 </div> <!--fin netflix-slider-->
                 <?php 
@@ -380,18 +380,18 @@
                     </div> <!-- fin swiper-slide-->
                     <?php 
                     } ?> <!-- fin fin while-->
+                    </div> <!-- fin swiper-wrapper -->
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div> 
                     <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div> <!-- fin swiper-wrapper -->
+                    <div class="swiper-button-prev"></div>               
             </div> <!-- fin swiper-container -->
         </div> <!-- fin netflix-slider -->
         <?php 
         } /* termina el if de totalresultado */
         else{?> <!-- si no tiene novedades muestra -->
         <h2 class="titulos"> Novedades</h2>
-        <div style="color:#221f1f; text-size:20px;">Lista vacía</div>
+        <div style="color:#f5f5f1; text-size:20px;">Lista vacía</div>
         <?php
         }  /* fin del else del resultado */
     }?> <!-- fin else del permiso-->
