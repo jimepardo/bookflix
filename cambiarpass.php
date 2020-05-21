@@ -79,6 +79,15 @@
 
     <p>Modificar contraseña</p>
     <hr width="100% " color="gray "><br>
+      <?php
+if(isset($_GET['ERROR'])){
+?> 
+<div  class="alert alert-danger" role="alert">
+    <?= $_GET['ERROR'] ?>
+</div>                
+<?php
+}
+?>
         <form action="modpassuser.php" method="POST">
             <div class="form-group col-3 ">
             <label for="formGroupExampleInput2">Contraseña antigua</label>    

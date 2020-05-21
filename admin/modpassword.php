@@ -18,21 +18,26 @@
 					$queryPassword=mysqli_query($conexion,$sql_password);
 					if ($queryPassword){
 						echo "Se modifico la contraseña";
-						header("Location: index.php?cambioPassword=1");
+						header("Location: index.php?exito");
 					}else{
-						echo "Fallo la consulta $queryPassword";
+						$error="Fallo la consulta $queryPassword";
+						header("Location: cuentamodadmi.php?ERROR=$error");
 					}
 				}else{
-					echo "Fallo la consulta porque $contraseña1 es distinta a $contraseña2";
+					$error="Fallo la consulta porque su nueva contraseña no coincide";
+					header("Location: cuentamodadmi.php?ERROR=$error");
 				}	
 			}else{
-				echo "Fallo la consulta porque no se ingreso la contraseña actual correcta";
+				$error="Fallo la consulta porque no se ingreso la contraseña actual correcta";
+				header("Location: cuentamodadmi.php?ERROR=$error");
 			}	
 		}else{
-			echo "Fallo la consulta $query";
+			$error="Fallo la consulta $query";
+			header("Location: cuentamodadmi.php?ERROR=$error");
 		}
 	}else{
-		echo "Fallo la consulta porque no se ingreso alguno de los parametros";
+		$error="Fallo la consulta porque no se ingreso alguno de los parametros";
+		header("Location: cuentamodadmi.php?ERROR=$error");
 	}
 
 

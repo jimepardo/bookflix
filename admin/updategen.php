@@ -13,7 +13,7 @@
     $exito="Se ha cargado el nuevo genero"; 
     header("Location: modgen.php?EXITO=$exito");
 }else{
-    $error="Debe ingresar un nombre de género para agregarlo";
+    $error="Debe ingresar un nombre de género para modificarlo";
 	header("Location: modgen.php?ERROR=$error");
 }
 

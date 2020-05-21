@@ -32,7 +32,7 @@ $today.="-".$date['mday'];
                 header("Location: cargarnovedades.php?exito");							
             }
         }else{
-            $error="El isbn no puede estar vacio";
+            $error="Debe seleccionar un libro";
             header("Location: cargarnovedades.php?ERRORISBN=$error");	
         }			
     }else{

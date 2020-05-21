@@ -11,7 +11,7 @@
 		//para sacar la extension del archivo
 		$fileExt= explode('.', $fileName);
 		$fileExtLow= strtolower(end($fileExt));
-		$allow=array('jpg');
+		$allow=array('jpg','jpeg','png');
 		if (in_array($fileExtLow, $allow)) {
 			if ($fileError===0) {
 				if ($fileSize<1000000) {

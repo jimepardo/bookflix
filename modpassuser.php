@@ -20,19 +20,24 @@
 						echo "Se modifico la contraseña";
 						header("Location: modificarcuenta.php");
 					}else{
-						echo "Fallo la consulta $queryPassword";
+						$error="Fallo la consulta $queryPassword";
+						header("Location: cambiarpass.php?ERROR=$error");
 					}
 				}else{
-					echo "Fallo la consulta porque $contraseña1 es distinta a $contraseña2";
+					$error="Fallo la consulta porque sus nuevas contraseñas no coinciden";
+					header("Location: cambiarpass.php?ERROR=$error");
 				}	
 			}else{
-				echo "Fallo la consulta porque no se ingreso la contraseña actual correcta";
+				$error="Fallo la consulta porque no se ingreso la contraseña actual correcta";
+				header("Location: cambiarpass.php?ERROR=$error");
 			}	
 		}else{
-			echo "Fallo la consulta $query";
+			$error="Fallo la consulta $query";
+			header("Location: cambiarpass.php?ERROR=$error");
 		}
 	}else{
-		echo "Fallo la consulta porque no se ingreso alguno de los parametros";
+		$error="Fallo la consulta porque no se ingreso alguno de los parametros";
+		header("Location: cambiarpass.php?ERROR=$error");
 	}
 
 

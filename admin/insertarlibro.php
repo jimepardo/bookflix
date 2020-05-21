@@ -32,7 +32,8 @@
 										$query=mysqli_query($conexion,$sql);
 										if( (mysqli_num_rows($query))!=0 ){
 											$error="El isbn no es unico";
-											header("Location: cargarlibro.php?errorIsbn=$error");		
+											header("Location: cargarlibro.php?errorIsbn=$error");
+											die();		
 										}
 										$sql="INSERT INTO `libro` (`ISBN`, `nombreLibro`, `descripcionLibro`, `borradoLogico`, `portadaLibro`, `fechaLanzamiento`, `idGenero`, `idAutor`, `idEditorial`, `fechaDesde`, `fechaHasta`) VALUES ('$isbn', '$nombre', '$desc', '0', '$path', CURRENT_DATE(), '$genero', '$autor', '$editorial', '$desde', $hasta)";
 										$query=mysqli_query($conexion,$sql);

@@ -127,7 +127,7 @@
                         <div class="collapse navbar-collapse " id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto text-center">
                                 <li class="nav-item active"> <a class="nav-link" href="home.php">Inicio </a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="home.php">Novedades</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="#">Novedades</a> </li>
                                 <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                     <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="generos.php">Todos</a>
@@ -249,11 +249,11 @@
                         <div class="swiper-wrapper">
                             <?php /* 
                             $sql="SELECT nombreGenero FROM genero"; // no se como seguir para que le quede la cantidad de libros para despues recorrer 
-                $sql2= "SELECT *
-                        FROM libro  
-                            INNER JOIN genero  ON (libro.idGenero = genero.idGenero) 
-                        WHERE libro.idGenero= genero.idGenero";
-                        $query2= mysqli_query($conexion,$sql2);
+                            $sql2= "SELECT *
+                                FROM libro  
+                                INNER JOIN genero  ON (libro.idGenero = genero.idGenero) 
+                                WHERE libro.idGenero= genero.idGenero";
+                                $query2= mysqli_query($conexion,$sql2);
 */
                              /*   for ($i=0; $i < 7 ; $i++) { */
                             ?>  
@@ -335,11 +335,11 @@
                                 </div> <!--fin swiper-slide-->
                                 <?php 
                                 } ?><!--fin while-php-->
+                                </div> <!--fin swiper-wraper-->
                                 <!-- Add Pagination -->
                                 <div class="swiper-pagination"></div> 
                                 <div class="swiper-button-next"></div>
                                 <div class="swiper-button-prev"></div>
-                            </div> <!--fin swiper-wraper-->
                         </div> <!--fin swiper-container-->
                 </div> <!--fin netflix-slider-->
                 <?php 
@@ -380,18 +380,18 @@
                     </div> <!-- fin swiper-slide-->
                     <?php 
                     } ?> <!-- fin fin while-->
+                    </div> <!-- fin swiper-wrapper -->
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div> 
                     <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div> <!-- fin swiper-wrapper -->
+                    <div class="swiper-button-prev"></div>               
             </div> <!-- fin swiper-container -->
         </div> <!-- fin netflix-slider -->
         <?php 
         } /* termina el if de totalresultado */
         else{?> <!-- si no tiene novedades muestra -->
         <h2 class="titulos"> Novedades</h2>
-        <div style="font-size: 20px;color:#f5f5f1">Lista vacía</div>
+        <div style="color:white; text-size:20px;">Lista vacía</div>
         <?php
         }  /* fin del else del resultado */
     }?> <!-- fin else del permiso-->
@@ -427,7 +427,7 @@
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
             <div class="modal-dialog" role="document">
-                <div class="modal-content" style="background-color: #221f1f;">
+                <div class="modal-content" >
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro que querés cerrar la sesión?</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
@@ -452,7 +452,7 @@
     <br><br>
     <hr width="92.5% " color="gray ">
     <footer>
-    <a class="pfrecuentes" href="preguntasfrecuentes.php"><u>Preguntas Frecuentes</u></a>
+    <a class="pfrecuentes" href="preguntasfrecuentes.php" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<u>Preguntas Frecuentes</u></a>
         <hr>
         <hr>
     </footer>

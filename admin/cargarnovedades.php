@@ -16,6 +16,16 @@
             }
         ?>
       </select>
+      <?php
+         if(isset($_GET['ERRORISBN'])){
+      ?> 
+      <div  class="alert alert-danger" role="alert">
+      <?= $_GET['ERRORISBN'] ?>
+      </div>                
+      <?php
+      }
+      ?>
+
     </div>
     <div class="form-group col-4">
       <label for="formGroupExampleInput">Descripción de la novedadad </label>
