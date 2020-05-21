@@ -127,7 +127,7 @@
                         <div class="collapse navbar-collapse " id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto text-center">
                                 <li class="nav-item active"> <a class="nav-link" href="home.php">Inicio </a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="#">Novedades</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="home.php">Novedades</a> </li>
                                 <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                     <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="generos.php">Todos</a>
@@ -391,7 +391,7 @@
         } /* termina el if de totalresultado */
         else{?> <!-- si no tiene novedades muestra -->
         <h2 class="titulos"> Novedades</h2>
-        <div style="color:#221f1f; text-size:20px;">Lista vacía</div>
+        <div style="font-size: 20px;color:#f5f5f1">Lista vacía</div>
         <?php
         }  /* fin del else del resultado */
     }?> <!-- fin else del permiso-->
