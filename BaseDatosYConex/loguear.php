@@ -7,6 +7,7 @@ include "conexion.php";
 	$sesion->iniciarSesion($_POST['email'],$_POST['pass']);
 	switch ($_SESSION['PERMISO']) {
 		case 1:
+
 			header("Location: ../seleccionarPerfil.php");
 			break;
 		case 2:
