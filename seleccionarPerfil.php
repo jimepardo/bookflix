@@ -30,7 +30,7 @@
 <?php    
 if ($_SESSION['PERMISO'] == 1 || $_SESSION['PERMISO'] == 2){?>
     <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
-            <a class="navbar-brand" href="home.php">
+            <a class="navbar-brand" href="#">
                 <object data="img/Recurso 1.svg" width=130px type="image/svg+xml">
                 <!-- Imagen alternativa si el SVG no puede cargarse -->
                 <img src="img/logo1.png" width=110px alt="Imagen PNG alternativa">
