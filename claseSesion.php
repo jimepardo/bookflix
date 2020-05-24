@@ -60,7 +60,8 @@
 								$this->set('ID',$row['id']);
 								$this->set('EMAIL',$row['emailUsuario']);
 								$this->set('NOMBRE',$row['nombreUsuario']);	
-								$this->set('PERMISO',$row['permisoUsuario']);							
+								$this->set('PERMISO',$row['permisoUsuario']);
+								$this->set('PASS',$row['password']);							
 								$this->set('ESTADO','LOGUEADO');
 								return true; //si coincide la contraseña ,devuelvo cargado el usuario en la variable $_SESSION;
 								}else{ // si no coincide sale una excepcion

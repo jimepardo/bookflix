@@ -13,34 +13,52 @@
 
     <title>Preguntas frecuentes</title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
-    <nav class="navbar navbar-dark" style="background-color: #f1f1f5;">
-        <a class="navbar-brand" href="home.html"> <object data="img/Recurso 1.svg" width=140px type="image/svg+xml"></object></a>
+ 
+    <div class="barranav">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark"  style="background-color:#f5f5f1;">
+        <a class="navbar-brand" href="home.php">
+            <object data="img/Recurso 1.svg" width=130px type="image/svg+xml">  
+                <!-- Imagen alternativa si el SVG no puede cargarse -->
+                <img src="img/logo1.png" width=110px alt="Imagen PNG alternativa">
+            </object></a>
+            <!-- esto es para decirle q cree el boton al costado cuando se colapse-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="nav navbar-nav ml-auto">
+                    <a href="#" data-toggle="modal" data-target="#logoutModal">
+                        <button type="button" class="btn btn-outline-danger " style="margin-right: 25px; text-align: center;">Cerrar Sesión</button>
+                    </a>
+                </ul>
+            </div>
     </nav>
-    <link rel="icon" href="img/logo2.png" style="width:10px;"> 
+    </div>
+    
     <style>
-        h1, h4, .btn{
+        .algo{
             font-family: Arial;
-            
-            color: #221f1f;
-            padding-top: 10px;
-            margin: 20px;
+            color: #221f1f; 
+            margin: 5px;
         }
+        h2, .card-body{
+            margin-left:2%;
+        }
+        
     </style>
      
     
 </head>
 
-<body style="background-color: #f1f1f5;">
+<body style="background-color: #f1f1f5; paddign-top:6%">
+<br><br> <br>   
+<h2><strong>Preguntas Frecuentes</strong></h2><br>
 
-<h1>Preguntas Frecuentes</h1>
-<h4>Sacate todas tus dudas aquí</h4>
 
-<div class="containeer-fluid col-12">
+<div class="containeer-fluid col-12" >
     <div class="accordion" id="accordionExample">
         <div class="card">
             <div class="card-header" id="headingOne">
             <h2 class="mb-0">
-                <button class="btn btn-outline-danger " type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <button class="btn btn-outline-danger algo" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 ¿Quiénes somos?
                 </button>
             </h2>
@@ -55,7 +73,7 @@
         <div class="card">
             <div class="card-header" id="headingTwo">
             <h2 class="mb-0">
-                <button class="btn btn-outline-danger collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <button class="btn btn-outline-danger collapsed algo" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 ¿Cómo me registro?
                 </button>
             </h2>
@@ -70,7 +88,7 @@
         <div class="card">
             <div class="card-header" id="headingThree">
             <h2 class="mb-0">
-                <button class="btn btn-outline-danger collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <button class="btn btn-outline-danger collapsed algo" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 Si no soy de Latinoamérica, ¿puedo acceder a la plataforma?
                 </button>
             </h2>
@@ -84,7 +102,7 @@
         <div class="card">
             <div class="card-header" id="headingFour">
             <h2 class="mb-0">
-                <button class="btn btn-outline-danger collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                <button class="btn btn-outline-danger collapsed algo" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                 ¿Cuántos perfiles puedo crear?
                 </button>
             </h2>
@@ -98,7 +116,7 @@
         <div class="card">
             <div class="card-header" id="headingFive">
             <h2 class="mb-0">
-                <button class="btn btn-outline-danger collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                <button class="btn btn-outline-danger collapsed algo" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                 ¿Es necesario ser mayor de 18 años?
                 </button>
             </h2>
@@ -111,7 +129,7 @@
         <div class="card">
             <div class="card-header" id="headingSix">
             <h2 class="mb-0">
-                <button class="btn btn-outline-danger collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                <button class="btn btn-outline-danger collapsed algo" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                 ¿A través de qué medios de pago puedo abonar la suscripción?
                 </button>
             </h2>
@@ -124,7 +142,7 @@
         <div class="card">
             <div class="card-header" id="headingSeven">
             <h2 class="mb-0">
-                <button class="btn btn-outline-danger collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                <button class="btn btn-outline-danger collapsed algo" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
                 ¿Puedo cambiarme de plan?
                 </button>
             </h2>
@@ -141,9 +159,28 @@
 
 </div>
 
-<br><br>
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" >
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro que querés cerrar la sesión?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color:#f1f1f5;">×</span>
+            </button>
+                    </div>
+                    <div class="modal-body">Selecciona "Cerrar sesión" abajo si estás listo para terminar con la sesión actual.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-danger" href="BaseDatosYConex/salir.php">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<br>
 <a href="home.php">
-<button type="button" class="btn btn-link">Volver</button></a>
+<button type="button" class="btn btn-link">Volver al home</button></a>
 
 <!--Scripts de bootstrap -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js " integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n " crossorigin="anonymous "></script>

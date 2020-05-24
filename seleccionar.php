@@ -3,6 +3,7 @@
 	session_start();
 	require "claseSesion.php";
 	$sesion = new manejadorSesiones;
+	unset($_SESSION['PERFIL']);
 	$sesion->set('PERFILIMG',$_GET['PERFILIMG']);
 	$sesion->set('GENEROFAV',$_GET['GENEROFAV']);
 	$sesion->set('AUTORFAV',$_GET['AUTORFAV']);

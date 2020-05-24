@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <nav class="navbar navbar-dark" style="background-color: #221f1f;">
-        <a class="navbar-brand" href="home.html"> <object data="img/Recurso 1.svg" width=140px style="padding-top: 10px; " type="image/svg+xml"></object></a>
+        <a class="navbar-brand" href="home.php"> <object data="img/Recurso 1.svg" width=140px style="padding-top: 10px; " type="image/svg+xml"></object></a>
     </nav>
 </head>
 

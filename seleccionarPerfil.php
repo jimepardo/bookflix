@@ -27,28 +27,40 @@
     <!-- Custom styles for this template -->
     <link href="css/iniciarsesion.css" rel="stylesheet">
 
-  <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
-            <a class="navbar-brand" href="#">
+<?php    
+if ($_SESSION['PERMISO'] == 1 || $_SESSION['PERMISO'] == 2){?>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
+            <a class="navbar-brand" href="home.php">
                 <object data="img/Recurso 1.svg" width=130px type="image/svg+xml">
-        <!-- Imagen alternativa si el SVG no puede cargarse -->
-        <img src="img/logo1.png" width=110px alt="Imagen PNG alternativa">
-        </object></a>
+                <!-- Imagen alternativa si el SVG no puede cargarse -->
+                <img src="img/logo1.png" width=110px alt="Imagen PNG alternativa">
+                </object></a>
             <!-- esto es para decirle q cree el boton al costado cuando se colapse-->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse " id="navbarSupportedContent">     
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-                    <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ml-auto">
-                    <a href="home.php">
-                    <button type="button" class="btn btn-danger " style="width: max-content;">Inicio </button>
-                    </a> &nbsp &nbsp
-                    <a href="BaseDatosYConex/salir.php">
-                    <button type="button" class="btn btn-danger " style="width: max-content;">Cerrar Sesión</button>
-                    </a>
-                    </ul>                      
-                    </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="nav navbar-nav ml-auto">
+                <!-- <a href="home.php">
+                <button type="button" class="btn btn-danger " style="width: max-content;">Inicio </button>
+                </a> &nbsp &nbsp -->
+                <a data-toggle="modal" data-target="#logoutModal">
+                <button type="button" href="#" class="btn btn-danger " style="width: max-content;">Cerrar Sesión</button>
+                </a>
+                </ul>                      
+                </div>
             </div>
-        </nav>
+    </nav>
+<?php
+} else{
+    if($_SESSION['PERMISO'] == 3){
+        header("Location: admin/index.php");
+    }else{
+        header("Location: home.php");
+    }
+}
+    
+?>
 </head>
 <body style="background-color: #221f1f;margin-top: 6%">
 
@@ -73,7 +85,7 @@
             
                 <div class="col-6 user-img">
                     <svg class="bi bi-person-bounding-box" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> 
-                        <img   style="width: 150px; height: 133px;" src=<?=$img ?>  >
+                        <img style="width: 150px; height: 133px;" src=<?=$img ?> >
                       </svg>
                 </div>
                 <legend>
@@ -163,6 +175,24 @@
     }
     ?>
     </div>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" >
+                    <div class="modal-header ">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro que querés salir?</h5>
+                        <!-- <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" >×</span></button> -->
+                    </div>
+                    <div class="modal-body">Selecciona "Cerrar sesión" abajo si estás listo para cerrar la sesión actual.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-danger" href="BaseDatosYConex/salir.php">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js " integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n " crossorigin="anonymous "></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js " integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo " crossorigin="anonymous "></script>
