@@ -1,9 +1,9 @@
 <?php 
     
-    include_once "../BaseDatosYConex/conexion.php";
+    include "../BaseDatosYConex/conexion.php";
     session_start();
 
-	require_once "../claseSesion.php";
+	require "../claseSesion.php";
 	$sesion = new manejadorSesiones;
 ?>
 
@@ -30,7 +30,12 @@
 </head>
 
 <body id="page-top">
-
+<?php
+    if($_SESSION['PERMISO'] != 3){
+        header("Location: ../home.php");
+    }
+?>
+ 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -170,7 +175,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span><div>Configuración &nbsp <i class="fas fa-cog"></i></div>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span><div><?php echo $_SESSION['EMAIL'] ?> <i class="fas fa-cog"></i></div>
                                 
                             </a>
                             <!-- Dropdown - User Information -->
@@ -180,7 +185,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Administrar cuenta
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="salir.php">
+                                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Cerrar sesión
                                 </a>
                             </div>
