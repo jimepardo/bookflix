@@ -16,8 +16,14 @@ if(isset($_GET['ERROR'])){
     <?= $_GET['ERROR'] ?>
 </div>                
 <?php
+}else if(isset($_GET['EXITO'])){
+?>
+	<div class="alert alert-success" role="alert">
+		<?= $_GET['EXITO'] ?>
+	</div>
+<?php	
 }
-?>  
+?>
   <input class="btn btn-danger" type="submit" value="Cargar editorial">
 
 

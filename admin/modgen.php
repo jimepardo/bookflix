@@ -11,7 +11,7 @@
 					$query = mysqli_query ($conexion,"SELECT idGenero,nombreGenero FROM genero");
 					while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
 						echo '<option value="'.$valores['idGenero'].'"'; 
-						if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
+						if (isset($_GET['ESTADO']) && $valores['idGenero'] == $_GET['ESTADO']){
 							echo " selected > ".$valores['nombreGenero']." </option>";
 						}else{
 							
@@ -24,7 +24,16 @@
 		</div>
 		<div class="form-group">
 		<label for="formGroupExampleInput">Nuevo nombre género</label>
-		<input type="text" class="form-control" name="nombreGen" placeholder="Ingrese el nuevo nombre del género">
+		<input type="text" class="form-control" name="nombreGen" placeholder="Ingrese el nuevo nombre del género"
+		<?php
+
+		if (isset($_GET['NOMBRE'])) {
+			$name=$_GET['NOMBRE'];
+			echo "value=$name";			
+		}
+
+		?>
+		>
 		</div>
 
 

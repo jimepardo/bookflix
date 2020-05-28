@@ -11,8 +11,9 @@ if (($result>0)) {
 }
 if (isset($nombre) && !empty($nombre)){
     $sql="INSERT INTO autor (nombreAutor) VALUES ('$nombre')";  
-    $query = mysqli_query($conexion, $sql); 
-    header("Location: cargarautor.php?exito=");
+    $query = mysqli_query($conexion, $sql);
+    $exito="Se ha cargado el autor"; 
+    header("Location: cargarautor.php?EXITO=$exito");
 }else{
     $error="Debe ingresar un nombre de autor para agregarlo";
 	header("Location: cargarautor.php?ERROR=$error");

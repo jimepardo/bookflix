@@ -1,11 +1,26 @@
 <?php 
     include_once "../BaseDatosYConex/conexion.php";
   
-  $nombre= $_POST['nombreGen'];
+  
+  
+  $location="Location: modgen.php?redirect";
+  if(isset($_POST['nombreGen'])){
+    $nombre= $_POST['nombreGen'];
+    $location.="&NOMBRE=$nombre";
+  } 
+  if (isset($_POST['estado'])) {
   $estado= $_POST['estado'];
+  $location.="&ESTADO=$estado" ;
+   } 
+
+  if ($_POST['nombreGen']==0) {
+    $error="Debe seleccionar un nombre de editorial para agregarla";
+    $location.="&ERROR=$error";
+    header($location);
+    die();
+  }
   
-  
-  if (isset($nombre) && !empty($nombre) && !empty($estado) && $estado!=0){
+  if (isset($_POST['nombreGen']) && !empty($_POST['nombreGen']) && ($_POST['estado']!=0)){
     $sql="UPDATE genero 
     SET nombreGenero ='$nombre'
     WHERE idGenero= '$estado' ";  
@@ -14,7 +29,8 @@
     header("Location: modgen.php?EXITO=$exito");
 }else{
     $error="Debe ingresar un nombre de género para modificarlo";
-	header("Location: modgen.php?ERROR=$error");
+    $location.="&ERROR=$error";
+	header($location);
 }
 
 ?>

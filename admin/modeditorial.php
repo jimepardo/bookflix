@@ -11,7 +11,7 @@
 					$query = mysqli_query ($conexion,"SELECT idEditorial, nombreEditorial FROM editorial");
 					while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
 						echo '<option value="'.$valores['idEditorial'].'"'; 
-						if (isset($_GET['editorial']) && $valores['idEditorial'] == $_GET['editorial']){
+						if (isset($_GET['ESTADO']) && $valores['idEditorial'] == $_GET['ESTADO']){
 							echo " selected > ".$valores['nombreEditorial']." </option>";
 						}else{
 							
@@ -28,6 +28,21 @@
     <input type="text" class="form-control" name="editorial" placeholder="Ingrese el nuevo nombre del autor">
   </div>
    <input class="btn btn-danger" type="submit" value="Guardar cambios">
+ <?php
+	if(isset($_GET['ERROR'])){
+?> 
+  <div  class="alert alert-danger" role="alert">
+     <?= $_GET['ERROR'] ?>
+  </div>                
+<?php
+    }else if(isset($_GET['EXITO'])){
+?>
+	<div class="alert alert-success">
+		<?= $_GET['EXITO'] ?>		
+	</div>
+<?php 
+}
+?>
 </form>
 
 </div>

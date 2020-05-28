@@ -4,6 +4,15 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+<?php
+  if(isset($_GET['EXITO'])){
+?>
+  <div class="alert alert-success">
+    <?= $_GET['EXITO'] ?>   
+  </div>
+<?php 
+}
+?>
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
