@@ -1,6 +1,7 @@
 <?php 
-    
-    include "../BaseDatosYConex/conexion.php";
+    include_once 'conexion.php';
+    $objeto = new Conexion();
+    $conexion = $objeto->Conectar();
     session_start();
 
 	require "../claseSesion.php";
@@ -26,7 +27,10 @@
 
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-
+     <!--datables CSS básico-->
+    <link rel="stylesheet" type="text/css" href="../vendor/datatables/datatables.min.css"/>
+    <!--datables estilo bootstrap 4 CSS-->  
+    <link rel="stylesheet"  type="text/css" href="../vendor/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">      
 </head>
 
 <body id="page-top">
@@ -72,51 +76,34 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Carga, edición y borrado</span>
+                    <span>Libros</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Libro:</h6>
+                        <h6 class="collapse-header">Funcionalidades</h6>
                         <a class="collapse-item" href="cargarlibro.php">Cargar libro</a>
                         <a class="collapse-item" href="modlibro.php">Modificar libro</a>
                         <a class="collapse-item" href="agregarlibro.php">Agregar capítulo</a>
                         <a class="collapse-item" href="borrarlibro.php">Borrar libro</a>
                         <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Autor:</h6>
-                        <a class="collapse-item" href="cargarautor.php">Cargar autor</a>
-                        <a class="collapse-item" href="modautor.php">Modificar autor</a>
-                        <a class="collapse-item" href="borrarautor.php">Borrar autor</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Editorial:</h6>
-                        <a class="collapse-item" href="cargareditorial.php">Cargar editorial</a>
-                        <a class="collapse-item" href="modeditorial.php">Modificar editorial</a>
-                        <a class="collapse-item" href="borrareditorial.php">Borrar editorial</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Género:</h6>
-                        <a class="collapse-item" href="cargargen.php">Cargar género</a>
-                        <a class="collapse-item" href="modgen.php">Modificar género</a>
-                        <a class="collapse-item" href="borrargen.php">Borrar género</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Novedades:</h6>
-                        <a class="collapse-item" href="cargarnovedades.php">Cargar Novedades</a>
                     </div>
                 </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-list-ul"></i>
-                    <span>Listas</span>
+                <a class="nav-link collapsed" href="autor.php" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-list-alt"></i>
+                    <span>Autores</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Usos:</h6>
-                        <a class="collapse-item" href="listareditorial.php">Listar editoriales</a>
-                        <a class="collapse-item" href="listarautor.php">Listar autores</a>
-                        <a class="collapse-item" href="listargen.php">Listar géneros</a>
-                    </div>
-                </div>
+                <a class="nav-link collapsed" href="editorial.php" aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-list-alt"></i>
+                  <span>Editoriales</span>
+                </a>
+                <a class="nav-link collapsed" href="genero.php" aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-list-alt"></i>
+                  <span>Géneros</span>
+                </a>
+                <a class="nav-link collapsed" href="novedades.php" aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-list-alt"></i>
+                  <span>Novedades</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -185,7 +172,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Administrar cuenta
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Cerrar sesión
                                 </a>
                             </div>
