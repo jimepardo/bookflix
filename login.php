@@ -51,10 +51,10 @@
                 
                 <form class="col-12" action="BaseDatosYConex/loguear.php" method="POST">
                     <div class="form-group" id="user-group"><i class="fas fa-user icon"></i>
-                        <input type="text" class="form-control" placeholder="E-mail" id="email" name="email" />
+                        <input type="text" class="form-control" placeholder="E-mail" id="email" name="email" required>
                     </div>
                     <div class="form-group" id="contrasena-group"><i class="fas fa-lock icon"></i>
-                        <input type="password" class="form-control" placeholder="Contraseña"  id="pass" name="pass" />
+                        <input type="password" class="form-control" placeholder="Contraseña" minlength="3" maxlength="12" id="pass" name="pass" required>
                     </div>
                     <button type="submit" class="btn btn-danger" href="home.php" >Ingresar <svg class="bi bi-box-arrow-in-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M8.146 11.354a.5.5 0 010-.708L10.793 8 8.146 5.354a.5.5 0 11.708-.708l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708 0z" clip-rule="evenodd"/>
