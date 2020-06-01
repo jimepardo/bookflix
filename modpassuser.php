@@ -1,6 +1,18 @@
 <?php
 	include_once "BaseDatosYConex/conexion.php";
-
+	$location="Location: cambiarpass.php?redirect";
+	if ( !empty($_POST['pass']) ) {
+		$contraseñaActual=$_POST['pass'];
+		$location.="&PASSW=$contraseñaActual";
+	}
+	if ( !empty($_POST['pass1']) ) {
+		$contraseña1=$_POST['pass1'];
+		$location.="&PASSW1=$contraseña1";
+	}
+	if ( !empty($_POST['pass2']) ) {
+		$contraseña2=$_POST['pass2'];
+		$location.="&PASSW2=$contraseña2";
+	}
 
 	if (!empty($_POST['pass']) && !empty($_POST['pass1']) && !empty($_POST['pass2'])){
 		$contraseñaActual=$_POST['pass'];
@@ -17,27 +29,32 @@
 					$sql_password="UPDATE usuario SET password='$contraseña1' WHERE id='$id' ";
 					$queryPassword=mysqli_query($conexion,$sql_password);
 					if ($queryPassword){
-						echo "Se modifico la contraseña";
-						header("Location: modificarcuenta.php");
+						$exito="Se modificó la contraseña exitosamente";
+						header("Location: cambiarpass.php?EXITO=$exito");
+						
 					}else{
 						$error="Fallo la consulta $queryPassword";
-						header("Location: cambiarpass.php?ERROR=$error");
+						$location.="&ERROR=$error";
+						header($location);
 					}
 				}else{
-					$error="Fallo la consulta porque sus nuevas contraseñas no coinciden";
-					header("Location: cambiarpass.php?ERROR=$error");
+					$error="Fallo la consulta porque su nueva contraseña no coincide";
+					$location.="&ERROR=$error";
+					header($location);
 				}	
 			}else{
 				$error="Fallo la consulta porque no se ingreso la contraseña actual correcta";
-				header("Location: cambiarpass.php?ERROR=$error");
+				$location.="&ERROR=$error";
+				header($location);
 			}	
 		}else{
 			$error="Fallo la consulta $query";
-			header("Location: cambiarpass.php?ERROR=$error");
+			$location.="&ERROR=$error";
+			header($location);
 		}
 	}else{
-		$error="Fallo la consulta porque no se ingreso alguno de los parametros";
-		header("Location: cambiarpass.php?ERROR=$error");
+		//$error="Fallo la consulta porque no se ingreso alguno de los parametros";
+		//header("Location: cambiarpass.php?ERROR=$error");
 	}
 
 

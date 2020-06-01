@@ -92,32 +92,49 @@
 
 <div class="container-fluid">
 
+
     <p>Modificar contraseña del usuario <strong><?php echo $_SESSION['EMAIL'] ?></strong></p>
     <hr width="100% " color="gray "><br>
-      <?php
-if(isset($_GET['ERROR'])){
-?> 
-<div  class="alert alert-danger" role="alert">
-    <?= $_GET['ERROR'] ?>
-</div>                
-<?php
-}
-?>
-        <form action="modpassuser.php" method="POST">
-            <div class="form-group col-3 ">
-            <label for="formGroupExampleInput2">Contraseña antigua</label>    
-            <input type="text" class="form-control algo" id="formGroupExampleInput2" name="pass" placeholder="Ingrese su antigua contraseña" required>
-            <br>
-            <label for="formGroupExampleInput2">Contraseña nueva</label>
-            <input type="text" class="form-control algo" id="formGroupExampleInput2" minlength="4" maxlength="12" name="pass1" placeholder="Ingrese su nueva contraseña" required>
-            <br>
-            <label for="formGroupExampleInput2">Repetir contraseña</label>
-            <input type="text" class="form-control algo" id="formGroupExampleInput2" minlength="4" maxlength="12" name="pass2" placeholder="Repita su nueva contraseña" required>
-            <br>
-            <input type="hidden" name="id" value="<?php echo $_SESSION['ID'] ?>">
-            
-            <input class="btn btn-danger algo" type="submit" value="Guardar cambios">
-            <a class="btn btn-secondary" href="modificarcuenta.php">Cancelar</a>
+ <?php
+    if(isset($_GET['EXITO'])){
+  ?><div class="form-group col-3">
+    <div class="alert alert-success" style="font-size: 15px;">
+      <?= $_GET['EXITO'] ?>   
+    </div></div>
+  <?php 
+  }
+  ?>
+        <form class="needs-validation"  action="modpassuser.php" method="POST" novalidate>
+            <div class="form-group col-3">
+                <label for="pass">Contraseña antigua</label>    
+                <input type="text" class="form-control algo" id="pass" name="pass" placeholder="Ingrese su antigua contraseña"  value="<?php if(isset($_GET['PASSW'])){ echo $_GET['PASSW'];}?>" required>
+                <div class="valid-feedback">Campo completado</div>
+                <div class="invalid-feedback">Debe ingresar la contraseña actual</div>
+            </div>
+            <div class="form-group col-3">
+                <label for="pass1">Contraseña nueva</label>
+                <input type="text" class="form-control algo" id="pass1"  maxlength="12" name="pass1" placeholder="Ingrese su nueva contraseña" value="<?php if(isset($_GET['PASSW1'])){ echo $_GET['PASSW1'];}?>" required>
+                <div class="valid-feedback">Campo completado</div>
+                <div class="invalid-feedback">Debe ingresar la nueva contraseña</div>
+            </div>
+            <div class="form-group col-3">
+                <label for="pass2">Repetir contraseña</label>
+                <input type="text" class="form-control algo" id="pass2"  maxlength="12" name="pass2" placeholder="Repita su nueva contraseña" value="<?php if(isset($_GET['PASSW2'])){ echo $_GET['PASSW2'];}?>" required>
+                <div class="valid-feedback">Campo completado</div>
+                <div class="invalid-feedback">Repita la nueva contraseña</div>
+            </div>
+            <div class="form-group col-3">
+                <input type="hidden" name="id" value="<?php echo $_SESSION['ID'] ?>">
+                <?php if(isset($_GET['ERROR'])){?> 
+                <div  class="alert alert-danger" style="font-size: 15px;" role="alert">
+                    <?= $_GET['ERROR'] ?>
+                </div>
+                <?php } ?>
+            </div> 
+            <div class="form-group col-3">
+                <input class="btn btn-danger algo" type="submit" value="Guardar cambios">
+                <a class="btn btn-secondary" href="modificarcuenta.php">Cancelar</a>
+            </div>
         </div>
         </form>
 </div>
@@ -141,7 +158,26 @@ if(isset($_GET['ERROR'])){
         </div>
     </div>
 
-   
+   <script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+</script>
 
     <!--Scripts de bootstrap -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js " integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n " crossorigin="anonymous "></script>
