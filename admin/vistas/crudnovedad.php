@@ -11,30 +11,39 @@ $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : '';
 $desde = (isset($_POST['desde'])) ? $_POST['desde'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
+$hoy = date("Y-m-d");
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO novedadlibro (idLibro, descripcion, fechaNovedad) VALUES('$novedad', '$descripcion', '$desde') ";			
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute(); 
+        if ($desde< $hoy){
+            $data="error";
+        }else{
+            $consulta = "INSERT INTO novedadlibro (idLibro, descripcion, fechaNovedad) VALUES('$novedad', '$descripcion', '$desde') ";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute(); 
 
-        $consulta = "SELECT * FROM novedadlibro ORDER BY idNovedadLibro DESC LIMIT 1";
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+            $consulta = "SELECT * FROM novedadlibro ORDER BY idNovedadLibro DESC LIMIT 1";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+    }
         break;
     case 2: //modificación
-        $consulta = "UPDATE novedadlibro SET descripcion='$descripcion', fechaNovedad='$desde' WHERE idNovedadLibro='$id' and borradoLogico=0 ";		
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();        
-        
-        $consulta = "SELECT * FROM novedadlibro WHERE idNovedadLibro='$id' ";       
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        if($desde < $hoy){
+            $data="error";
+        }else{
+            $consulta = "UPDATE novedadlibro SET descripcion='$descripcion', fechaNovedad='$desde' WHERE idNovedadLibro='$id' and borradoLogico=0 ";        
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();        
+            
+            $consulta = "SELECT * FROM novedadlibro WHERE idNovedadLibro='$id' ";       
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        }
         break;        
     case 3://baja
-        $consulta = "UPDATE novedadlibro SET borradoLogico='$borrado' WHERE idNovedadLibro='$id'";		
+        $consulta = "UPDATE novedadlibro SET borradoLogico='$borrado' WHERE idNovedadLibro='$id'";      
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         

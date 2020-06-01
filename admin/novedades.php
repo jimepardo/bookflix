@@ -1,17 +1,16 @@
 <?php require_once "vistas/parte_superior.php"?>
 <!--INICIO del cont principal-->
 <div class="container-fluid">
-    
-<h2><strong>Novedades</strong></h2>
+    <h2><strong>Novedades</strong></h2>
+
+<div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">   &nbsp&nbsp&nbsp&nbsp         
+            <div class="col-lg-12">            
             <button id="btnNuevo" type="button" class="btn btn-danger" data-toggle="modal">Cargar novedad</button>    
             </div>    
         </div>    
-       
+    </div>    
     <br>  
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
@@ -46,7 +45,6 @@
             </div>
         <form id="formNov">    
             <div class="modal-body">
-               
                     <div class="form-group">
                         <label for="novedad">Novedad del libro</label>
                         <select class="custom-select" id="novedad" name="estado" required>
@@ -69,21 +67,18 @@
                     </div> 
                     <div class="form-group">
                         <label for="desde" class="col-form-label">Fecha disponibilidad</label>
-                        <input class="form-control" type="date" value="actual-date" id="desde" name="desde" required>
-                    </div>
-                 
-                                         
-               
-                <div class="form-group">
-                    <label for="borrado" class="col-form-label">Borrado Lógico </label>
-                    <input type="number" class="form-control" id="borrado" required>
-                </div>                
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="btnCancelar" onclick="window.location='novedades.php';return false;" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-                <button type="submit" id="btnGuardar" class="btn btn-danger">Guardar cambios</button>
-            </div>
-        </form>    
+                        <input class="form-control" type="date"  id="desde" name="desde" required>
+                    </div>            
+                    <div class="form-group">
+                        <label for="borrado" class="col-form-label">Borrado Lógico </label>
+                        <input type="number" class="form-control" id="borrado" required>
+                    </div>                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnCancelar" onclick="window.location='novedades.php';return false;" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="btnGuardar" class="btn btn-danger">Guardar cambios</button>
+                </div>
+            </form>    
         </div>
     </div>
 </div>  
@@ -92,9 +87,5 @@
 <!--FIN del cont principal-->
 
 <?php require_once "vistas/parte_inferior.php"?>
-<script>
-	$('.date').datepicker({
-		format: 'dd-mm-yyyy',
-	})
-	</script>
+
 <script type="text/javascript" src="novedades.js"></script> 

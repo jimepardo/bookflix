@@ -47,7 +47,12 @@ $(document).ready(function(){
             dataType: "json",
             data: {nombre:nombre, borrado:borrado, borrado2:borrado2, id:id, opcion:opcion},
             success: function(data){  
-                tablaGenero.ajax.reload(null,false);
+                 if (data == "error"){
+                    alertify.notify('¡Error! El género ya se encuentra registrado','error',3);
+                }else{ 
+                    alertify.notify('¡Cambios guardados exitosamente!','success',3);   
+                    tablaGenero.ajax.reload(null,false);
+                }
                 document.getElementById("nombre").disabled = false;
                 document.getElementById("borrado").disabled = false;
                 document.getElementById("borrado2").disabled = false;

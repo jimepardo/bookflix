@@ -46,12 +46,20 @@ $("#formAutor").submit(function(e){
         type: "POST",
         dataType: "json",
         data: {nombre:nombre, borrado:borrado, borrado2:borrado2, id:id, opcion:opcion},
-        success: function(data){    
-            tablaAutor.ajax.reload(null,false);
+        success: function(data){ 
+            if (data == "error"){
+                alertify.notify('¡Error! El autor ya se encuentra registrado','error',3);
+            }else{
+                alertify.notify('¡Cambios guardados exitosamente!','success',3);   
+                tablaAutor.ajax.reload(null,false);
+            }
             document.getElementById("nombre").disabled = false;
             document.getElementById("borrado").disabled = false;
             document.getElementById("borrado2").disabled = false;
-        }        
+        } 
+        /*error: function(data){
+            alertify.notify('Error, autor ya registrado', 'error',3);
+        }      */ 
     });
     $('#modalCRUD').modal('hide');     
 }); 
@@ -81,7 +89,6 @@ $(document).on("click", ".btnEditar", function(){
     $(".modal-header").css("color", "#F5F5F1");
     $(".modal-title").text("Modificar autor");            
     $('#modalCRUD').modal('show');  
-
     document.getElementById("borrado").disabled = true;
     document.getElementById("borrado2").disabled = true;    
 });

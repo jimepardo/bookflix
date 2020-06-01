@@ -13,24 +13,38 @@ $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO editorial (nombreEditorial) VALUES('$nombre') ";			
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute(); 
-
-        $consulta = "SELECT * FROM editorial ORDER BY idEditorial DESC LIMIT 1";
+        $consulta = "SELECT * FROM editorial WHERE nombreEditorial='$nombre' ";           
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        if ($data= $resultado->fetch()){
+            $data="error";
+        }else{
+            $consulta = "INSERT INTO editorial (nombreEditorial) VALUES('$nombre') ";			
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute(); 
+
+            $consulta = "SELECT * FROM editorial ORDER BY idEditorial DESC LIMIT 1";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        }
         break;
     case 2: //modificación
-        $consulta = "UPDATE editorial SET nombreEditorial='$nombre' WHERE idEditorial='$id' and borradoLogico=0 and borradoParanoagregar=0 ";		
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();        
-        
-        $consulta = "SELECT * FROM editorial WHERE idEditorial='$id' ";       
+        $consulta = "SELECT * FROM editorial WHERE nombreEditorial='$nombre' ";           
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        if ($data= $resultado->fetch()){
+            $data="error";
+        }else{
+            $consulta = "UPDATE editorial SET nombreEditorial='$nombre' WHERE idEditorial='$id' and borradoLogico=0 and borradoParanoagregar=0 ";		
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();        
+            
+            $consulta = "SELECT * FROM editorial WHERE idEditorial='$id' ";       
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        }
         break;        
     case 3://baja
         $consulta = "UPDATE editorial SET borradoLogico='$borrado', borradoParanoagregar='$borrado2' WHERE idEditorial='$id'";		

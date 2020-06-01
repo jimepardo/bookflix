@@ -43,13 +43,21 @@ $(document).ready(function(){
         descripcion =$.trim($("#descripcion").val());
         desde = $.trim($("#desde").val());
         borrado= $.trim($("#borrado").val());
+        var hoy             = new Date();
+        var fechaFormulario = new Date(desde);
 
         $.ajax({
             url: "vistas/crudnovedad.php",
             type: "POST",
             dataType: "json",
             data: {novedad:novedad, borrado:borrado, descripcion:descripcion, desde:desde, id:id, opcion:opcion},
-            success: function(data){    
+            success: function(data){
+                if (data=="error") {
+                    alertify.notify('¡Error! La fecha de publicacion no puede ser menor a la del dia de hoy','error',3);
+                }
+                else {
+                    alertify.notify('¡Cambios guardados exitosamente!','success',3);
+                } 
                 tablaNov.ajax.reload(null,false);
                 document.getElementById("novedad").disabled = false;
                 document.getElementById("descripcion").disabled = false;
@@ -77,10 +85,10 @@ $(document).ready(function(){
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
         descripcion = fila.find('td:eq(2)').text();
-        fecha = fila.find('td:eq(3)').text();
+        desde = fila.find('td:eq(3)').text();
 
         $("#descripcion").val(descripcion);
-        $("#fecha").val(fecha);
+        $("#desde").val(desde);
         
         $(".modal-header").css("background-color", "#7D7A7A");
         $(".modal-header").css("color", "#F5F5F1");
@@ -107,7 +115,7 @@ $(document).ready(function(){
         $('#modalCRUD').modal('show'); 
         document.getElementById("novedad").disabled = true;
         document.getElementById("descripcion").disabled = true;
-        document.getElementById("fecha").disabled = true;
+        document.getElementById("desde").disabled = true;
     });
     
     });

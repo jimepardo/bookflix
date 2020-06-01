@@ -1,5 +1,5 @@
 <?php
-	include "../BaseDatosYConex/conexion.php";
+	include_once "vistas/conexion.php";
 
 function compararFechas($primera, $segunda)
  {

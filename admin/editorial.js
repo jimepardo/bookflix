@@ -46,8 +46,13 @@ $(document).ready(function(){
             type: "POST",
             dataType: "json",
             data: {nombre:nombre, borrado:borrado, borrado2:borrado2, id:id, opcion:opcion},
-            success: function(data){  
-                tablaEditorial.ajax.reload(null,false);
+            success: function(data){ 
+                if (data == "error"){
+                    alertify.notify('¡Error! La editorial ya se encuentra registrada','error',3);
+                }else{
+                    alertify.notify('¡Cambios guardados exitosamente!','success',3);   
+                    tablaEditorial.ajax.reload(null,false);
+                }
                 document.getElementById("nombre").disabled = false;
                 document.getElementById("borrado").disabled = false;
                 document.getElementById("borrado2").disabled = false;
