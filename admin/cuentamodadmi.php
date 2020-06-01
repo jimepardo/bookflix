@@ -1,11 +1,11 @@
 <?php require_once "vistas/parte_superior.php" ?>
 <h3> &nbsp Cuenta</h3>
 <!--Inicio del contenido principal-->
-
+<div class="container-fluid">
 <form action="modpassword.php" method="POST">
 <div class="form-group">
     <label for="formGroupExampleInput2">Modificar contraseña</label>
-    <input type="password" class="form-control" id="formGroupExampleInput2" name="pass" required placeholder="Ingrese su antigua contraseña" 
+    <input type="password" class="form-control col-5" id="formGroupExampleInput2" name="pass" required placeholder="Ingrese su antigua contraseña" 
     <?php 
 
     if(isset($_GET['PASSW']) ){
@@ -15,7 +15,7 @@
 
     >
     <br>
-    <input type="password" class="form-control" id="formGroupExampleInput2" name="pass1" required placeholder="Ingrese su nueva contraseña"
+    <input type="password" class="form-control col-5" id="formGroupExampleInput2" name="pass1" required placeholder="Ingrese su nueva contraseña"
     <?php 
 
     if(isset($_GET["PASSW1"]) ){
@@ -25,7 +25,7 @@
 
     >
     <br>
-    <input type="password" class="form-control" id="formGroupExampleInput2" name="pass2" required placeholder="Repita su nueva contraseña"
+    <input type="password" class="form-control col-5" id="formGroupExampleInput2" name="pass2" required placeholder="Repita su nueva contraseña"
     <?php 
 
     if(isset($_GET["PASSW2"]) ){
