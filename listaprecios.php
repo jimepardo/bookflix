@@ -37,12 +37,12 @@
         </nav>
     </div>
 </head>
+
+<body >
 <hr> 
-<body>
-  
  <div class="container-fluid ">
     <div class="container py-5">
-        <h3>Elige el plan de Bookflix ideal para ti.</h3>
+        <h3><strong>Elige el plan de Bookflix ideal para ti.</strong></h3>
         <p style="font-size: 20px'">&nbspCambia de un plan a otro cuando quieras.<br><br></p>
         <div class="row d-flex justify-content-center">
             <div class="col-md-4">
