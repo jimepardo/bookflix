@@ -13,8 +13,8 @@ $(document).ready(function(){
             {"data": "nombreEditorial"},
             {"data": "borradoLogico"},
             {"data": "borradoParanoagregar"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button></div></div>"
-        }],
+            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button></div></div>"
+        }], // <button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button>
          
             //Para cambiar el lenguaje a español
         "language": {
