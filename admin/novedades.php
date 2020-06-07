@@ -1,7 +1,7 @@
 <?php require_once "vistas/parte_superior.php"?>
 <!--INICIO del cont principal-->
 <div class="container-fluid">
-    <h2><strong>Novedades</strong></h2>
+    <h2><strong>Novedades sobre libros</strong></h2>
 
 <div class="container-fluid">
         <div class="row">
@@ -46,7 +46,7 @@
         <form id="formNov">    
             <div class="modal-body">
                     <div class="form-group">
-                        <label for="novedad">Novedad del libro</label>
+                        <label for="novedad">Novedad del libro </label>
                         <select class="custom-select" id="novedad" name="estado" required>
                             <option value="">Seleccione un libro</option>
                             <?php  
