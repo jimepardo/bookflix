@@ -86,6 +86,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Funcionalidades</h6>
+                        <a class="collapse-item" href="listadolibros.php">Listado de libros</a>
                         <a class="collapse-item" href="cargarlibro.php">Cargar libro</a>
                         <a class="collapse-item" href="modlibro.php">Modificar libro</a>
                         <a class="collapse-item" href="agregarlibro.php">Agregar capítulo</a>
