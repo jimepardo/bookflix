@@ -14,7 +14,7 @@ $(document).ready(function(){
             {"data": "borradoLogico"},
             {"data": "borradoParanoagregar"},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button></div></div>"
-        }], // <button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button>
+        }], //<button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button>
          
             //Para cambiar el lenguaje a español
         "language": {
@@ -52,13 +52,15 @@ $(document).ready(function(){
                 }else{
                     alertify.notify('¡Cambios guardados exitosamente!','success',3);   
                     tablaEditorial.ajax.reload(null,false);
+                    document.getElementById("nombre").disabled = false;
+                    document.getElementById("borrado").disabled = false;
+                    document.getElementById("borrado2").disabled = false;
+                     $('#modalCRUD').modal('hide');
                 }
-                document.getElementById("nombre").disabled = false;
-                document.getElementById("borrado").disabled = false;
-                document.getElementById("borrado2").disabled = false;
+                
             }        
         });
-        $('#modalCRUD').modal('hide');     
+            
     }); 
         
     $("#btnNuevo").click(function(){
@@ -92,7 +94,7 @@ $(document).ready(function(){
     });
     
     //botón BORRAR
-    $(document).on("click", ".btnBorrar", function(){    
+   /* $(document).on("click", ".btnBorrar", function(){    
         opcion = 3; //borrar
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
@@ -107,6 +109,6 @@ $(document).ready(function(){
         $(".modal-title").text("Borrar editorial");            
         $('#modalCRUD').modal('show'); 
         document.getElementById("nombre").disabled = true;
-    });
+    });*/
     
     });

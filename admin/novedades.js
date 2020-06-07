@@ -14,8 +14,8 @@ $(document).ready(function(){
             {"data": "descripcion"},
             {"data": "fechaNovedad"},
             {"data": "borradoLogico"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button></div></div>"
-        }],
+            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button></div></div>"
+        }], //<button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button>
          
             //Para cambiar el lenguaje a español
         "language": {
@@ -43,8 +43,6 @@ $(document).ready(function(){
         descripcion =$.trim($("#descripcion").val());
         desde = $.trim($("#desde").val());
         borrado= $.trim($("#borrado").val());
-        var hoy             = new Date();
-        var fechaFormulario = new Date(desde);
 
         $.ajax({
             url: "vistas/crudnovedad.php",
@@ -57,15 +55,17 @@ $(document).ready(function(){
                 }
                 else {
                     alertify.notify('¡Cambios guardados exitosamente!','success',3);
+                    tablaNov.ajax.reload(null,false);
+                    document.getElementById("novedad").disabled = false;
+                    document.getElementById("descripcion").disabled = false;
+                    document.getElementById("desde").disabled = false;
+                    document.getElementById("borrado").disabled = false;
+                    $('#modalCRUD').modal('hide'); 
                 } 
-                tablaNov.ajax.reload(null,false);
-                document.getElementById("novedad").disabled = false;
-                document.getElementById("descripcion").disabled = false;
-                document.getElementById("desde").disabled = false;
-                document.getElementById("borrado").disabled = false;
+
             }        
         });
-        $('#modalCRUD').modal('hide');     
+            
     }); 
         
     $("#btnNuevo").click(function(){

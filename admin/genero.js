@@ -42,7 +42,7 @@ $(document).ready(function(){
         borrado =$.trim($("#borrado").val());
         borrado2 =$.trim($("#borrado2").val());  
         $.ajax({
-            url: "vistas/crudGenero.php",
+            url: "vistas/crudgenero.php",
             type: "POST",
             dataType: "json",
             data: {nombre:nombre, borrado:borrado, borrado2:borrado2, id:id, opcion:opcion},
@@ -52,13 +52,15 @@ $(document).ready(function(){
                 }else{ 
                     alertify.notify('¡Cambios guardados exitosamente!','success',3);   
                     tablaGenero.ajax.reload(null,false);
+                    document.getElementById("nombre").disabled = false;
+                    document.getElementById("borrado").disabled = false;
+                    document.getElementById("borrado2").disabled = false;
+                    $('#modalCRUD').modal('hide');
                 }
-                document.getElementById("nombre").disabled = false;
-                document.getElementById("borrado").disabled = false;
-                document.getElementById("borrado2").disabled = false;
+               
             }        
         });
-        $('#modalCRUD').modal('hide');     
+             
     }); 
         
     $("#btnNuevo").click(function(){

@@ -55,14 +55,16 @@ $(document).ready(function(){
                 }
                 else {
                     alertify.notify('¡Cambios guardados exitosamente!','success',3);
+                    tablaNov.ajax.reload(null,false);
+                    document.getElementById("descripcion").disabled = false;
+                    document.getElementById("desde").disabled = false;
+                    document.getElementById("borrado").disabled = false;
+                    $('#modalCRUD').modal('hide'); 
                 } 
-                tablaNov.ajax.reload(null,false);
-                document.getElementById("descripcion").disabled = false;
-                document.getElementById("desde").disabled = false;
-                document.getElementById("borrado").disabled = false;
+                
             }        
         });
-        $('#modalCRUD').modal('hide');     
+           
     }); 
         
     $("#btnNuevo").click(function(){
