@@ -29,6 +29,12 @@
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Libro</div>
+            <a href="listadolibros.php" class="btn btn-light btn-icon-split">
+              <span class="icon text-gray-600">
+                <i class="fas fa-arrow-right"></i>
+              </span>
+              <span class="text">Listado de libros</span>
+            </a><br>
             <a href="cargarlibro.php" class="btn btn-light btn-icon-split">
               <span class="icon text-gray-600">
                 <i class="fas fa-arrow-right"></i>
@@ -96,7 +102,7 @@
                 <span class="icon text-gray-600">
                   <i class="fas fa-arrow-right"></i>
                 </span>
-                <span class="text">Carga, modificación y borrado</span>
+                <span class="text">Carga y modificación</span>
               </a>
             </div>
             <div class="col-auto">
@@ -121,7 +127,7 @@
                 <span class="icon text-gray-600">
                   <i class="fas fa-arrow-right"></i>
                 </span>
-                <span class="text">Carga, modificación y borrado</span>
+                <span class="text">Carga y modificación</span>
               </a>
             </div>
             <div class="col-auto">
@@ -144,7 +150,7 @@
                 <span class="icon text-gray-600">
                   <i class="fas fa-arrow-right"></i>
                 </span>
-                <span class="text">Carga, modificación y borrado</span>
+                <span class="text">Carga y modificación</span>
               </a>
             </div>
             <div class="col-auto">
