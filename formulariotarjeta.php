@@ -50,7 +50,7 @@
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="nombre" class="col-form-label">Nombre </label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su nombre"  value="<?php if(isset($_POST['nombre'])){ echo $_POST['nombre'];}?>" required>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su nombre"  value="<?php if(isset($_GET['nombre'])){ echo $_GET['nombre'];}?>" required>
                         <div class="valid-feedback">Campo completado</div>
                         <div class="invalid-feedback">Debe ingresar su nombre</div>
                     </div>

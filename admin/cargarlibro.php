@@ -4,7 +4,7 @@
 <div class="container"> 
 
 
-<form action="insertarlibro.php" method="POST" enctype="multipart/form-data">
+<form action="insertarLibro" method="POST" enctype="multipart/form-data" id="formLibro">
   <div class="form-group">
     <label for="formGroupExampleInput">Nombre libro</label>
     <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingrese un nombre para el libro" name="nombre">
