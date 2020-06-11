@@ -52,16 +52,16 @@ $("#formAutor").submit(function(e){
             }else{
                 alertify.notify('¡Cambios guardados exitosamente!','success',3);   
                 tablaAutor.ajax.reload(null,false);
+                document.getElementById("nombre").disabled = false;
+                document.getElementById("borrado").disabled = false;
+                document.getElementById("borrado2").disabled = false;
+                $('#modalCRUD').modal('hide'); 
             }
-            document.getElementById("nombre").disabled = false;
-            document.getElementById("borrado").disabled = false;
-            document.getElementById("borrado2").disabled = false;
+            
         } 
-        /*error: function(data){
-            alertify.notify('Error, autor ya registrado', 'error',3);
-        }      */ 
+        
     });
-    $('#modalCRUD').modal('hide');     
+        
 }); 
     
 $("#btnNuevo").click(function(){
