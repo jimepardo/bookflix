@@ -49,10 +49,10 @@
 
 		public function iniciarSesion($eMail,$uPass){
 			try{
-				if( empty($eMail) || empty($uPass) ){//si el nombre de usuario o la contra esta vacia,sale una excepcion
-					$error="el campo Usuario o el campo contraseña esta vacio";
-					throw new Exception($error);
-					}else{//si el nombre de usuario o la contra tienen conenido , consulto a la base de datos por el usuario
+			//	if( empty($eMail) || empty($uPass) ){//si el nombre de usuario o la contra esta vacia,sale una excepcion
+				//	$error="el campo Usuario o el campo contraseña esta vacio";
+					//throw new Exception($error);
+					//}else{//si el nombre de usuario o la contra tienen conenido , consulto a la base de datos por el usuario
 						if ( $result=( $this->existe($eMail) ) ){//si existe el usuario
 							$row = mysqli_fetch_array($result);
 							if ($uPass == $row ['password']){//pregunto si la contraseña ingresada coincide con la del usuario
@@ -72,12 +72,11 @@
 								$error=" no se encontró el usuario especificado";
 								throw new Exception($error);
 							}
-					}
+					//}
 			}
 			catch(Exception $e){//ante cualquier error, sale el mensaje de error y retorna falso
 				$this->set('ERROR',$e->getMessage());
 				return false;
-				//return false;
 			}
 		}
 

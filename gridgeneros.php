@@ -46,30 +46,20 @@
                             <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                 <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="generos.php">Todos</a>
-                                    <div class="dropdown-divider"></div>
-                                    <?php
-                                        $query = mysqli_query ($conexion,"SELECT idGenero,nombreGenero FROM genero");
-                                        while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
-                                            echo '<a class="dropdown-item" href="gridgeneros.php" value="'.$valores['idGenero'].'"'; 
-                                            if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
-                                                echo " selected > ".$valores['nombreGenero']." </a>";
-                                            }else{
-                                                
-                                                echo '>'.$valores['nombreGenero'].'</a>';
-                                            }
-                                        }
-                                    ?>
                                 </div>
                             <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
                             </li>
                         </ul>
 
-                        <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2 " type="search" placeholder="Buscar..." aria-label="Search"> <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                        <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
-                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
-                        </svg></button> </form>
-
+                        <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
+                            <input class="form-control mr-sm-2 " type="search" name="busca" value="<?php if(isset($_POST['busca'])) echo $_POST['busca'];?>" autocomplete="on" placeholder="Buscar..." aria-label="Search"> 
+                            <button class="btn btn-outline-danger my-2 my-sm-0" name="enviar" type="submit">
+                                <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </button> 
+                        </form>
                     <ul class="navbar-nav d-flex flex-row justify-content-center ">
 
                         <li class="nav-item ">
@@ -118,29 +108,20 @@
                                 <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                     <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="generos.php">Todos</a>
-                                        <div class="dropdown-divider"></div>
-                                        <?php
-                                        $query = mysqli_query ($conexion,"SELECT idGenero,nombreGenero FROM genero");
-                                        while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
-                                            echo '<a class="dropdown-item" href="gridgeneros.php" value="'.$valores['idGenero'].'"'; 
-                                            if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
-                                                echo " selected > ".$valores['nombreGenero']." </a>";
-                                            }else{
-                                                
-                                                echo '>'.$valores['nombreGenero'].'</a>';
-                                            }
-                                        }
-                                    ?>
                                     </div>
                                     <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
                                 </li>
                             </ul>
 
-                            <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2 " type="search" placeholder="Buscar..." aria-label="Search"> <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                            <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
-                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
-                            </svg></button> </form>
+                            <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
+                                <input class="form-control mr-sm-2 " type="search" name="busca" value="<?php if(isset($_POST['busca'])) echo $_POST['busca'];?>" autocomplete="on" placeholder="Buscar..." aria-label="Search"> 
+                                <button class="btn btn-outline-danger my-2 my-sm-0" name="enviar" type="submit">
+                                    <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
+                                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                </button> 
+                            </form>
 
                             <ul class="navbar-nav d-flex flex-row justify-content-center ">
 
