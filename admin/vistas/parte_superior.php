@@ -87,8 +87,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Funcionalidades</h6>
                         <a class="collapse-item" href="listadolibros.php">Listado de libros</a>
-                        <a class="collapse-item" href="cargarlibro.php">Cargar libro</a>
-                        <a class="collapse-item" href="modlibro.php">Modificar libro</a>
+                        <a class="collapse-item" href="libro.php">Cargar, Modificar y Borrar</a>
+                      
                         <a class="collapse-item" href="agregarlibro.php">Agregar capítulo</a>
                         <a class="collapse-item" href="borrarlibro.php">Borrar libro</a>
                         <div class="collapse-divider"></div>
@@ -108,7 +108,11 @@
                 </a>
                 <a class="nav-link collapsed" href="novedades.php" aria-expanded="true" aria-controls="collapseTwo">
                   <i class="fas fa-list-alt"></i>
-                  <span>Novedades</span>
+                  <span>Novedades sobre libros</span>
+                </a>
+                <a class="nav-link collapsed" href="novedadesgenerales.php" aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-list-alt"></i>
+                  <span>Novedades generales</span>
                 </a>
             </li>
 
