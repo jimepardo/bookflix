@@ -149,13 +149,17 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="fechaD" class="col-form-label">Fecha Desde</label>
-                                    <input class="form-control" type="date" value="" id="fechaD" name="fechaD" required>     
+                                    <input class="form-control" type="date" value="" id="fechaD" name="fechaD" required min=<?php 
+                        $hoy=date("Y-m-d");
+                        echo $hoy;?>>     
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="fechaH" class="col-form-label">Fecha Hasta</label>
-                                    <input class="form-control" type="date" value="" id="fechaH" name="fechaH"> 
+                                    <input class="form-control" type="date" value="" id="fechaH" name="fechaH" min=<?php 
+                        $hoy=date("Y-m-d");
+                        echo $hoy;?>> 
                                 </div>  
                             </div>   
                         </div>

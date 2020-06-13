@@ -87,10 +87,8 @@ $(document).ready(function(){
                                 }else{
                                     if (data == "error6"){
                                         alerify.notify('¡Error! Formato invalido', 'error',3);
-                                    }else{    
-                                        alert(data);
-                                        alert ();                                   
-                                        //alertify.notify('¡Cambios guardados exitosamente!','success',3);
+                                    }else{                                      
+                                        alertify.notify('¡Cambios guardados exitosamente!','success',3);
                                         tablaLibros.ajax.reload(null, false);  
                                     }
                                 }
