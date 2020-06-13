@@ -7,6 +7,7 @@ $conexion = $objeto->Conectar();
 // Recepción de los datos enviados mediante POST desde el JS libro  
 $data= "no entro a nada";
 $hoy = date("Y-m-d");
+$id = (isset($_POST['id'])) ? $_POST['id'] : '';
 $isbn = (isset($_POST['isbn'])) ? $_POST['isbn'] : '';
 $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
 $desc = (isset($_POST['desc'])) ? $_POST['desc'] : '';
@@ -57,7 +58,7 @@ switch($opcion){
         if ( $result < 0 ) {
                 $data="error2";                
             }else{
-                $consulta="SELECT ISBN FROM libro WHERE ISBN= $isbn";
+                $consulta="SELECT idLibro FROM libro WHERE idLibro= $id";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
                 if ($data= $resultado->fetch()){
@@ -78,7 +79,7 @@ switch($opcion){
                         $resultado = $conexion->prepare($consulta);
                         $resultado->execute(); 
 
-                        $consulta = "SELECT * FROM libro ORDER BY ISBN DESC LIMIT 1";
+                        $consulta = "SELECT * FROM libro ORDER BY idLibro DESC LIMIT 1";
                         $resultado = $conexion->prepare($consulta);
                         $resultado->execute();
                         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);                 
@@ -104,22 +105,22 @@ switch($opcion){
         if ( $result < 0 ) {
                 $data="error2";
         }else{
-            $consulta = "UPDATE libro SET nombreLibro='$nombre', descripcionLibro='$desc', idGenero='$idGen', idAutor='$idAu', idEditorial='$idEd', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE ISBN='$isbn' ";     
+            $consulta = "UPDATE libro SET nombreLibro='$nombre', descripcionLibro='$desc', idGenero='$idGen', idAutor='$idAu', idEditorial='$idEd', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idLibro='$id' AND borradoLogico=0   ";     
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();       
             
-            $consulta = "SELECT * FROM libro WHERE ISBN='$isbn' ";              
+            $consulta = "SELECT * FROM libro WHERE idLibro='$id' ";              
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
         }
         break;        
     case 3://baja logica, solo modifica
-        $consulta = "UPDATE libro SET borradoLogico='1' WHERE ISBN='$isbn' ";       
+        $consulta = "UPDATE libro SET borradoLogico='$borrado' WHERE idLibro='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();                 
         
-        $consulta = "SELECT * FROM libro WHERE ISBN='$isbn' ";       
+        $consulta = "SELECT * FROM libro WHERE idLibro='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);         
