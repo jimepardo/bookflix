@@ -6,7 +6,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">            
-                    <button id="btnNuevo" type="button" class="btn btn-danger" data-toggle="modal">Cargar libro</button>    
+                    <button id="btnNuevo" type="button" class="btn btn-danger" data-toggle="modal">Cargar libro</button>   
+                 
                 </div>    
             </div>    
         </div>   

@@ -60,7 +60,7 @@ $(document).ready(function(){
         
         var form_data2 = new FormData(document.getElementById("formLibros")); 
         console.log(Array.from(form_data2));
-         form_data2.getAll("formLibros");
+        form_data2.getAll("formLibros");
         form_data2.append("opcion", opcion); 
         form_data2.append("id", id);                                     
         console.log(Array.from(form_data2));
@@ -117,10 +117,6 @@ $(document).ready(function(){
             alert(xhr.status);
             alert(thrownError);
             //alert();
-            fetch('/users')
-          // .then(res => res.json()) // comment this out for now
-          .then(res => res.text())          // convert to plain text
-          .then(text => console.log(text))  // then log it out
       }       
         });
         //      
