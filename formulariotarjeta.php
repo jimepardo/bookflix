@@ -80,7 +80,7 @@
                 <div class="row">
                     <div class="form-group col-12">
                         <label for="tarjeta" class="col-form-label">Número de tarjeta </label>
-                        <input type="number" class="form-control" id="tarjeta" name="tarjeta" placeholder="Ingrese su número de tarjeta"  value="<?php if(isset($_GET['exito-tarjeta'])){ echo $_GET['exito-tarjeta'];}?>" required minlength=12 maxlength=19>
+                        <input type="text" class="form-control" id="tarjeta" name="tarjeta"  placeholder="Ingrese su número de tarjeta"  value="<?php if(isset($_GET['exito-tarjeta'])){ echo $_GET['exito-tarjeta'];}?>" required minlength=15 maxlength=16 pattern= "[0-9]*">
                         <?php
                             if(isset($_GET['duplicado'])){
                         ?> 
@@ -120,7 +120,7 @@
                     </div>
                     <div class="form-group col-6">
                         <label for="codigo" class="col-form-label">Código de seguridad (CVV) </label>
-                        <input type="number" class="form-control" id="cvv" name="cvv" placeholder="Ingrese el código de seguridad (CVV)"  value="<?php if(isset($_GET['exito-codigo'])){ echo $_GET['exito-codigo'];}?>" required>
+                        <input type="text" class="form-control" id="cvv" name="cvv" placeholder="Ingrese el código de seguridad (CVV)"  value="<?php if(isset($_GET['exito-cvv'])){ echo $_GET['exito-cvv'];}?>" required minlength=3 maxlength=4 pattern="[0-9]*">
                         <?php
                              if(isset($_GET['error-cvv'])){
                         ?> 

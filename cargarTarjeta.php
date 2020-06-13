@@ -25,8 +25,14 @@
 		}else{
 			$precio=280;
 		}
-		$cvv=$_POST["cvv"];
-		$tarjeta=$_POST["tarjeta"];
+		$cant= $_POST["cvv"].$_POST["tarjeta"];
+		if (strlen($cant)==20) {
+			$link.="&error-tarjeta=La tarjeta junto al codigo debe tener 19 numeros en total, entre 0 y 9";
+			header("Location: $link");
+			die();
+		}
+		$cvv=intval($_POST["cvv"]);
+		$tarjeta=intval($_POST["tarjeta"]);
 		$fecha=$_POST["fecha"];
 		$sql="SELECT * FROM tarjeta WHERE numero='$tarjeta'";
 		$query=mysqli_query($conexion,$sql);

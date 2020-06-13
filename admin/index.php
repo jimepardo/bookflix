@@ -29,36 +29,12 @@
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Libro</div>
-            <a href="listadolibros.php" class="btn btn-light btn-icon-split">
+            <a href="libro.php" class="btn btn-light btn-icon-split">
               <span class="icon text-gray-600">
                 <i class="fas fa-arrow-right"></i>
               </span>
-              <span class="text">Listado de libros</span>
+              <span class="text">Carga,Modificacion y Borrado </span>
             </a><br>
-            <a href="cargarlibro.php" class="btn btn-light btn-icon-split">
-              <span class="icon text-gray-600">
-                <i class="fas fa-arrow-right"></i>
-              </span>
-              <span class="text">Cargar libro</span>
-            </a><br>
-            <a href="modlibro.php" class="btn btn-light btn-icon-split">
-              <span class="icon text-gray-600">
-                <i class="fas fa-arrow-right"></i>
-              </span>
-              <span class="text">Modificar libro</span>
-            </a>
-            <a href="agregarlibro.php" class="btn btn-light btn-icon-split">
-              <span class="icon text-gray-600">
-                <i class="fas fa-arrow-right"></i>
-              </span>
-              <span class="text">Agregar capitulo</span>
-            </a>
-            <a href="borrarlibro.php" class="btn btn-light btn-icon-split">
-              <span class="icon text-gray-600">
-                <i class="fas fa-arrow-right"></i>
-              </span>
-              <span class="text">Borrar libro</span>
-            </a>
           </div>
           <div class="col-auto">
             <i class="fas fa-book fa-2x text-gray-300"></i>

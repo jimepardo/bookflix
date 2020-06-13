@@ -2,7 +2,7 @@
 	session_start();
 	include "BaseDatosYConex\conexion.php";
 	include "uploadImage.php";
-	//UPDATE `perfil` SET `nombrePerfil` = 'ernsa', `borradoLogico` = '0', `idAutor` = '1' WHERE `perfil`.`idPerfil` = 94;
+	$link="verPerfil.php?nombrePerfil=".$_POST["nombrePerfil"]."&genero=".$_POST["genero"]."&autor=".$_POST["autor"];
 	$nombrePerfil=$_SESSION['PERFIL'];
 	$pathImg="profileImages/";
 	$cantArg=0;
@@ -20,49 +20,57 @@
 		$cantQ=mysqli_num_rows($query);
 		if ($cantQ == 1 ) {
 			$error="Ya existe un usuario con ese nombre";
-			header("Location: verPerfil.php?ERRORUSR=$error");
+			$link.="&ERRORUSR=$error";
+			header("Location: $link");
 			die();
 		}
 		if (strlen($nombre)>8) {
 			$error="El nombre excede los 8 caracteres";
-			header("Location: verPerfil.php?ERRORUSR=$error");
+			$link.="&ERRORUSR=$error";
+			header("Location: $link");
 			die();
 		}
+		$sql="UPDATE perfil SET ";
 		$sqlName="nombrePerfil ='$nombre'";
 		$arg[$cantArg]=$sqlName;
+		$cantSeteado++;
 		$cantArg++;
-		$_SESSION['PERFIL']=$nombre;
+		
 		$result=uploadImg($_POST['nombrePerfil']);
 	}else{
-		$result=uploadImg($_SESSION['PERFIL']);
+		$result=5;
 	}
 	if (isset($_POST['autor']) ) {
 		if ($_POST['autor'] != 0)	{
 			$autor=$_POST['autor'];
 			$sqlAutor="idAutor =$autor";
+			
 		}else{
 			$sqlAutor="idAutor=NULL";
+			$autor="NULL";
 		}
 		$arg[$cantArg]=$sqlAutor;
-		$cantArg++;		
-		$_SESSION['AUTORFAV']=$autor;
+		$cantArg++;				
 	}
 	if (isset($_POST['genero'])  ) {
 		if ($_POST['genero'] != 0) {
 			$genero=$_POST['genero'];
 			$sqlGenero="idGenero=$genero";
+			
 		}else{
 			$sqlGenero="idGenero=NULL";
+			$genero="NULL";
 		}	
 		$arg[$cantArg]=$sqlGenero;
 		$cantArg++;
-		$_SESSION['GENEROFAV']=$genero;
+		
 	}
 	if (is_int($result)) {
 		switch ($result) {
 			case 1:
 				$error="El archivo es muy grande";
-				header("Location: verPerfil.php?ERRORIMG=$error");
+				$link.="&ERRORIMG=$error";
+				header("Location: $link");
 				die();
 			break;
 
@@ -74,28 +82,37 @@
 
 			case 3:
 				$error="El tipo de archivo no esta permitido";
-				header("Location: verPerfil.php?ERRORIMG=$error");
+				$link.="&ERRORIMG=$error";
+				header("Location: $link");
 				die();
 			break;
 
 			case 4:
 				
-			break;		
+			break;	
+			case 5:
+				$pathImg=$_SESSION["PERFILIMG"];
+			break;	
 			}
 	}else{
 		$pathImg.=$result;
 		$sqlImg="imagenPerfil='$pathImg'";
 		$arg[$cantArg]=$sqlImg;
-		$cantArg++;
-		$_SESSION['PERFILIMG']=$pathImg;
+		$cantArg++;		
 	}	
-	for ($i=0; $i <$cantArg ; $i++) { 
+	$sql.=$arg[0];
+	for ($i=1; $i <$cantArg ; $i++) { 
 		$sql.=" , ".$arg[$i];	
 	}
 	
 	$sql.=" WHERE nombrePerfil='$nombrePerfil' AND idUsuario=$id";
 	$query=mysqli_query($conexion,$sql);
-	header("Location: verPerfil.php?Exito=$cantQ");
+	echo $sql;
+	$_SESSION['AUTORFAV']=$autor;
+	$_SESSION['GENEROFAV']=$genero;
+	$_SESSION['PERFIL']=$nombre;
+	$_SESSION['PERFILIMG']=$pathImg;
+	header("Location: verPerfil.php?Exito");
 
 
 ?>

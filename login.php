@@ -5,6 +5,7 @@
     require "claseSesion.php";
     $sesion = new manejadorSesiones;
     unset($_SESSION['EMAIL']);
+    unset($_SESSION['USERID']);
 ?>
 
 <!doctype html>

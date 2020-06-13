@@ -172,7 +172,17 @@
             <input type="hidden" name="idUser" value="<?=$_SESSION['ID']?>">
             <div class="col-3">
                 <label  class="col-form-label">Nombre de Perfil</label>
-            <input class="form-control mb-2 mr-sm-2" name="nombrePerfil" type="text" placeholder="<?php echo $_SESSION['PERFIL'] ?>">
+            <input class="form-control mb-2 mr-sm-2" name="nombrePerfil" type="text" value=
+            <?php 
+            if(!isset($_GET["nombrePerfil"])){
+                echo $_SESSION['PERFIL'] ;
+            }else{
+                echo $_GET["nombrePerfil"];
+            }
+            ?>
+
+            >
+
                 <?php
                 if(isset($_GET['ERRORUSR'])){
                 ?> 
@@ -192,8 +202,10 @@
                  $query = mysqli_query ($conexion,"SELECT idAutor,nombreAutor FROM autor WHERE borradoLogico=0 AND borradoParanoagregar=0");
                   while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
                   echo '<option value="'.$valores['idAutor'].'"';
-                  if (isset($_SESSION['AUTORFAV']) && ($_SESSION['AUTORFAV']==$valores['idAutor']) ) {
+                  if (isset($_GET["autor"]) && ($_GET['autor']==$valores['idAutor'])) {
                     echo " selected > ".$valores['nombreAutor']." </option>";
+                  }else if (isset($_SESSION['AUTORFAV']) && ($_SESSION['AUTORFAV']==$valores['idAutor']) && (!isset($_GET["autor"]))){
+                     echo " selected > ".$valores['nombreAutor']." </option>";
                   }else{                
                     echo '>'.$valores['nombreAutor'].'</option>';
                   }
@@ -210,7 +222,9 @@
                  $query = mysqli_query ($conexion,"SELECT idGenero,nombreGenero FROM genero WHERE borradoLogico=0 AND borradoParanoagregar=0 ");
                   while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
                   echo '<option value="'.$valores['idGenero'].'"';
-                  if (isset($_SESSION['GENEROFAV']) && ($_SESSION['GENEROFAV']==$valores['idGenero']) ) {
+                  if (isset($_GET["genero"]) && ($_GET['genero']==$valores['idGenero'])) {
+                      echo " selected > ".$valores['nombreGenero']." </option>";
+                  }else if (isset($_SESSION['GENEROFAV']) && ($_SESSION['GENEROFAV']==$valores['idGenero']) && (!isset($_GET["genero"])) ) {
                     echo " selected > ".$valores['nombreGenero']." </option>";
                   }else{                
                     echo '>'.$valores['nombreGenero'].'</option>';
