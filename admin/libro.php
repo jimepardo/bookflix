@@ -18,9 +18,10 @@
                     <table id="tablaLibros" class="table table-striped table-bordered table-condensed" style="width:100%">
                         <thead class="text-center">
                             <tr>
+                                <th>ID Libro</th>
                                 <th>ISBN</th>
                                 <th>Nombre libro</th>
-                                <th>Descripción</th>                  
+                                <th>Descripción del libro</th>                  
                                 <th>Borrado</th>
                                 <th>Portada path</th>  
                                 <th>Fecha lanzamiento</th>

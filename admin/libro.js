@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var isbn, opcion;
+    var id, opcion;
     opcion = 4;
     tablaLibros = $("#tablaLibros").DataTable({
         "ajax":{            
@@ -9,6 +9,7 @@ $(document).ready(function(){
             "dataSrc":""
         },
         "columns":[
+            {"data": "idLibro"},
             {"data": "ISBN"},
             {"data": "nombreLibro"},
             {"data": "descripcionLibro"},
@@ -45,7 +46,7 @@ $(document).ready(function(){
 
     $("#formLibros").submit(function(e){ //submit para el alta y actualizacion
         e.preventDefault();    
-       /*  isbn     =  $.trim($("#isbn").val());
+        /* isbn     =  $.trim($("#isbn").val());
         nombre   =  $.trim($("#nombre").val());
         desc     =  $.trim($("#desc").val());
         borrado  =  $.trim($("#borrado").val());
@@ -60,8 +61,9 @@ $(document).ready(function(){
         var form_data2 = new FormData(document.getElementById("formLibros")); 
         console.log(Array.from(form_data2));
          form_data2.getAll("formLibros");
+        form_data2.append("opcion", opcion); 
+        form_data2.append("id", id);                                     
         console.log(Array.from(form_data2));
-        form_data2.append("opcion", opcion);                                      
 
         $.ajax({
             url: "vistas/crudLibros.php",            
@@ -114,7 +116,11 @@ $(document).ready(function(){
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
             alert(thrownError);
-            alert();
+            //alert();
+            fetch('/users')
+          // .then(res => res.json()) // comment this out for now
+          .then(res => res.text())          // convert to plain text
+          .then(text => console.log(text))  // then log it out
       }       
         });
         //      
@@ -124,7 +130,7 @@ $(document).ready(function(){
     //limpiar os campos antes de dar de alta un libro
 $("#btnNuevo").click(function(){
     opcion = 1; //alta
-    isbn=null;
+    id=null;
     document.getElementById("borrado").disabled = true;
     $("#formLibros").trigger("reset");
     $(".modal-header").css("background-color", "#CE0909");
@@ -137,17 +143,18 @@ $("#btnNuevo").click(function(){
 $(document).on("click", ".btnEditar", function(){
     opcion = 2; //editar
     fila = $(this).closest("tr");
-    isbn = parseInt(fila.find('td:eq(0)').text());
-    nombre = fila.find('td:eq(1)').text();
-    desc = fila.find('td:eq(2)').text();
-    //borrado= parseInt(find('td:eq(3)').text());
-    //portada = fila.find('td:eq(4)').text();
-   // fechaL= fila.find('td:eq(5)').text();
-    idGen = parseInt(fila.find('td:eq(6)').text());
-    idAu = parseInt(fila.find('td:eq(7)').text());
-    idEd = parseInt(fila.find('td:eq(8)').text());
-    fechaD = fila.find('td:eq(9)').text();
-    fechaH = fila.find('td:eq(10)').text();
+    id = parseInt(fila.find('td:eq(0)').text());
+    //isbn = parseInt(find('td:eq(1)').text());
+    nombre = fila.find('td:eq(2)').text();
+    desc = fila.find('td:eq(3)').text();
+    //borrado= parseInt(find('td:eq(4)').text());
+    //portada = fila.find('td:eq(5)').text();
+   // fechaL= fila.find('td:eq(6)').text();
+    idGen = parseInt(fila.find('td:eq(7)').text());
+    idAu = parseInt(fila.find('td:eq(8)').text());
+    idEd = parseInt(fila.find('td:eq(9)').text());
+    fechaD = fila.find('td:eq(10)').text();
+    fechaH = fila.find('td:eq(11)').text();
     
     
   //  $("#isbn").val(isbn);
@@ -175,8 +182,8 @@ $(document).on("click", ".btnEditar", function(){
 $(document).on("click", ".btnBorrar", function(){ 
     opcion = 3 //borrar   
     fila = $(this).closest("tr");
-    isbn = parseInt(fila.find('td:eq(0)').text());
-    borrado= fila.find('td:eq(3)').text();
+    id = parseInt(fila.find('td:eq(0)').text());
+    borrado= fila.find('td:eq(4)').text();
     
     $("#borrado").val(borrado);
     
