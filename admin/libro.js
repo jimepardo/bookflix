@@ -61,13 +61,15 @@ $(document).ready(function(){
         console.log(Array.from(form_data2));
          form_data2.getAll("formLibros");
         console.log(Array.from(form_data2));
+        form_data2.append("opcion", opcion);                                      
+
         $.ajax({
             url: "vistas/crudLibros.php",            
             dataType: "json",
             cache: false,
             contentType: false,
             processData: false,
-            data: form_data2 ,
+            data: form_data2,
             type: "post",    
            success: function(data){  
                 if (data =="error1"){
@@ -89,16 +91,25 @@ $(document).ready(function(){
                                         alerify.notify('¡Error! Formato invalido', 'error',3);
                                     }else{                                      
                                         alertify.notify('¡Cambios guardados exitosamente!','success',3);
-                                        tablaLibros.ajax.reload(null, false);  
+                                        tablaLibros.ajax.reload(null, false); 
+                                        document.getElementById("isbn").disabled = false;
+                                        document.getElementById("nombre").disabled = false;
+                                        document.getElementById("desc").disabled = false;
+                                        document.getElementById("portada").disabled = false;
+                                        document.getElementById("idGen").disabled = false;
+                                        document.getElementById("idAu").disabled = false;
+                                        document.getElementById("idEd").disabled = false;
+                                        document.getElementById("fechaD").disabled = false;
+                                        document.getElementById("fechaH").disabled = false;  
+                                        document.getElementById("borrado").disabled = false;  
+                                        $("#modalCRUD").modal("hide"); 
                                     }
                                 }
                             }
                         }       
                     }
                 }                
-                document.getElementById("borrado").disabled = false;
-                document.getElementById("desc").disabled = false;
-                document.getElementById("isbn").disabled = false;                          
+                                         
             },
             error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);
@@ -106,7 +117,7 @@ $(document).ready(function(){
             alert();
       }       
         });
-        //$("#modalCRUD").modal("hide");       
+        //      
     });    
 
 
@@ -130,7 +141,7 @@ $(document).on("click", ".btnEditar", function(){
     nombre = fila.find('td:eq(1)').text();
     desc = fila.find('td:eq(2)').text();
     //borrado= parseInt(find('td:eq(3)').text());
-    portada = fila.find('td:eq(4)').text();
+    //portada = fila.find('td:eq(4)').text();
    // fechaL= fila.find('td:eq(5)').text();
     idGen = parseInt(fila.find('td:eq(6)').text());
     idAu = parseInt(fila.find('td:eq(7)').text());
@@ -143,7 +154,7 @@ $(document).on("click", ".btnEditar", function(){
     $("#nombre").val(nombre);
     $("#desc").val(desc);
    // $("#borrado").val(borrado);
-    $("#portada").val(portada);
+   // $("#portada").val(portada);
     //$("#fechaL").val(fechaL);
     $("#idGen").val(idGen);
     $("#idAu").val(idAu);
@@ -155,7 +166,7 @@ $(document).on("click", ".btnEditar", function(){
     $(".modal-header").css("color", "#F5F5F1");
     $(".modal-title").text("Modificar libro");            
     $("#modalCRUD").modal("show");  
-
+    document.getElementById("portada").disabled=true; 
     document.getElementById("borrado").disabled= true;
     document.getElementById("isbn").disabled=true;    
 });

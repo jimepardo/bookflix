@@ -58,11 +58,11 @@
 
                                 </div>
                             </div>
-                             <div class="col-lg-6">
+                             <!-- <div class="col-lg-6">
                                 <div class="form-group">                
                                     <input type="hidden" name="opcion" value="1">
                                 </div>
-                            </div>
+                            </div> -->
                             
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -165,7 +165,7 @@
                         </div>
                     </div> <!--modal body-->
                     <div class="modal-footer">
-                        <button type="button" id="btnCancelar" onclick="window.location='listarlibros.php';return false;" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                        <button type="button" id="btnCancelar" onclick="window.location='libro.php';return false;" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                         <button type="submit" id="btnGuardar" class="btn btn-danger">Guardar</button>
                     </div>
                 </form>    
