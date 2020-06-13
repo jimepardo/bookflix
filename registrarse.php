@@ -72,7 +72,7 @@
                     
                     <div class="form-group">
                         <label  class="form-label">Email </label>
-                        <input class="form-control" id="email" type="text" name="email" <?php if (isset($_GET['exito-email'])) {
+                        <input class="form-control mb-2 mr-sm-2" id="email" type="text" name="email" <?php if (isset($_GET['exito-email'])) {
                         echo "value=".$_GET['exito-email'];
                     }?> pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" required>
                     <?php
