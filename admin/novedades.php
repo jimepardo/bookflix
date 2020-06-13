@@ -50,12 +50,12 @@
                         <select class="custom-select" id="novedad" name="estado" required>
                             <option value="">Seleccione un libro</option>
                             <?php  
-                            $consulta = "SELECT ISBN,nombreLibro FROM libro WHERE borradoLogico=0";
+                            $consulta = "SELECT idLibro,ISBN,nombreLibro FROM libro WHERE borradoLogico=0";
                             $resultado = $conexion->prepare($consulta);
                             $resultado->execute();        
                             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                             foreach ($data as $valores) {
-                                echo '<option value="'.$valores['ISBN'].'"';                
+                                echo '<option value="'.$valores['idLibro'].'"';                
                                 echo '>'.$valores['nombreLibro'].'</option>';
                             }
                             ?>

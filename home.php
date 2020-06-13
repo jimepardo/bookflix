@@ -288,7 +288,7 @@
         if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2) || ($_SESSION['PERMISO'] == 3)){
             /* cualquier usuario registrado, sea basico/premium/administrador puede ver novedades*/ ?>
             <?php        
-                $sql="SELECT novedadlibro.idNovedadLibro, libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro, novedadlibro.fechaNovedad FROM libro INNER JOIN novedadlibro ON libro.ISBN = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.ISBN=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE()"; 
+                $sql="SELECT novedadlibro.idNovedadLibro, libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro, novedadlibro.fechaNovedad FROM libro INNER JOIN novedadlibro ON libro.idLibro = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.idLibro=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE()"; 
                 $query= mysqli_query($conexion,$sql); 
                 $totalResultados= mysqli_num_rows($query);
                 if ($totalResultados > 0){ 
@@ -336,7 +336,7 @@
         }/* fin if permisos 1 2 3  */
     } /* fin if del permiso, sino tiene permiso, no esta registrado */    
     else{ 
-        $sql="SELECT novedadlibro.idNovedadLibro, libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro FROM libro INNER JOIN novedadlibro ON libro.ISBN = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.ISBN=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE()"; 
+        $sql="SELECT novedadlibro.idNovedadLibro, libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro FROM libro INNER JOIN novedadlibro ON libro.idLibro = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.idLibro=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE()"; 
         $query= mysqli_query($conexion,$sql); 
         $totalResultados= mysqli_num_rows($query);
         if ($totalResultados > 0){ 

@@ -68,28 +68,23 @@ switch($opcion){
               
                 $nombrePdf= $id."-".$libro."-".$nomPdf;
                 if ($tamanio<= 999999){
-                    if ($tipoPdf=="application/pdf") {    // compara que sea un tipo correcto de imagen
-                        //$path=$pathImg.$isbn.$archName;
+                    if ($tipoPdf=="application/pdf") {    // compara que sea un tipo correcto de imagen   
                         $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfs/';
 
-                        //$fileDestination = '../../'.$path;
-                        //$carpetaDestino= $carpetaDestino.$nombreImagen;
                         //Mover imagen del directorio temporal al directorio escogido
                         move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino.$nombrePdf);
+                        
                         //vista previa opcional
                         if (isset ($_FILES['vistaprevia'])){
                             $nomVp=$_FILES['vistaprevia']["name"];
                             $tipovistaprevia=$_FILES['vistaprevia']['type'];
                             $tamanio=$_FILES['vistaprevia']['size'];
-                          
+                            
                             $nombreVprevia= $id."-".$libro."-".$nomVp;
                             if ($tamanio<= 999999){
-                                if ($tipoPdf=="application/pdf") {    // compara que sea un tipo correcto de imagen
-                                    //$path=$pathImg.$isbn.$archName;
+                                if ($tipoPdf=="application/pdf") {    // compara que sea un pdf
                                     $carpetaDestino2=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfs/';
 
-                                    //$fileDestination = '../../'.$path;
-                                    //$carpetaDestino= $carpetaDestino.$nombreImagen;
                                     //Mover imagen del directorio temporal al directorio escogido
                                     move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino2.$nombreVprevia);
                                     //realizo la insercion
@@ -99,7 +94,7 @@ switch($opcion){
                             }else{
                                 $data="error4"; // el pdf pesa mucho
                             }
-                        }
+                        }// si no lo tiene cargado sigue igual ejecutandose
                         
                         $consulta = "INSERT INTO capitulo (numeroCapitulo, nombreCapitulo, borradoLogico, pdf, pdfPrevisualizacion, idLibro, fechaDesde, fechaHasta) VALUES('$num', '$nombre', '0', '$nombrePdf', '$nombreVprevia', '$libro', '$fechaD', '$fechaH')";          
                         $resultado = $conexion->prepare($consulta);
