@@ -85,13 +85,11 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Funcionalidades</h6>
-                        <a class="collapse-item" href="listadolibros.php">Listado de libros</a>
+                        <h6 class="collapse-header">Datos Libro</h6>
                         <a class="collapse-item" href="libro.php">Cargar, Modificar y Borrar</a>
-                      
-                        <a class="collapse-item" href="agregarlibro.php">Agregar capítulo</a>
-                        <a class="collapse-item" href="borrarlibro.php">Borrar libro</a>
                         <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Datos Capitulos de libros</h6>
+                         <a class="collapse-item" href="capitulo.php">Cargar, Modificar y Borrar</a>
                     </div>
                 </div>
                 <a class="nav-link collapsed" href="autor.php" aria-expanded="true" aria-controls="collapseTwo">
