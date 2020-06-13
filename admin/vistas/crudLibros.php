@@ -100,14 +100,19 @@ switch($opcion){
                 
         break;
     case 2: //modificación
-        $consulta = "UPDATE libro SET ISBN='$isbn', nombreLibro='$nombre', descripcionLibro='$desc', portadaLibro='$portada', idGenero='$idGen', idAutor='$idAu', idEditorial='$idEd', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE ISBN='$isbn' ";     
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();       
-        
-        $consulta = "SELECT * FROM libro WHERE ISBN='$isbn' ";              
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
+        $result= compararFechas($fechaD,$fechaH);
+        if ( $result < 0 ) {
+                $data="error2";
+        }else{
+            $consulta = "UPDATE libro SET nombreLibro='$nombre', descripcionLibro='$desc', idGenero='$idGen', idAutor='$idAu', idEditorial='$idEd', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE ISBN='$isbn' ";     
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();       
+            
+            $consulta = "SELECT * FROM libro WHERE ISBN='$isbn' ";              
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
+        }
         break;        
     case 3://baja logica, solo modifica
         $consulta = "UPDATE libro SET borradoLogico='1' WHERE ISBN='$isbn' ";       
