@@ -6,6 +6,7 @@
     $sesion = new manejadorSesiones;
     unset($_SESSION['EMAIL']);
     unset($_SESSION['USERID']);
+    unset($_SESSION["PERMISO"]);
 ?>
 
 <!doctype html>

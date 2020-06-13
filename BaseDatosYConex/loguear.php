@@ -1,13 +1,12 @@
 <?php 
 
-include "conexion.php";
+	include "conexion.php";
 	require "../claseSesion.php";
 	session_start();
 	$sesion= new manejadorSesiones();
 	$sesion->iniciarSesion($_POST['email'],$_POST['pass']);
 	switch ($_SESSION['PERMISO']) {
 		case 1:
-
 			header("Location: ../seleccionarPerfil.php");
 			break;
 		case 2:
@@ -18,6 +17,7 @@ include "conexion.php";
 			break;
 		case false:
 			$error=$_SESSION['ERROR'];
+			unset($_SESSION["PERMISO"]);
 			header("Location: ../login.php?ERROR=$error");
 			break;
 	}

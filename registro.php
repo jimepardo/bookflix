@@ -27,7 +27,7 @@
 		$query=mysqli_query($conexion,$sql);
 		$cantQ=mysqli_num_rows($query);
 		if( ($cantQ)==0 ){
-			$sql="INSERT INTO usuario (`nombreUsuario`,`emailUsuario`,`password`,`apellido`)VALUES('$nombre','$email','$password','$apellido')";
+			$sql="INSERT INTO usuario (`nombreUsuario`,`emailUsuario`,`password`,`apellido`,`permisoUsuario`)VALUES('$nombre','$email','$password','$apellido',1)";
 			$query=mysqli_query($conexion,$sql);
 			header("Location: listaprecios.php");
 			$sesion->set('EMAIL',$email);

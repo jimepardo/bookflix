@@ -53,6 +53,7 @@
 				//	$error="el campo Usuario o el campo contraseña esta vacio";
 					//throw new Exception($error);
 					//}else{//si el nombre de usuario o la contra tienen conenido , consulto a la base de datos por el usuario
+						$this->set('PERMISO',false);
 						if ( $result=( $this->existe($eMail) ) ){//si existe el usuario
 							$row = mysqli_fetch_array($result);
 							if ($uPass == $row ['password']){//pregunto si la contraseña ingresada coincide con la del usuario
