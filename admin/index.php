@@ -33,7 +33,13 @@
               <span class="icon text-gray-600">
                 <i class="fas fa-arrow-right"></i>
               </span>
-              <span class="text">Carga,Modificacion y Borrado </span>
+              <span class="text">Carga, Modificación y Borrado de Libros </span>
+            </a><br> 
+            <a href="capitulo.php" class="btn btn-light btn-icon-split">
+              <span class="icon text-gray-600">
+                <i class="fas fa-arrow-right"></i>
+              </span>
+              <span class="text">Carga, Modificación y Borrado de Capitulos</span>
             </a><br>
           </div>
           <div class="col-auto">
@@ -55,7 +61,7 @@
                 <span class="icon text-gray-600">
                   <i class="fas fa-arrow-right"></i>
                 </span>
-                <span class="text">Carga, modificación y borrado</span>
+                <span class="text">Carga y modificación</span>
               </a>          
             </div>
             <div class="col-auto">
