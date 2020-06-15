@@ -180,11 +180,17 @@
                     </span>
                     <span class="text">Buscar usuarios registrados</span>
                   </a>
-                  <a href="home.php" class="btn btn-light btn-icon-split">
+                  <a href="../home.php" class="btn btn-light btn-icon-split">
                     <span class="icon text-gray-600">
                       <i class="fas fa-arrow-right"></i>
                     </span>
                     <span class="text">Pagina principal del user</span>
+                  </a>
+                  <a href="../novedades.php" class="btn btn-light btn-icon-split">
+                    <span class="icon text-gray-600">
+                      <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <span class="text">Todas las novedades</span>
                   </a>
               </div>
               <div class="col">               

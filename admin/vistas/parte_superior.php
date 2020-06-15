@@ -136,6 +136,13 @@
                     <span>Pagina principal user</span></a>
             </li>
 
+            <!-- Nav Item - Novedades -->
+            <li class="nav-item">
+                <a class="nav-link" href="../novedades.php">
+                <i class="fas fa-rss"></i>
+                    <span>Todas las novedades</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
