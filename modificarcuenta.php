@@ -9,7 +9,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bookflix</title>
+    <title>Bookflix - Mis Datos</title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
@@ -157,22 +157,22 @@
 
 <div class="container-fluid">
 
-    <h2><strong>Cuenta</strong></h2><br>
-    <p> &nbsp Tus datos de usuario</p>
+    <h2 class="algo"><strong>Cuenta</strong></h2>
+    <p class="algo"> &nbsp Tus datos de usuario</p> <hr  width="40% " color="gray ">
 
    
-    <form>  
-        <div class="form">
-            <div class="col-3">
-                <label  class="col-form-label">Nombre de usuario</label>
+    <form class="algo d-flex justify-content-center">  
+        <div class="form-group">
+            <div class="row ">
+                <label  class="col-form-label ">Nombre de usuario</label>
             <input class="form-control mb-2 mr-sm-2" id="disabledInput" type="text" value="<?php echo $_SESSION['NOMBRE'] ?>"  disabled>
             </div>
-            <div class="col-3">
+            <div class="row">
                 <label  class="col-form-label">Email </label>
                 <input class="form-control mb-2 mr-sm-2" id="disabledInput" type="text" value="<?php echo $_SESSION['EMAIL'] ?>" disabled>
             </div>
 
-            <div class="col-3">
+            <div class="row">
                 <label class="col-form-label" for="inlineFormInputName2">Contraseña</label>
                 <input class="form-control mb-2 mr-sm-2" id="disabledInput" type="password" value="*******" disabled>
                 <a href="cambiarpass.php"><button type="button" class="btn btn-danger">Modificar</button></a>            

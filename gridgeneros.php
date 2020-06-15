@@ -20,13 +20,17 @@
         }  
         return $resultado;
         }
+
+     $consulta2="SELECT g.nombreGenero FROM genero g WHERE g.idGenero= '".$_GET['idGenero']."' ";
+    $query2= mysqli_query($conexion, $consulta2);
+    $data=mysqli_fetch_array($query2);    
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Bookflix</title>
+    <title>Bookflix - <?php echo $data['nombreGenero']?></title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
         <!-- Link Swiper's CSS -->
@@ -58,7 +62,7 @@
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto text-center">
                             <li class="nav-item active"> <a class="nav-link" href="home.php">Inicio </a> </li>
-                            <li class="nav-item"> <a class="nav-link" href="#">Novedades</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="novedades.php">Novedades</a> </li>
                             <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                 <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="generos.php">Todos</a>
@@ -80,11 +84,15 @@
                             </li>
                         </ul>
 
-                        <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2 " type="search" placeholder="Buscar..." aria-label="Search"> <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                        <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
-                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
-                        </svg></button> </form>
+                        <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
+                            <input class="form-control mr-sm-2 " type="search" name="busca" value="<?php if(isset($_POST['busca'])) echo $_POST['busca'];?>" autocomplete="on" placeholder="Buscar..." aria-label="Search"> 
+                            <button class="btn btn-outline-danger my-2 my-sm-0" name="enviar" type="submit">
+                                <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </button> 
+                        </form>
 
                     <ul class="navbar-nav d-flex flex-row justify-content-center ">
 
@@ -130,7 +138,7 @@
                         <div class="collapse navbar-collapse " id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto text-center">
                                 <li class="nav-item active"> <a class="nav-link" href="home.php">Inicio </a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="#">Novedades</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="novedades.php">Novedades</a> </li>
                                 <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                     <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="generos.php">Todos</a>
@@ -152,11 +160,15 @@
                                 </li>
                             </ul>
 
-                            <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2 " type="search" placeholder="Buscar..." aria-label="Search"> <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                            <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
-                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
-                            </svg></button> </form>
+                            <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
+                                <input class="form-control mr-sm-2 " type="search" name="busca" value="<?php if(isset($_POST['busca'])) echo $_POST['busca'];?>" autocomplete="on" placeholder="Buscar..." aria-label="Search"> 
+                                <button class="btn btn-outline-danger my-2 my-sm-0" name="enviar" type="submit">
+                                    <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
+                                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                </button> 
+                            </form>
 
                             <ul class="navbar-nav d-flex flex-row justify-content-center ">
 
@@ -201,11 +213,14 @@
 </head>
 
 <body style="background-color: #221f1f;">
+    
+
 <?php 
     $consulta1="SELECT * FROM genero g INNER JOIN libro l ON (g.idGenero=l.idGenero) WHERE g.idGenero= '".$_GET['idGenero']."' ";
     $query1= mysqli_query($conexion, $consulta1);
 ?>
 <div class="container-fluid">
+    <strong class="text-uppercase pl-2" style="font-size: 24pt; color: #f5f5f1;">Género <?php echo $data['nombreGenero']?></strong><br><br>
    <?php 
         while ($mostrar=mysqli_fetch_array($query1)){
             $desc= $mostrar['descripcionLibro'];
@@ -269,9 +284,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js " integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6 " crossorigin="anonymous "></script>
     <!-- pie de pagina -->
     <br><br>
-    <hr width="92.5% " color="gray ">
+    <hr width="95.5% " color="gray ">
     <footer>
-        <a class="pfrecuentes" href="preguntasFrecuentes.php"><u>Preguntas Frecuentes</u></a>
+        <a class="pfrecuentes pl-5" href="preguntasFrecuentes.php"><u>Preguntas Frecuentes</u></a>
         <hr>
         <hr>
     </footer>

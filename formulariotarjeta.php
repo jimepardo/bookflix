@@ -11,7 +11,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bookflix</title>
+    <title>Bookflix - Registrarse</title>
     <link rel="icon" href="img/logo2.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
@@ -19,7 +19,15 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+<?php     
+    if (isset($_SESSION['PERMISO'])) {
+        if ($_SESSION['PERMISO'] ==1 || $_SESSION['PERMISO'] == 2){
+            header("Location: home.php");
+        }
+        if ($_SESSION['PERMISO'] == 3){
+            header("Location: admin/index.php");
+        }
+    }else{ ?>
     <div class="barranavegacion">
         <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
             <a class="navbar-brand" href="home.php">
@@ -36,6 +44,7 @@
             </div>
         </nav>
     </div>
+    <?php } ?>
 </head>
 <hr> 
 <body>
@@ -146,6 +155,9 @@
     <!-- pie de pagina -->
     <br><br>
     <hr width="93.5% ">
+    <footer>
+    <a class="pfrecuentes" href="preguntasfrecuentes.php" style="margin-left:65px; color:gray;"><u>Preguntas Frecuentes</u></a>
+    </footer>
     
 </body>
 

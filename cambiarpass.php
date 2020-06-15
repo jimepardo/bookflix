@@ -9,13 +9,15 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bookflix</title>
+    <title>Bookflix - Cambiar contraseña</title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
     
 
     <!-- Demo styles -->
@@ -66,7 +68,7 @@
                             </svg> <b class="caret"></b></a>
                             <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item"href="cambiarPerfil.php">Cambiar Perfil</a>
-                                <a class="dropdown-item" href="seleccionarPerfil.php">Administrar perfiles</a>
+                                <a class="dropdown-item" href="verPerfil.php">Administrar perfiles</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="cuenta.php">Cuenta</a>
                                 <a class="dropdown-item" href="preguntasfrecuentes.php">Preguntas Frecuentes</a>
@@ -94,40 +96,52 @@
 <body>
 
 
-<div class="container-fluid">
+<div class="container-fluid ">
 
 
-    <p>Modificar contraseña del usuario <strong><?php echo $_SESSION['EMAIL'] ?></strong></p>
-    <hr width="100% " color="gray "><br>
+    <p class="algo">Modificar contraseña del usuario </p>
+    <p class="algo">"<i><strong><?php echo $_SESSION['EMAIL'] ?></strong></i>"</p>
+    <hr width="40% " color="gray "><br>
+    <div class="d-flex justify-content-center">
  <?php
+  
     if(isset($_GET['EXITO'])){
   ?><div class="form-group col-3">
-    <div class="alert alert-success" style="font-size: 15px;">
+    <div class="alert alert-success algo" style="font-size: 15px;">
       <?= $_GET['EXITO'] ?>   
     </div></div>
   <?php 
   }
   ?>
-        <form class="needs-validation"  action="modpassuser.php" method="POST" novalidate>
-            <div class="form-group col-3">
+</div>
+  <div class="container d-flex justify-content-center">
+        <form class="needs-validation "  action="modpassuser.php" method="POST" novalidate>
+            <div class="form-group">
                 <label for="pass">Contraseña antigua</label>    
-                <input type="text" class="form-control algo" id="pass" name="pass" placeholder="Ingrese su antigua contraseña"  value="<?php if(isset($_GET['PASSW'])){ echo $_GET['PASSW'];}?>" required>
+                <input type="password" class="form-control algo" id="pass" name="pass" placeholder="Ingrese su antigua contraseña"  value="<?php if(isset($_GET['PASSW'])){ echo $_GET['PASSW'];}?>" required>
                 <div class="valid-feedback">Campo completado</div>
                 <div class="invalid-feedback">Debe ingresar la contraseña actual</div>
             </div>
-            <div class="form-group col-3">
+            <div class="form-group">
                 <label for="pass1">Contraseña nueva</label>
-                <input type="text" class="form-control algo" id="pass1"  maxlength="12" name="pass1" placeholder="Ingrese su nueva contraseña" value="<?php if(isset($_GET['PASSW1'])){ echo $_GET['PASSW1'];}?>" required>
+                <input type="password" class="form-control algo" id="pass1"  maxlength="12" name="pass1" placeholder="Ingrese su nueva contraseña" value="<?php if(isset($_GET['PASSW1'])){ echo $_GET['PASSW1'];}?>" required>
                 <div class="valid-feedback">Campo completado</div>
                 <div class="invalid-feedback">Debe ingresar la nueva contraseña</div>
             </div>
-            <div class="form-group col-3">
+            <div class="form-group ">
                 <label for="pass2">Repetir contraseña</label>
-                <input type="text" class="form-control algo" id="pass2"  maxlength="12" name="pass2" placeholder="Repita su nueva contraseña" value="<?php if(isset($_GET['PASSW2'])){ echo $_GET['PASSW2'];}?>" required>
+                <input type="password" class="form-control algo" id="pass2"  maxlength="12" name="pass2" placeholder="Repita su nueva contraseña" value="<?php if(isset($_GET['PASSW2'])){ echo $_GET['PASSW2'];}?>" required>
                 <div class="valid-feedback">Campo completado</div>
                 <div class="invalid-feedback">Repita la nueva contraseña</div>
             </div>
-            <div class="form-group col-3">
+            
+            <div class="form-group ">
+                <input class="btn btn-danger algo" type="submit" value="Guardar cambios">
+                <a class="btn btn-secondary" href="modificarcuenta.php">Cancelar</a>
+            </div>
+        </div>
+        </form>
+        <div class="form-group d-flex justify-content-center">
                 <input type="hidden" name="id" value="<?php echo $_SESSION['ID'] ?>">
                 <?php if(isset($_GET['ERROR'])){?> 
                 <div  class="alert alert-danger" style="font-size: 15px;" role="alert">
@@ -135,12 +149,8 @@
                 </div>
                 <?php } ?>
             </div> 
-            <div class="form-group col-3">
-                <input class="btn btn-danger algo" type="submit" value="Guardar cambios">
-                <a class="btn btn-secondary" href="modificarcuenta.php">Cancelar</a>
-            </div>
-        </div>
-        </form>
+    </div>
+       
 </div>
 
      <!-- Logout Modal-->
@@ -189,7 +199,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js " integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6 " crossorigin="anonymous "></script>
     <!-- pie de pagina -->
     <br><br>
-    <hr width="97.5% " color="gray ">
+    <hr width="93.5%" color="gray " >
     <footer>
         <a class="pfrecuentes" href="preguntasFrecuentes.php"><u>Preguntas Frecuentes</u></a>
         <hr>

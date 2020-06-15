@@ -2,7 +2,7 @@
     
     include_once "BaseDatosYConex/conexion.php";
     session_start();
-	require_once "claseSesion.php";
+    require_once "claseSesion.php";
     $sesion = new manejadorSesiones;
     
     function recortar_texto($texto, $limite=100){  
@@ -26,7 +26,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Todos los Géneros</title>
+    <title>Bookflix - Todos los Géneros</title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
@@ -60,16 +60,33 @@
                             <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                 <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="generos.php">Todos</a>
+                                    <div class="dropdown-divider"></div>
+                                    <?php
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
+                                        while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
+                                            <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>"<?php 
+                                            if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
+                                                echo " selected > ".$valores['nombreGenero']." </a>";
+                                            }else{
+                                                
+                                                echo '>'.$valores['nombreGenero'].'</a>';
+                                            }
+                                        }
+                                        ?>
                                 </div>
                             <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
                             </li>
                         </ul>
 
-                        <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2 " type="search" placeholder="Buscar..." aria-label="Search"> <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                        <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
-                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
-                        </svg></button> </form>
+                        <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
+                            <input class="form-control mr-sm-2 " type="search" name="busca" value="<?php if(isset($_POST['busca'])) echo $_POST['busca'];?>" autocomplete="on" placeholder="Buscar..." aria-label="Search"> 
+                            <button class="btn btn-outline-danger my-2 my-sm-0" name="enviar" type="submit">
+                                <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </button> 
+                        </form>
 
                     <ul class="navbar-nav d-flex flex-row justify-content-center ">
 
@@ -119,16 +136,33 @@
                                 <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                     <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="generos.php">Todos</a>
+                                        <div class="dropdown-divider"></div>
+                                        <?php
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
+                                        while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
+                                            <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>"<?php 
+                                            if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
+                                                echo ' selected > '.$valores['nombreGenero'].' </a>';
+                                            }else{
+                                                
+                                                echo '>'.$valores['nombreGenero'].'</a>';
+                                            }
+                                        }
+                                        ?>
                                     </div>
                                     <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
                                 </li>
                             </ul>
 
-                            <form class="form-inline my-2 my-lg-0"> <input class="form-control mr-sm-2 " type="search" placeholder="Buscar..." aria-label="Search"> <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                            <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
-                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
-                            </svg></button> </form>
+                             <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
+                                <input class="form-control mr-sm-2 " type="search" name="busca" value="<?php if(isset($_POST['busca'])) echo $_POST['busca'];?>" autocomplete="on" placeholder="Buscar..." aria-label="Search"> 
+                                <button class="btn btn-outline-danger my-2 my-sm-0" name="enviar" type="submit">
+                                    <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
+                                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                </button> 
+                            </form>
 
                             <ul class="navbar-nav d-flex flex-row justify-content-center ">
 
@@ -180,7 +214,7 @@
         if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2)){
             /* cualquier usuario registrado, sea basico/premium puede ver generos*/ ?>
             <?php        
-               $sql="SELECT g.nombreGenero, l.portadaLibro, l.descripcionLibro, l.fechaLanzamiento, l.ISBN, l.nombreLibro FROM libro l INNER JOIN genero g ON (l.idGenero = g.idGenero) WHERE l.idGenero = g.idGenero ORDER BY g.idGenero";
+               $sql="SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero";
                 $query= mysqli_query($conexion,$sql); 
                 while ($name = mysqli_fetch_array($query)){
                 $totalResultados= mysqli_num_rows($query);
@@ -191,20 +225,22 @@
                     <h2 class="titulos"><?php echo $name['nombreGenero']?> </h2>
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <?php  while ($name = mysqli_fetch_array($query)) {
-                                    $titulo= $name['nombreLibro'];
-                                    $desc= $name['descripcionLibro'];
+                                <?php  
+                                $sql2="SELECT * FROM libro l INNER JOIN genero g ON (g.idGenero=l.idGenero) WHERE l.idGenero= '".$name['idGenero']."' AND l.borradoLogico=0";
+                                $query2=mysqli_query($conexion,$sql2);
+                                while ($name2 = mysqli_fetch_array($query2)) {
+                                    $titulo= $name2['nombreLibro'];
+                                    $desc= $name2['descripcionLibro'];
                                 ?>
                                 <div class="swiper-slide">
                                     <div class="card" style="width: 18rem;">
-                                        <img class="card-img-top" style="height:400px; width:800px" src="<?php echo $name['portadaLibro']?>" alt="Card image cap">
+                                        <img class="card-img-top" style="height:400px; width:800px" src="/bookflix/bookImages/<?php echo $name2['portadaLibro']?>" alt="Card image cap">
                                         <div class="card-body">
                                             <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:left;"><?php echo recortar_texto($titulo, 50)?></p>
                                             <p class="card-text" style="color:#221f1f; font-size:13px; text-align:left;"><?php echo recortar_texto($desc, 45)?></p>
-                                            <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha: <?php echo $name['fechaLanzamiento']?></p>
-                                            <a> <button type="button" class="btn btn-danger" style="font-size:13px;">Leer</button></a>
-                                            <a> <button type="button" class="btn btn-danger" style="font-size:13px;">Agregar a Mi lista</button></a>
-                                           
+                                            <a href="detallelibro.php?nombreLibro=<?php echo $name2['nombreLibro'];?>&idLibro=<?php echo $name2['idLibro'];?>" class="btn btn-outline-danger ">Ver detalle</a>
+                                            <!-- <a> <button type="button" class="btn btn-danger" style="font-size:13px;">Agregar a Mi lista</button></a>--><br><br>
+                                            <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha: <?php echo $name2['fechaLanzamiento']?></p>
                                         </div> <!--fin card-body-->
                                     </div> <!--fin card-->
                                 </div> <!--fin swiper-slide-->

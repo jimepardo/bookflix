@@ -27,7 +27,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bookflix</title>
+    <title>Bookflix - Novedades</title>
     <link rel="icon" href="img/logo2.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
@@ -60,6 +60,19 @@
                             <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                 <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="generos.php">Todos</a>
+                                    <div class="dropdown-divider"></div>
+                                        <?php
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
+                                        while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
+                                            <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>"<?php 
+                                            if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
+                                                echo ' selected > '.$valores['nombreGenero'].' </a>';
+                                            }else{
+                                                
+                                                echo '>'.$valores['nombreGenero'].'</a>';
+                                            }
+                                        }
+                                        ?>
                                 </div>
                             <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
                             </li>
@@ -124,6 +137,19 @@
                                 <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                     <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="generos.php">Todos</a>
+                                        <div class="dropdown-divider"></div>
+                                        <?php
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
+                                        while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
+                                            <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>"<?php 
+                                            if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
+                                                echo ' selected > '.$valores['nombreGenero'].' </a>';
+                                            }else{
+                                                
+                                                echo '>'.$valores['nombreGenero'].'</a>';
+                                            }
+                                        }
+                                        ?>
                                     </div>
                                     <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
                                 </li>
@@ -183,7 +209,7 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                            <a href="admin/index.php"><button type="button" class="btn btn-danger " style="margin-right: 25px; text-align: center;">Volver al Panel de Control</button></a>        
+                            <a href="<?=$_SERVER['HTTP_REFERER'] ?>"><button type="button" class="btn btn-danger " style="margin-right: 25px; text-align: center;">Volver al Panel de Control</button></a>        
                         </ul>        
                     </div>
                 </nav>
@@ -201,70 +227,9 @@
 </head>
 
 <body style="background-color: #221f1f;">
-
-
- <!--las novedades las ven todos, registrados, no registrados y administrador
-        deberia haber un carrusel fijo para las novedades-->
-        <!-- <div class="netflix-slider mx-5">
-                    <h2 class="titulo">Nevedades </h2>
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <?php /* 
-                            $sql="SELECT nombreGenero FROM genero"; // no se como seguir para que le quede la cantidad de libros para despues recorrer 
-                            $sql2= "SELECT *
-                                FROM libro  
-                                INNER JOIN genero  ON (libro.idGenero = genero.idGenero) 
-                                WHERE libro.idGenero= genero.idGenero";
-                                $query2= mysqli_query($conexion,$sql2);
-*/
-                             /*   for ($i=0; $i < 7 ; $i++) { */
-                            ?>  
-                            <div class="swiper-slide"><img src="img/10.jpg" alt="foto"></div><?php 
-                            /*}*/ ?>
-                        </div>
-                         Add Pagination -->
-                        <!-- <div class="swiper-pagination"></div> -->
-                        <!-- <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                </div> --> 
-            
-    <?php 
-        /*if (isset($_SESSION['PERMISO'])) {
-            
-        
-          if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2)){*/
-              /* si es basico o premium ademas deberia ver las sugerencias, el administrador no */?>
-                 <!-- <div class="netflix-slider mx-5">
-                        <h2 class="titulo">Sugerencias </h2>
-                          <div class="swiper-container">
-                        <div class="swiper-wrapper">-->
-                        <?php  /*
-                                for ($i=0; $i < mysqli_num_rows($query2) ; $i++) { */
-                            ?>  
-                           <!-- <div class="swiper-slide"><img src="img/1.jpg" alt="X-Men"></div>--><?php 
-                           /* }*/ ?>
-                        <!--</div> -->
-                                <?php  /*
-                                    for ($i=0; $i < 7 ; $i++) { */
-                                ?>  
-                               <!--  <div class="swiper-slide"><img src="img/6.jpg" alt="foto"></div> --><?php /*
-                                } */?>
-                            <!-- </div> -->
-                            <!-- Add Pagination -->
-                            <!-- <div class="swiper-pagination"></div> -->
-                            <!-- <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                    </div> -->
-     <?php /*
-         }
-         }*/
-     ?>
-
-     
+   
     <?php        
-        $sql="SELECT novedadlibro.idNovedadLibro, libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro, novedadlibro.fechaNovedad FROM libro INNER JOIN novedadlibro ON libro.ISBN = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.ISBN=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE()"; 
+        $sql="SELECT novedadlibro.idNovedadLibro, libro.idLibro, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro, novedadlibro.fechaNovedad FROM libro INNER JOIN novedadlibro ON libro.idLibro = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.idLibro=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE()"; 
         $query= mysqli_query($conexion,$sql); 
         $totalResultados= mysqli_num_rows($query);
         if ($totalResultados > 0){ 
@@ -280,14 +245,15 @@
                         ?>
                         <div class="swiper-slide">
                             <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" style="height:400px; width:800px" src="<?php echo $name['portadaLibro']?>" alt="Card image cap">
+                                <img class="card-img-top" style="height:400px; width:800px" src="/bookflix/bookImages/<?php echo $name['portadaLibro']?>" alt="Card image cap">
                                 <div class="card-body">
-                                    <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:left;"><?php echo recortar_texto($titulo, 50)?></p>
+                                    <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:center;"><?php echo recortar_texto($titulo, 50)?></p>
                                     <p class="card-text" style="color:#221f1f; font-size:13px; text-align:left;"><?php echo recortar_texto($desc, 45)?></p>
-                                    <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha: <?php echo $name['fechaNovedad']?></p>
-                                    <a> <button type="button" class="btn btn-danger" style="font-size:13px;">Leer</button></a>
-                                    <a> <button type="button" class="btn btn-danger" style="font-size:13px;">Agregar a Mi lista</button></a>
-                                   
+                                   <?php if ($_SESSION['PERMISO'] == 1 || $_SESSION['PERMISO'] == 2 ){?>
+                                    <a href="detallelibro.php?nombreLibro=<?php echo $name['nombreLibro'];?>&idLibro=<?php echo $name['idLibro'];?>"> <button  type="button" class="btn btn-outline-danger justify-center" style="font-size:13px;">Ver detalle</button></a><br><br>
+                                <?php }?>
+                                    
+                                    <p class="card-date" style="color:#221f1f; font-size:11px; text-align:center;">Fecha: <?php echo $name['fechaNovedad']?></p>
                                 </div> <!--fin card-body-->
                             </div> <!--fin card-->
                         </div> <!--fin swiper-slide-->
@@ -315,24 +281,27 @@
     $totalResultados= mysqli_num_rows($query);
     if ($totalResultados > 0){ 
     ?>
+    <br><br>
         <!--primer slide -->
         <div class="netflix-slider mx-5">                
             <h2 class="titulos">Novedades Generales </h2>
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
+            <div class="swiper-container ">
+                <div class="swiper-wrapper ">
                     <?php  while ($name = mysqli_fetch_array($query)) {
                         $desc= $name['descripcion']; 
                         $fecha= $name['fechaNovedad']; ?>
                     <div class="swiper-slide">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:16px; text-align:left;">Novedad</p>
-                                <p class="card-text" style="color:#221f1f; font-size:15px; text-align:left;"><?php echo recortar_texto($desc, 100)?></p>
-                                <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha: <?php echo $fecha?></p>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#vermasng">Ver mas</button>  
-                                
-                            </div> <!--fin card-body-->
-                        </div> <!--fin card-->
+                        <!--<div class="row ">-->
+                            <div class="card col-sm d-flex align-items-center " style="width: 18rem;">
+                                <div class="card-body ">
+                                    <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:16px; text-align:left;">Novedad</p>
+                                    <p class="card-text" style="color:#221f1f; font-size:15px; text-align:left;"><?php echo recortar_texto($desc, 30)?></p>
+                                    <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha: <?php echo $fecha?></p>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#vermasng" data-whatever="<?php echo $desc?>">Ver mas</button>                                 
+                                </div> <!--fin card-body-->
+                            </div> <!--fin card-->
+                    <!--    </div>-->
+                        
                         
                     </div> <!--fin swiper-slide-->
                     <?php  } ?><!--fin while-php-->
@@ -385,8 +354,8 @@
             
           </div>
           <div class="modal-body">
-            <p class="pt-3 pr-2"><?php echo $desc;?></p>
-            <p class=""> Fecha: <?php echo $fecha;?></p>
+            <p class="pt-3 pr-2"></p>
+           
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -424,23 +393,24 @@
     <br><br>
     <hr width="92.5% " color="gray ">
     <footer>
-    <a class="pfrecuentes" href="preguntasfrecuentes.php" style="margin-left:65px;"><u>Preguntas Frecuentes</u></a>
-        <hr>
-        <hr>
+    <a class="pfrecuentes" href="preguntasfrecuentes.php" style="margin-left:65px; color:gray;"><u>Preguntas Frecuentes</u></a>
     </footer>
     
-    <!-- <script type="text/javascript">
-        $(document).on('click', '.vermasng', function () {
-
-        var descr = $(this).attr('data-descr');
-        $('#vermasng input[name=nombre]').val(descr);
-
-        // aquí es cuando tienes que mirar la documentación de tu framework
-        $('#vermasng').modal('show');
-
-   
+     <script type="text/javascript">
+     $(document).ready(function(){
+        $(document).on('show.bs.modal', '#vermasng', function (e) {
+            var button= $(e.relatedTarget);
+            var recipient= button.data('whatever');
+            var modal= $(this);
+            
+            modal.find('.modal-title').text('Novedad');
+            modal.find('.modal-body p').text(recipient);
+            $('#vermasng').modal('show');
+            $('#vermasng').trigger('focus');
         });
-    </script> -->
+     });
+       
+    </script> 
 
 </body>
 

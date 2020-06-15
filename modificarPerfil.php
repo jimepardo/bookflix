@@ -101,7 +101,8 @@
 	$_SESSION['AUTORFAV']=$autor;
 	$_SESSION['GENEROFAV']=$genero;
 	$_SESSION['PERFIL']=$nombre;
-	header("Location: verPerfil.php?Exito=$pathImg");
+	$exito="Se guardaron los cambios exitosamente";
+	header("Location: verPerfil.php?EXITO=$exito&foto=$pathImg");
 	
 
 

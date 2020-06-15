@@ -1,5 +1,9 @@
 
-
+<?php
+ include "BaseDatosYConex\conexion.php";
+    session_start();
+    require "claseSesion.php";
+    $sesion = new manejadorSesiones;?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,28 +15,68 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Preguntas frecuentes</title>
+    <title>Bookflix - Preguntas frecuentes</title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
- 
-    <div class="barranav">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark"  style="background-color:#f5f5f1;">
-        <a class="navbar-brand" href="home.php">
-            <object data="img/Recurso 1.svg" width=130px type="image/svg+xml">  
-                <!-- Imagen alternativa si el SVG no puede cargarse -->
-                <img src="img/logo1.png" width=110px alt="Imagen PNG alternativa">
-            </object></a>
-            <!-- esto es para decirle q cree el boton al costado cuando se colapse-->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="nav navbar-nav ml-auto">
-                    <a href="#" data-toggle="modal" data-target="#logoutModal">
-                        <button type="button" class="btn btn-outline-danger " style="margin-right: 25px; text-align: center;">Cerrar Sesión</button>
-                    </a>
-                </ul>
+ <?php if (isset($_SESSION['PERMISO'] )){
+        if ($_SESSION['PERMISO'] == 1 || $_SESSION['PERMISO'] == 2 ){?>
+            <div class="barranav">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark"  style="background-color:#f5f5f1;">
+                <a class="navbar-brand" href="home.php">
+                    <object data="img/Recurso 1.svg" width=130px type="image/svg+xml">  
+                        <!-- Imagen alternativa si el SVG no puede cargarse -->
+                        <img src="img/logo1.png" width=110px alt="Imagen PNG alternativa">
+                    </object></a>
+                    <!-- esto es para decirle q cree el boton al costado cuando se colapse-->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <a href="#" data-toggle="modal" data-target="#logoutModal">
+                                <button type="button" class="btn btn-outline-danger " style="margin-right: 25px; text-align: center;">Cerrar Sesión</button>
+                            </a>
+                        </ul>
+                    </div>
+            </nav>
             </div>
-    </nav>
-    </div>
+    <?php
+    }else{
+        if($_SESSION['PERMISO'] == 3){?>
+        <div class="barranav">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark"  style="background-color:#f5f5f1;">
+                <a class="navbar-brand" href="home.php">
+                    <object data="img/Recurso 1.svg" width=130px type="image/svg+xml">  
+                        <!-- Imagen alternativa si el SVG no puede cargarse -->
+                        <img src="img/logo1.png" width=110px alt="Imagen PNG alternativa">
+                    </object></a>
+                    <!-- esto es para decirle q cree el boton al costado cuando se colapse-->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <a href="admin/index.php"><button type="button" class="btn btn-danger " style="margin-right: 25px; text-align: center;">Volver al Panel de Control</button></a>        
+                        </ul>        
+                    </div>
+            </nav>
+            </div>
+   <?php }/*termina if permiso 3*/
+        
+     }/*termina else de los permisos*/
     
+    ?>
+
+<?php } /*termina if del permiso*/
+else{?>
+
+<div class="barranav">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark"  style="background-color:#f5f5f1;">
+                <a class="navbar-brand" href="home.php">
+                    <object data="img/Recurso 1.svg" width=130px type="image/svg+xml">  
+                        <!-- Imagen alternativa si el SVG no puede cargarse -->
+                        <img src="img/logo1.png" width=110px alt="Imagen PNG alternativa">
+                    </object></a>
+                    <!-- esto es para decirle q cree el boton al costado cuando se colapse-->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+            </nav>
+            </div>
+<?php }?>
     <style>
         .algo{
             font-family: Arial;

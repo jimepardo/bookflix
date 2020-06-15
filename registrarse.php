@@ -1,18 +1,29 @@
 <?php
     include "BaseDatosYConex\conexion.php";
+    session_start();
+    require "claseSesion.php";
+    $sesion = new manejadorSesiones;
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrarse</title>
+    <title>Bookflix - Registrarse</title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
      <!-- Bootstrap CSS -->
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/precios.css">
-
+    <?php     
+    if (isset($_SESSION['PERMISO'])) {
+        if ($_SESSION['PERMISO'] ==1 || $_SESSION['PERMISO'] == 2){
+            header("Location: home.php");
+        }
+        if ($_SESSION['PERMISO'] == 3){
+            header("Location: admin/index.php");
+        }
+    }else{ ?>
     <div class="barranavegacion">
         <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
             <a class="navbar-brand" href="home.php">
@@ -29,12 +40,19 @@
             </div>
         </nav>
     </div>
+<?php } ?>
 </head>
 
 <body style="margin-top:6%;">
- 
-    
+  <div class="d-flex justify-content-center"> 
+    <?php if (isset($_GET['error1'])){?>
+                    <div class="alert alert-warning">Si desea acceder a nuestro catálogo de libros, lo invitamos a registrarse, sumese!</div>
+                    <br><br><br>
+              <?php  }
+            ?>
+    </div>
         <div class="d-flex justify-content-center">
+
             <form class="text-center" id="formRegistro" action="registro.php" method="POST">  
                     <h3><strong>Registrarse</strong></h3><br>
                     <div class="row">
@@ -111,6 +129,11 @@
                     ?><br>
                     <button type="submit" class="btn btn-danger btn-block" id="submit">Registrate !</button></a>            
                     </div>
+                    <div class="footer">
+                        <div class="d-flex justify-content-center links" style="color:#332f2c">
+                            ¿Ya tenés una cuenta?&nbsp <a href="login.php" style="color:#221f1f">Inicia Sesión</a><br><br>
+                        </div>
+                    </div>
             </form>
         
             <div class="row d-flex justify-content-center">
@@ -134,7 +157,9 @@
     <!-- pie de pagina -->
     <br><br>
     <hr width="93.5% ">
-    
+    <footer>
+    <a class="pfrecuentes" href="preguntasfrecuentes.php" style="margin-left:65px; color:gray;"><u>Preguntas Frecuentes</u></a>
+    </footer>
 </body>
 
 </html>

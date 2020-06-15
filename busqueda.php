@@ -13,7 +13,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bookflix</title>
+    <title>Bookflix - Búsqueda</title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
         <!-- Link Swiper's CSS -->
@@ -44,10 +44,23 @@
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto text-center">
                             <li class="nav-item active"> <a class="nav-link" href="home.php">Inicio </a> </li>
-                            <li class="nav-item"> <a class="nav-link" href="#">Novedades</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="novedades.php">Novedades</a> </li>
                             <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                 <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="generos.php">Todos</a>
+                                    <div class="dropdown-divider"></div>
+                                        <?php
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
+                                        while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
+                                            <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>" <?php 
+                                            if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
+                                                echo ' selected > '.$valores['nombreGenero'].' </a>';
+                                            }else{
+                                                
+                                                echo '>'.$valores['nombreGenero'].'</a>';
+                                            }
+                                        }
+                                        ?>
                                 </div>
                             <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
                             </li>
@@ -107,10 +120,23 @@
                         <div class="collapse navbar-collapse " id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto text-center">
                                 <li class="nav-item active"> <a class="nav-link" href="home.php">Inicio </a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="#">Novedades</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="novedades.php">Novedades</a> </li>
                                 <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                     <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="generos.php">Todos</a>
+                                        <div class="dropdown-divider"></div>
+                                        <?php
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
+                                        while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
+                                            <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>" <?php 
+                                            if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
+                                                echo ' selected > '.$valores['nombreGenero'].' </a>';
+                                            }else{
+                                                
+                                                echo '>'.$valores['nombreGenero'].'</a>';
+                                            }
+                                        }
+                                        ?>
                                     </div>
                                     <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
                                 </li>
@@ -178,11 +204,12 @@
 		 }
 	     else {
 		 while($mostrar=mysqli_fetch_array($result2)) {?>
+            <h3 class="text-white pl-4">Resultados de su búsqueda</h3><br>
 		 	<div class="card-deck row d-flex pl-5">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <img src="<?php echo $mostrar['portadaLibro']?>" class="card-img" alt="foto">
+                            <img src="/bookflix/bookImages/<?php echo $mostrar['portadaLibro']?>" class="card-img" alt="foto">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -190,7 +217,8 @@
                                 <p class="card-text">Género: <?php echo $mostrar['nombreGenero']?> </p>
                                 <p class="card-text">Autor: <?php echo $mostrar['nombreAutor']?> </p>
                                 <p class="card-text">Editorial: <?php echo $mostrar['nombreEditorial']?> </p>
-                                <a href="detallelibro.php" class="btn btn-outline-danger float-right">Ver detalle</a>
+                                <a href="detallelibro.php?nombreLibro=<?php echo $mostrar['nombreLibro'];?>&idLibro=<?php echo $mostrar['idLibro'];?>" class="btn btn-outline-danger float-right">Ver detalle</a>
+                                
                                 <br><br>                                
                             </div>                            
                         </div>

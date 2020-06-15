@@ -27,15 +27,24 @@
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script> -->
 
-    <title>Iniciar Sesion</title>
+    <title>Bookflix - Iniciar Sesión</title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
 
     <!-- Custom styles for this template -->
     <link href="css/iniciarsesion.css" rel="stylesheet">
-
+<?php     
+    if (isset($_SESSION['PERMISO'])) {
+        if ($_SESSION['PERMISO'] ==1 || $_SESSION['PERMISO'] == 2){
+            header("Location: home.php");
+        }
+        if ($_SESSION['PERMISO'] == 3){
+            header("Location: admin/index.php");
+        }
+    }else{ ?>
     <nav class="navbar navbar-dark" style="background-color: #221f1f;">
         <a class="navbar-brand" href="home.php"> <object data="img/Recurso 1.svg" width=140px style="padding-top: 10px; " type="image/svg+xml"></object></a>
     </nav>
+<?php }?>
 </head>
 
 <body>
@@ -45,7 +54,7 @@
             <?php
                 if (isset($_GET['cuentaRegistrada'])) {                
             ?>
-                    <div class="alert alert-success">SE HA CREADO SU CUENTA !</div>
+                    <div class="alert alert-success">¡SE HA CREADO SU CUENTA!</div>
                     <br><br><br>
             <?php
             }

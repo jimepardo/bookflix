@@ -9,7 +9,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bookflix</title>
+    <title>Bookflix - Mi Perfil</title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
@@ -163,15 +163,30 @@
 ?>
 <div class="container-fluid">
 
-    <h2><strong>Perfil de <?= $_SESSION['PERFIL']?></strong></h2><br>
-    <p> &nbsp Tus datos de perfil</p>
+    <h2 class="algo"><strong>Perfil de <i>"<?= $_SESSION['PERFIL']?>"</i></strong><br>
+     <p class="algo pt-2"> &nbsp Tus datos de perfil</p></h2>
+   <hr width="40% " color="gray ">
 
-   
+   <div class="d-flex justify-content-center">
+ <?php
+  
+    if(isset($_GET['EXITO'])){
+  ?><div class="form-group col-3">
+    <div class="alert alert-success algo" style="font-size: 15px;">
+      <?= $_GET['EXITO'] ?>   
+    </div></div>
+  <?php 
+  }
+  ?>
+</div>
+
+    <div class="container d-flex justify-content-center">
     <form action="modificarPerfil.php" method="POST" enctype="multipart/form-data">  
-        <div class="form">
+        <div class="form-group">
             <input type="hidden" name="idUser" value="<?=$_SESSION['ID']?>">
-            <div class="col-3">
-                <label  class="col-form-label">Nombre de Perfil</label>
+        </div>
+        <div class="form-group">
+            <label  class="col-form-label">Nombre de Perfil</label>
             <input class="form-control mb-2 mr-sm-2" name="nombrePerfil" type="text" value=
             <?php 
             if(!isset($_GET["nombrePerfil"])){
@@ -183,18 +198,18 @@
 
             >
 
-                <?php
-                if(isset($_GET['ERRORUSR'])){
-                ?> 
-                <div  class="alert alert-danger" role="alert">
-                    <?= $_GET['ERRORUSR'] ?>
-                </div>                
-                <?php
-                }
-                ?>
-            </div>
+            <?php
+            if(isset($_GET['ERRORUSR'])){
+            ?> 
+            <div  class="alert alert-danger" role="alert">
+                <?= $_GET['ERRORUSR'] ?>
+            </div>                
+            <?php
+            }
+            ?>
+        </div>
          
-            <div class="col-3">
+            <div class="form-group">
                 <label  class="col-form-label">Autor Favorito</label>
                 <select class="custom-select" required name="autor">
                 <option value="0">Seleccione un Autor</option>
@@ -214,7 +229,7 @@
                 </select>
             </div>
 
-            <div class="col-3">
+            <div class="form-group">
                 <label  class="col-form-label">Genero Favorito</label>
                 <select class="custom-select" required name="genero">
                 <option value="0">Seleccione un Genero</option>
@@ -233,32 +248,33 @@
                 ?>
                 </select>
             </div>
-
-            <div class="col-3">
-                <label class="col-form-label">Foto de Perfil</label>
-                <img src="<?= $_SESSION['PERFILIMG'] ?>"  style= "height: 241px;width: 214px;margin-bottom: 20px;">          
-            </div>
-            <div class="col-3">
-                <label class="col-form-label">Modificar foto de perfil</label>
-                <input type="file" name="file" value="<?= $_SESSION['PERFILIMG'] ?>">
+            
+                <div class="form-group">
+                    <label class="col-form-label">Foto de Perfil</label>
+                    <img src="<?= $_SESSION['PERFILIMG'] ?>"  style= "height: 241px;width: 214px;margin-bottom: 20px;">          
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Modificar foto de perfil</label>
+                    <input type="file" name="file" value="<?= $_SESSION['PERFILIMG'] ?>">
+                    <?php
+                    if(isset($_GET['ERRORIMG'])){
+                    ?> 
+                    <br>
+                    <br>
+                    <div  class="alert alert-danger" role="alert">
+                        <?= $_GET['ERRORIMG'] ?>
+                    </div> 
+                    <br><br>               
                 <?php
-                if(isset($_GET['ERRORIMG'])){
-                ?> 
-                <br>
-                <br>
-                <div  class="alert alert-danger" role="alert">
-                    <?= $_GET['ERRORIMG'] ?>
-                </div> 
-                <br><br>               
-            <?php
-            }
-            ?>
-            </div>
+                }
+                ?>
+                </div>
+            
             <br>
             <input type="submit" class="btn btn-danger" name="submit" value="Cambiar Datos">
-        </div>
+        
     </form>
-
+</div>
 </div>
 
      <!-- Logout Modal-->
@@ -291,8 +307,7 @@
     <hr width="92.5% " color="gray ">
     <footer>
         <a class="pfrecuentes" href="preguntasFrecuentes.php"><u>Preguntas Frecuentes</u></a>
-        <hr>
-        <hr>
+       
     </footer>
     <?php
     }

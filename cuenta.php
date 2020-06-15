@@ -10,7 +10,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bookflix</title>
+    <title>Bookflix - Cuenta</title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
@@ -45,7 +45,7 @@
                     <li class="nav-item "> <a class="nav-link" href="home.php">Inicio </a> </li>
                     </ul>
                    
-                <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
+               <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
                     <input class="form-control mr-sm-2 " type="search" name="busca" value="<?php if(isset($_POST['busca'])) echo $_POST['busca'];?>" autocomplete="on" placeholder="Buscar..." aria-label="Search"> 
                     <button class="btn btn-outline-danger my-2 my-sm-0" name="enviar" type="submit">
                         <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -160,7 +160,7 @@
 <body style="background-color: #221f1f;">
 
 
-<div class="container-fluid">
+<div class="container-fluid pl-5">
 
     <h2 style="color:#f1f1f5">Cuenta</h2>
     <hr width="100% " color="gray "><br>
@@ -201,7 +201,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js " integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6 " crossorigin="anonymous "></script>
     <!-- pie de pagina -->
     <br><br>
-    <hr width="97.5% " color="gray ">
+    <hr width="93.5% " color="gray ">
     <footer>
         <a class="pfrecuentes" href="preguntasFrecuentes.php"><u>Preguntas Frecuentes</u></a>
         <hr>

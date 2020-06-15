@@ -21,7 +21,7 @@
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script> -->
 
-    <title>Seleccionar Perfil</title>
+    <title>Bookflix - Seleccionar Perfil</title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
 
     <!-- Custom styles for this template -->
