@@ -236,11 +236,11 @@
 
             <div class="col-3">
                 <label class="col-form-label">Foto de Perfil</label>
-                <img src="<?=$_SESSION['PERFILIMG']?>"  style= "height: 241px;width: 214px;margin-bottom: 20px;">          
+                <img src="<?= $_SESSION['PERFILIMG'] ?>"  style= "height: 241px;width: 214px;margin-bottom: 20px;">          
             </div>
             <div class="col-3">
                 <label class="col-form-label">Modificar foto de perfil</label>
-                <input type="file" name="file" value="Seleccionar foto de perfil">
+                <input type="file" name="file" value="<?= $_SESSION['PERFILIMG'] ?>">
                 <?php
                 if(isset($_GET['ERRORIMG'])){
                 ?> 

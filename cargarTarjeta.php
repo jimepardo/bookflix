@@ -32,7 +32,7 @@
 			die();
 		}
 		$cvv=intval($_POST["cvv"]);
-		$tarjeta=intval($_POST["tarjeta"]);
+		$tarjeta=($_POST["tarjeta"]);
 		$fecha=$_POST["fecha"];
 		$sql="SELECT * FROM tarjeta WHERE numero='$tarjeta'";
 		$query=mysqli_query($conexion,$sql);
@@ -40,7 +40,7 @@
 		if( ($cantQ)==0 ){
 			$sql="INSERT INTO tarjeta (`numero`,`fechaVencimiento`,`cvv`)VALUES('$tarjeta','$fecha','$cvv')";
 			$query=mysqli_query($conexion,$sql);
-			$sql="UPDATE usuario SET numeroTarjeta = $tarjeta WHERE emailUsuario = $user";
+			$sql="UPDATE usuario SET numeroTarjeta = $tarjeta , permisoUsuario = $plan WHERE id = $userid";
 			$query=mysqli_query($conexion,$sql);
 			$sql="INSERT INTO suscripcion (`fechaSuscripcion`,`montoSuscripcion`,`idUsuario`)VALUES(current_date,$precio,'$userid')";
 			$query=mysqli_query($conexion,$sql);

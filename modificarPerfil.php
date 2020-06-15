@@ -18,7 +18,7 @@
 		$sql="SELECT * FROM perfil WHERE nombrePerfil='$nombre' AND idUsuario='$id' AND borradoLogico=0";
 		$query=mysqli_query($conexion,$sql);
 		$cantQ=mysqli_num_rows($query);
-		if ($cantQ == 1 ) {
+		if ($cantQ == 1 && ($_POST["nombrePerfil"]!=$_SESSION["PERFIL"])) {
 			$error="Ya existe un usuario con ese nombre";
 			$link.="&ERRORUSR=$error";
 			header("Location: $link");
@@ -35,10 +35,7 @@
 		$arg[$cantArg]=$sqlName;
 		$cantSeteado++;
 		$cantArg++;
-		
 		$result=uploadImg($_POST['nombrePerfil']);
-	}else{
-		$result=5;
 	}
 	if (isset($_POST['autor']) ) {
 		if ($_POST['autor'] != 0)	{
@@ -63,56 +60,49 @@
 		}	
 		$arg[$cantArg]=$sqlGenero;
 		$cantArg++;
-		
 	}
-	if (is_int($result)) {
-		switch ($result) {
-			case 1:
-				$error="El archivo es muy grande";
-				$link.="&ERRORIMG=$error";
-				header("Location: $link");
-				die();
-			break;
+		if (is_int($result)) {
+			switch ($result) {
+				case 1:
+					$error="El archivo es muy grande";
+					$link.="&ERRORIMG=$error";
+					header("Location: $link");
+					die();
+				break;
 
-			case 2:
-				$error="Hubo un error al cargar el archivo,vuelva a intentarlo";
-				header("Location: verPerfil.php?ERRORIMG=$error");
-				die();
-			break;
+				case 2:
+					$error="Hubo un error al cargar el archivo,vuelva a intentarlo";
+					header("Location: verPerfil.php?ERRORIMG=$error");
+					die();
+				break;
 
-			case 3:
-				$error="El tipo de archivo no esta permitido";
-				$link.="&ERRORIMG=$error";
-				header("Location: $link");
-				die();
-			break;
-
-			case 4:
-				
-			break;	
-			case 5:
-				$pathImg=$_SESSION["PERFILIMG"];
-			break;	
-			}
-	}else{
+				case 3:
+					$error="El tipo de archivo no esta permitido";
+					$link.="&ERRORIMG=$error";
+					header("Location: $link");
+					die();
+				break;
+				case 4:
+				break;	
+				}
+		}else{
 		$pathImg.=$result;
 		$sqlImg="imagenPerfil='$pathImg'";
 		$arg[$cantArg]=$sqlImg;
-		$cantArg++;		
-	}	
+		$cantArg++;
+		$_SESSION['PERFILIMG']=$pathImg;
+		}	
 	$sql.=$arg[0];
 	for ($i=1; $i <$cantArg ; $i++) { 
 		$sql.=" , ".$arg[$i];	
 	}
-	
 	$sql.=" WHERE nombrePerfil='$nombrePerfil' AND idUsuario=$id";
 	$query=mysqli_query($conexion,$sql);
-	echo $sql;
 	$_SESSION['AUTORFAV']=$autor;
 	$_SESSION['GENEROFAV']=$genero;
 	$_SESSION['PERFIL']=$nombre;
-	$_SESSION['PERFILIMG']=$pathImg;
-	header("Location: verPerfil.php?Exito");
+	header("Location: verPerfil.php?Exito=$pathImg");
+	
 
 
 ?>

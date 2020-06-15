@@ -27,10 +27,10 @@
 		$query=mysqli_query($conexion,$sql);
 		$cantQ=mysqli_num_rows($query);
 		if( ($cantQ)==0 ){
-			$sql="INSERT INTO usuario (`nombreUsuario`,`emailUsuario`,`password`,`apellido`,`permisoUsuario`)VALUES('$nombre','$email','$password','$apellido',1)";
+			$sql="INSERT INTO usuario (`nombreUsuario`,`emailUsuario`,`password`,`apellido`,`permisoUsuario`)VALUES('$nombre','$email','$password','$apellido',0)";
 			$query=mysqli_query($conexion,$sql);
-			header("Location: listaprecios.php");
 			$sesion->set('EMAIL',$email);
+			header("Location: listaprecios.php");	
 			die();
 		}else{
 			$error="El mail ya existe";
