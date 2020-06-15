@@ -1,0 +1,45 @@
+
+body{
+    margin-top: 6%;
+    color: #f5f5f1;
+}
+
+.desc{
+    font-size: 13pt;
+    color: #f5f5f1;
+}
+
+.gen{
+    color:#737373;
+    font-size: 12pt;
+}
+
+.clasif{
+    color: #f5f5f1;
+}
+
+/*
+ <div class="media">
+            
+            <div class="media-body text-white col-9">
+                <h1 class="ml-3"><strong><?php echo $mostrar['nombreLibro']?></strong></h1>
+                <p class="ml-4 col-md-11 desc"><?php echo $mostrar['descripcionLibro']?></p>
+           
+            </div>
+            <img src="<?php echo $mostrar['portadaLibro']?>" class="d-flex justify-content-end  " alt="foto" style="heigth:180pt; width:180pt;">
+        </div>
+    </div>  
+<br>
+    <div class="row ">
+        <div class="col-md-2">
+            <p class="clasif">Clasificación: ★★★★★</p>
+        </div>
+        <div class="media-body text-right col-md-4">
+            <p class=" gen "><i>ISBN: <?php echo $mostrar['ISBN']?></i></p>
+            <p class=" gen "><i>Género: <?php echo $mostrar['nombreGenero']?></i></p>
+            <p class=" gen "><i>Autor: <?php echo $mostrar['nombreAutor']?></i></p>
+            <p class=" gen "><i>Editorial: <?php echo $mostrar['nombreEditorial']?></i></p>
+            <p class=" gen lanza"><i>Fecha de lanzamiento: &nbsp; <?php echo $mostrar['fechaLanzamiento']?></i></p>
+            <p class=" gen lanza "><i>Disponibilidad desde el&nbsp; <?php echo $mostrar['fechaDesde']?> &nbsp; a&nbsp;  <?php if(isset($mostrar['fechaHasta'])) echo $mostrar['fechaHasta']; else{ echo "Indefinidamente"; }?> </i></p>
+        </div>
+    </div>*/
