@@ -11,16 +11,19 @@
 			case 1:
 				$error="El archivo es muy grande";
 				header("Location: seleccionarPerfil.php?ERROR=$error");
+				die();
 				break;
 		
 			case 2:
 				$error="Hubo un error al cargar el archivo,vuelva a intentarlo";
 				header("Location: seleccionarPerfil.php?ERROR=$error");
+				die();
 				break;
 		
 			case 3:
 				$error="El tipo de archivo no esta permitido";
 				header("Location: seleccionarPerfil.php?ERROR=$error");
+				die();
 				break;
 			case 4:
 				$result="avatar.png";
@@ -38,9 +41,11 @@
 		}else{
 			$error="Debe ingresar un nombre para el perfil,el mismo no exceder los 8 caracteres";
 			header("Location: seleccionarPerfil.php?ERROR=$error");
+			die();
 		}
 	}else{
 		$error="Debe ingresar un nombre para el perfil,el mismo no puede repetirse";
 		header("Location: seleccionarPerfil.php?ERROR=$error");
+		die();
 	}		
 ?>

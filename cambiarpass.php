@@ -120,7 +120,7 @@
                 <label for="pass">Contraseña antigua</label>    
                 <input type="password" class="form-control algo" id="pass" name="pass" placeholder="Ingrese su antigua contraseña"  value="<?php if(isset($_GET['PASSW'])){ echo $_GET['PASSW'];}?>" required>
                 <div class="valid-feedback">Campo completado</div>
-                <div class="invalid-feedback">Debe ingresar la contraseña actual</div>
+                <div class="invalid-feedback" id="feedback-pass">Debe ingresar la contraseña actual</div>
             </div>
             <div class="form-group">
                 <label for="pass1">Contraseña nueva</label>
@@ -179,12 +179,30 @@
       window.addEventListener('load', function() {
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
         var forms = document.getElementsByClassName('needs-validation');
+        var pass = document.getElementById("pass");
+        var pass1 = document.getElementById("pass1");
+        var pass2 = document.getElementById("pass2");
+        var invalid = document.getElementById("feedback-pass");
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function(form) {
           form.addEventListener('submit', function(event) {
             if (form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
+              invalid.innerHTML= "";
+              invalid.innerHTML= "Debe ingresar la contraseña actual";
+            }else{
+            var validity=( (pass.value) == (pass1.value));
+            var validity2=( (pass.value) == (pass2.value));//hacen falta 2 validity porque no me los compara bien sino xd
+                if (validity==validity2) {
+                    pass.setCustomValidity("Las constraseñas son iguales");
+                    invalid.innerHTML= "";
+                    invalid.innerHTML= "Las 3 contraseñas tienen el mismo valor !";
+                    if(form.checkValidity()===false){
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                }
             }
             form.classList.add('was-validated');
           }, false);
