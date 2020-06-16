@@ -11,7 +11,6 @@ $num = (isset($_POST['num'])) ? $_POST['num'] : '';
 $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
 $borrado = (isset($_POST['borrado'])) ? $_POST['borrado'] : ''; 
 $pdf = (isset($_FILES['pdf'])) ? $_FILES['pdf'] : '';
-
 $libro = (isset($_POST['libro'])) ? $_POST['libro'] : '';
 $fechaD = (isset($_POST['fechaD'])) ? $_POST['fechaD'] : '';
 $fechaH = (isset($_POST['fechaH'])) ? $_POST['fechaH'] : '';
@@ -51,7 +50,7 @@ switch($opcion){
         if ( $result < 0 ) {
                 $data="error1"; //error la fecha desde es menor a la fecha Hasta ingresada              
         }else{ //si las fechas estan bien y el numero de capitulo no se repiten para ese libro seleccionado entonces pregunto por los pdf y agrego
-            $consulta="SELECT * FROM capitulo WHERE numeroCapitulo=$num AND idLibro=$libro";
+            $consulta="SELECT * FROM vistaprevia WHERE numeroVistap=$num AND idLibro=$libro";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             if ($data= $resultado->fetch()){
@@ -65,15 +64,15 @@ switch($opcion){
                     $nombrePdf= $num."-".$libro."-".$nomPdf;
                     if ($tamanio<= 999999){
                         if ($tipoPdf=="application/pdf") {    // compara que sea un tipo correcto de imagen   
-                            $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfs/';
+                            $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfsVP/';
 
                             //Mover imagen del directorio temporal al directorio escogido
                             move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino.$nombrePdf);
-                            $consulta = "INSERT INTO capitulo (numeroCapitulo, nombreCapitulo, borradoLogico, pdf, idLibro, fechaDesde, fechaHasta) VALUES('$num', '$nombre', '0', '$nombrePdf', '$libro', '$fechaD', '$fechaH')";          
+                            $consulta = "INSERT INTO vistaprevia (numeroVistap, nombreVistap, borradoLogico, pdf, idLibro, fechaDesde, fechaHasta) VALUES('$num', '$nombre', '0', '$nombrePdf', '$libro', '$fechaD', '$fechaH')";          
                             $resultado = $conexion->prepare($consulta);
                             $resultado->execute(); 
 
-                            $consulta = "SELECT * FROM capitulo ORDER BY idCapitulo DESC LIMIT 1";
+                            $consulta = "SELECT * FROM vistaprevia ORDER BY idVistap DESC LIMIT 1";
                             $resultado = $conexion->prepare($consulta);
                             $resultado->execute();
                             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -83,7 +82,7 @@ switch($opcion){
                     }else{
                         $data="error4";// La portada pesa demasiado
                     }
-                }                
+                }               
             }
         }
             
@@ -95,28 +94,28 @@ switch($opcion){
         if ( $result < 0 ) {
                 $data="error2";
         }else{
-            $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo= '$nombre', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico=0   ";     
+            $consulta = "UPDATE vistaprevia SET numeroVistap='$num', nombreVistap= '$nombre', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idVistap='$id' AND borradoLogico=0   ";     
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();       
             
-            $consulta = "SELECT * FROM capitulo WHERE idCapitulo='$id' ";              
+            $consulta = "SELECT * FROM vistaprevia WHERE idVistap='$id' ";              
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
         }
         break;        
     case 3://baja logica, solo modifica
-        $consulta = "UPDATE capitulo SET borradoLogico='$borrado' WHERE idCapitulo='$id' ";       
+        $consulta = "UPDATE vistaprevia SET borradoLogico='$borrado' WHERE idVistap='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();                 
         
-        $consulta = "SELECT * FROM capitulo WHERE idCapitulo='$id' ";       
+        $consulta = "SELECT * FROM vistaprevia WHERE idVistap='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);         
         break;        
     case 4:    
-        $consulta = "SELECT * FROM capitulo";
+        $consulta = "SELECT * FROM vistaprevia";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

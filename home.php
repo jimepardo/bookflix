@@ -273,8 +273,8 @@
                                         <img class="card-img-top " style="height:400px; width:800px" src="/bookflix/bookImages/<?php echo $name['portadaLibro']?>" alt="Card image cap">
 
                                         <div class="card-body">
-                                            <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:left;"><?php echo recortar_texto($titulo, 50)?></p>
-                                            <p class="card-text" style="color:#221f1f; font-size:13px; text-align:left;"><?php echo recortar_texto($desc, 45)?></p>
+                                            <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:left;"><?php echo recortar_texto($titulo, 25)?></p>
+                                            <p class="card-text" style="color:#221f1f; font-size:13px; text-align:left;"><?php echo recortar_texto($desc, 56)?></p>
                                             
                                             <?php if ($_SESSION['PERMISO'] == 1 || $_SESSION['PERMISO'] == 2 ){?>
                                             <a href="detallelibro.php?nombreLibro=<?php echo $name['nombreLibro'];?>&idLibro=<?php echo $name['idLibro'];?>" class="btn btn-outline-danger ">Ver detalle</a>
@@ -300,7 +300,49 @@
                 <h2 class="titulos"> Novedades</h2>
                 <div style="color:white; text-size:20px; margin-left: 20px;">No hay novedades en el dia de hoy</div>
                 <?php
-                }  /* fin del else del resultado */
+                }  /* fin del else del resultado */?>
+                 <?php        
+               $sql="SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY RAND() LIMIT 1 ";
+                $query= mysqli_query($conexion,$sql); 
+                $name = mysqli_fetch_array($query) 
+                ?>
+                <!--primer slide -->
+                <div class="netflix-slider mx-5">                
+                    <h2 class="titulos"><?php echo $name['nombreGenero']?> </h2>
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <?php  
+                                $sql2="SELECT * FROM libro l INNER JOIN genero g ON (g.idGenero=l.idGenero) WHERE l.idGenero= '".$name['idGenero']."' AND l.borradoLogico=0";
+                                $query2=mysqli_query($conexion,$sql2);
+                                while ($name2 = mysqli_fetch_array($query2)) {
+                                    $titulo= $name2['nombreLibro'];
+                                    $desc= $name2['descripcionLibro'];
+                                ?>
+                                <div class="swiper-slide">
+                                    <div class="card" style="width: 18rem;">
+                                        <img class="card-img-top" style="height:400px; width:800px" src="/bookflix/bookImages/<?php echo $name2['portadaLibro']?>" alt="Card image cap">
+                                        <div class="card-body">
+                                            <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:left;"><?php echo recortar_texto($titulo, 25)?></p>
+                                            <p class="card-text" style="color:#221f1f; font-size:13px; text-align:left;"><?php echo recortar_texto($desc, 56)?></p>
+                                            <a href="detallelibro.php?nombreLibro=<?php echo $name2['nombreLibro'];?>&idLibro=<?php echo $name2['idLibro'];?>" class="btn btn-outline-danger ">Ver detalle</a>
+                                            <!-- <a> <button type="button" class="btn btn-danger" style="font-size:13px;">Agregar a Mi lista</button></a>--><br><br>
+                                            <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha: <?php echo $name2['fechaLanzamiento']?></p>
+                                        </div> <!--fin card-body-->
+                                    </div> <!--fin card-->
+                                </div> <!--fin swiper-slide-->
+                                <?php 
+                                } ?><!--fin while-php-->
+                                </div> <!--fin swiper-wraper-->
+                                <!-- Add Pagination -->
+                                <div class="swiper-pagination"></div> 
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                        </div> <!--fin swiper-container-->
+                </div> <!--fin netflix-slider-->
+
+                <?php 
+                
+             /* fin if resultado*/
         }/* fin if permisos 1 2 3  */
     } /* fin if del permiso, sino tiene permiso, no esta registrado */    
     else{ 
@@ -324,8 +366,8 @@
                             <div class="card-body">
                                 <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:left;"><?php echo recortar_texto($titulo, 50)?></p>
                                 <p class="card-text" style="color:#221f1f; font-size:13px; text-align:left;"><?php echo recortar_texto($desc, 45)?></p>                                
-                                <a href="detallelibro.php?nombreLibro=<?php echo $name['nombreLibro'];?>&idLibro=<?php echo $name['idLibro'];?>" class="btn btn-outline-danger ">Ver detalle</a>
-                                <a href="registrarse.php?error1"> <button type="button" class="btn btn-danger" style="font-size:13px;">Ver mas</button></a> <br><br>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#vermasng" data-whatever="<?php echo $desc?>">Ver mas</button> 
+                                <a href="registrarse.php?error1"> <button type="button" class="btn btn-danger" style="font-size:13px;">Ver detalle</button></a> <br><br>
                                 <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha: <?php echo $name['fechaNovedad']?></p>            
                             </div> <!-- fin card-body-->
                         </div> <!-- fin card-->
@@ -375,6 +417,25 @@
         });
     </script>
 
+    <!-- Ver mas Modal novedades generales-->
+    <!-- Modal -->
+    <div class="modal fade" id="vermasng" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Novedad</h5>
+            
+          </div>
+          <div class="modal-body">
+            <p class="pt-3 pr-2"></p>
+           
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>    
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
@@ -408,6 +469,21 @@
         <hr>
         <hr>
     </footer>
+    <script type="text/javascript">
+     $(document).ready(function(){
+        $(document).on('show.bs.modal', '#vermasng', function (e) {
+            var button= $(e.relatedTarget);
+            var recipient= button.data('whatever');
+            var modal= $(this);
+            
+            modal.find('.modal-title').text('Novedad');
+            modal.find('.modal-body p').text(recipient);
+            $('#vermasng').modal('show');
+            $('#vermasng').trigger('focus');
+        });
+     });
+       
+    </script> 
     
 </body>
 

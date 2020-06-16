@@ -258,7 +258,7 @@
                 <p>Capitulos</p>
                 <?php if (mysqli_num_rows($consulta2)!= 0){
                      while($mostrar2=mysqli_fetch_array($consulta2)) {?>
-                    <a href="leerLibro.php?&id=<?php echo $mostrar2['idLibro']?>&nombrePerfil=<?php echo $_SESSION['PERFIL']?>&numeroCapitulo=<?php echo $mostrar2['numeroCapitulo']?>" class=" btn btn-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
+                    <a href="leerLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['PERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>" class=" btn btn-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
                 <?php 
                      }
                 }else{

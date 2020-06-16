@@ -33,13 +33,19 @@
               <span class="icon text-gray-600">
                 <i class="fas fa-arrow-right"></i>
               </span>
-              <span class="text">Carga, Modificación y Borrado de Libros </span>
+              <span class="text">Alta, baja y modificación de Libros </span>
             </a><br> 
             <a href="capitulo.php" class="btn btn-light btn-icon-split">
               <span class="icon text-gray-600">
                 <i class="fas fa-arrow-right"></i>
               </span>
-              <span class="text">Carga, Modificación y Borrado de Capitulos</span>
+              <span class="text">Alta, baja y modificación de Capitulos</span>
+            </a><br>
+            <a href="vistaprevia.php" class="btn btn-light btn-icon-split">
+              <span class="icon text-gray-600">
+                <i class="fas fa-arrow-right"></i>
+              </span>
+              <span class="text">Alta, baja y modificación de Vistas Previas </span>
             </a><br>
           </div>
           <div class="col-auto">

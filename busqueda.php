@@ -202,9 +202,10 @@
 	     if(mysqli_num_rows($result2) == 0){
 		 echo "<p style='color:white; font-size:17pt;' class='pl-5'> No se encontraron resultados para su búsqueda </p>";
 		 }
-	     else {
-		 while($mostrar=mysqli_fetch_array($result2)) {?>
+	     else {?>
             <h3 class="text-white pl-4">Resultados de su búsqueda</h3><br>
+		<?php while($mostrar=mysqli_fetch_array($result2)) {?>
+            
 		 	<div class="card-deck row d-flex pl-5">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row no-gutters">

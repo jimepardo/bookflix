@@ -2,11 +2,11 @@
  
 <!--INICIO del cont principal-->
 <div class="container-fluid">
-    <h1> &nbsp Capitulos de libros</h1>
+    <h1> &nbsp Vista previa de libros</h1>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">            
-                    <button id="btnNuevo" type="button" class="btn btn-danger" data-toggle="modal">Cargar Capitulo</button>   
+                    <button id="btnNuevo" type="button" class="btn btn-danger" data-toggle="modal">Cargar Vista Previa</button>   
                  
                 </div>    
             </div>    
@@ -19,9 +19,9 @@
                     <table id="tablaCap" class="table table-striped table-bordered table-condensed" style="width:100%">
                         <thead class="text-center">
                             <tr>
-                                <th>ID Capitulo</th>
-                                <th>N° capitulo</th>
-                                <th>Nombre capitulo</th>
+                                <th>ID Vista Previa</th>
+                                <th>N° vista previa</th>
+                                <th>Nombre vista previa</th>
                                 <th>Borrado</th>                  
                                 <th>Archivo PDF</th>
                                 <th>ID Libro</th>
@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">                
-                                    <label for="num" class="col-form-label">N° Cap</label>
+                                    <label for="num" class="col-form-label">N° Vista</label>
                                     <input type="number" class="form-control" id="num" name="num" required>
 
                                 </div>
@@ -77,7 +77,7 @@
                             
                             <div class="col-lg-5">
                                 <div class="form-group">
-                                    <label for="nombre" class="col-form-label">Nombre capitulo:</label>
+                                    <label for="nombre" class="col-form-label">Nombre vista previa:</label>
                                     <input type="text" class="form-control" id="nombre" name="nombre" required>
                                 </div>  
                             </div>
@@ -128,5 +128,5 @@
 </div>
 <?php require_once "vistas/parte_inferior.php"?>
 
-<script type="text/javascript" src="capitulo.js"></script>
+<script type="text/javascript" src="vistaprevia.js"></script>
     

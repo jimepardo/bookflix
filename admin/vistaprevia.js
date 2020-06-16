@@ -3,15 +3,15 @@ $(document).ready(function(){
     opcion = 4;
     tablaCap = $("#tablaCap").DataTable({
         "ajax":{            
-            "url": "vistas/crudcap.php", 
+            "url": "vistas/crudvistap.php", 
             "method": 'POST', //usamos el metodo POST
             "data":{opcion:opcion}, //enviamos opcion 4 para que haga un SELECT
             "dataSrc":""
         },
         "columns":[
-            {"data": "idCapitulo"},
-            {"data": "numeroCapitulo"},
-            {"data": "nombreCapitulo"},
+            {"data": "idVistap"},
+            {"data": "numeroVistap"},
+            {"data": "nombreVistap"},
             {"data": "borradoLogico"},
             {"data": "pdf"},
             {"data": "idLibro"},
@@ -51,7 +51,7 @@ $(document).ready(function(){
         console.log(Array.from(form_data2));
 
         $.ajax({
-            url: "vistas/crudcap.php",            
+            url: "vistas/crudvistap.php",            
             dataType: "json",
             cache: false,
             contentType: false,
@@ -121,7 +121,7 @@ $("#btnNuevo").click(function(){
     $("#formcap").trigger("reset");
     $(".modal-header").css("background-color", "#CE0909");
     $(".modal-header").css("color", "#F5F5F1");
-    $(".modal-title").text("Nuevo Capitulo");            
+    $(".modal-title").text("Nueva vista previa");            
     $("#modalCRUD").modal("show");           
 });    
     
@@ -150,7 +150,7 @@ $(document).on("click", ".btnEditar", function(){
         
     $(".modal-header").css("background-color", "#7D7A7A");
     $(".modal-header").css("color", "#F5F5F1");
-    $(".modal-title").text("Modificar capitulo");            
+    $(".modal-title").text("Modificar vista previa");            
     $("#modalCRUD").modal("show");  
     document.getElementById("pdf").disabled= true;
     document.getElementById("borrado").disabled= true;
@@ -168,7 +168,7 @@ $(document).on("click", ".btnBorrar", function(){
     
     $(".modal-header").css("background-color", "#CE0909");
     $(".modal-header").css("color", "#F5F5F1");
-    $(".modal-title").text("Borrar capitulo");            
+    $(".modal-title").text("Borrar vista previa");            
     $('#modalCRUD').modal('show'); 
     document.getElementById("num").disabled = true;
     document.getElementById("nombre").disabled = true;
