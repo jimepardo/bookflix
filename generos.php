@@ -236,8 +236,8 @@
                                     <div class="card" style="width: 18rem;">
                                         <img class="card-img-top" style="height:400px; width:800px" src="/bookflix/bookImages/<?php echo $name2['portadaLibro']?>" alt="Card image cap">
                                         <div class="card-body">
-                                            <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:left;"><?php echo recortar_texto($titulo, 50)?></p>
-                                            <p class="card-text" style="color:#221f1f; font-size:13px; text-align:left;"><?php echo recortar_texto($desc, 45)?></p>
+                                            <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:left;"><?php echo recortar_texto($titulo, 25)?></p>
+                                            <p class="card-text" style="color:#221f1f; font-size:13px; text-align:left;"><?php echo recortar_texto($desc, 56)?></p>
                                             <a href="detallelibro.php?nombreLibro=<?php echo $name2['nombreLibro'];?>&idLibro=<?php echo $name2['idLibro'];?>" class="btn btn-outline-danger ">Ver detalle</a>
                                             <!-- <a> <button type="button" class="btn btn-danger" style="font-size:13px;">Agregar a Mi lista</button></a>--><br><br>
                                             <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha: <?php echo $name2['fechaLanzamiento']?></p>
