@@ -73,7 +73,13 @@
                 
                 <form class="col-12" action="BaseDatosYConex/loguear.php" method="POST">
                     <div class="form-group" id="user-group"><i class="fas fa-user icon"></i>
-                        <input type="text" class="form-control" placeholder="E-mail" id="email" name="email" required>
+                        <input type="text" class="form-control" placeholder="E-mail" id="email" name="email" 
+                        <?php 
+                            if(isset($_GET["mail"])){
+                                $value=$_GET["mail"];
+                                echo "value=$value";
+                            }
+                        ?> required>
                     </div>
                     <div class="form-group" id="contrasena-group"><i class="fas fa-lock icon"></i>
                         <input type="password" class="form-control" placeholder="Contraseña" minlength="3" maxlength="12" id="pass" name="pass" required>

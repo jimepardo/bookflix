@@ -47,6 +47,13 @@
 </head>
 
 <body >
+<div class="d-flex justify-content-center"> 
+    <?php if (isset($_GET['completar'])){?>
+    <div class="alert alert-warning">Complete el registro para poder acceder a Bookflix</div>
+    <br><br><br>
+    <?php  }
+    ?>
+</div>
 <?php
     $user=$_SESSION["EMAIL"];
     $sql="SELECT * FROM usuario WHERE emailUsuario='" . $user . "'";
@@ -73,7 +80,7 @@
                         <p class="card-text">Disfruta dónde quieras, cuando quieras</p>
                         <p class="card-text">Cancela en cualquier momento</p>
                     </div><br>
-                    <a href="formulariotarjeta.php?plan=1" id="bas" name="bas" class="card-footer btn bg-danger text-white">Contratar</a> 
+                    <a href="/bookflix/formulariotarjeta.php?plan=1" id="bas" name="bas" class="card-footer btn bg-danger text-white">Contratar</a> 
                 </div>                
             </div> <!-- precio 1-->
             <div class="col-md-4"> <!-- precio 2-->
@@ -88,7 +95,7 @@
                         <p class="card-text">Disfruta dónde quieras, cuando quieras</p>
                         <p class="card-text">Cancela en cualquier momento</p>
                     </div><br>
-                    <a href="formulariotarjeta.php?plan=2" id="prem" name="prem" class="card-footer btn bg-danger text-white" style="color:#000;">Contratar</a>
+                    <a href="/bookflix/formulariotarjeta.php?plan=2" id="prem" name="prem" class="card-footer btn bg-danger text-white" style="color:#000;">Contratar</a>
                 </div>                
             </div> <!-- precio 2-->
         </div>

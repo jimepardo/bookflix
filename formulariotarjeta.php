@@ -53,7 +53,7 @@
     <div class="container-fluid py-5">
         
         <div class="row d-flex justify-content-center">
-        
+
             <form method="POST" action="cargarTarjeta.php">
             <h3><strong>Configura tu tarjeta de crédito</strong></h3><br>
                 <div class="row">

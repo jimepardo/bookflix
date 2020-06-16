@@ -180,6 +180,12 @@
                     </span>
                     <span class="text">Buscar usuarios registrados</span>
                   </a>
+                  <a href="#" class="btn btn-light btn-icon-split">
+                    <span class="icon text-gray-600">
+                      <i class="fas fa-balance-scale"></i>
+                    </span>
+                    <span class="text">Cobrar Suscripciones</span>
+                  </a>
                   <a href="../home.php" class="btn btn-light btn-icon-split">
                     <span class="icon text-gray-600">
                       <i class="fas fa-arrow-right"></i>

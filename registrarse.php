@@ -50,6 +50,11 @@
                     <br><br><br>
               <?php  }
             ?>
+    <?php if (isset($_GET['regis'])){?>
+            <div class="alert alert-warning">No se ha encontrado el usuario solicitado, lo invitamos a registrarse !</div>
+            <br><br><br>
+    <?php  }
+    ?>
     </div>
         <div class="d-flex justify-content-center">
 

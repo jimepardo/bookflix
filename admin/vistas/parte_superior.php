@@ -129,6 +129,12 @@
                     <span>Buscar usuarios registrados</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="buscarusuarios.php">
+                <i class="fas fa-balance-scale"></i>
+                    <span>Cobrar Suscripciones</span></a>
+            </li>
+
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="../home.php">

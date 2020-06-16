@@ -26,8 +26,8 @@
 			$precio=280;
 		}
 		$cant= $_POST["cvv"].$_POST["tarjeta"];
-		if (strlen($cant)==20) {
-			$link.="&error-tarjeta=La tarjeta junto al codigo debe tener 19 numeros en total, entre 0 y 9";
+		if (strlen($cant)!=19) {
+			$link.="&error-tarjeta=La tarjeta junto al codigo debe tener 19 numeros en total";
 			header("Location: $link");
 			die();
 		}
