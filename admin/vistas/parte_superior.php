@@ -133,7 +133,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="buscarusuarios.php">
+                <a class="nav-link" href="cobrarPlan.php">
                 <i class="fas fa-balance-scale"></i>
                     <span>Cobrar Suscripciones</span></a>
             </li>

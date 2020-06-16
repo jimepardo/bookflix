@@ -186,7 +186,7 @@
                     </span>
                     <span class="text">Buscar usuarios registrados</span>
                   </a>
-                  <a href="#" class="btn btn-light btn-icon-split">
+                  <a href="cobrarPlan.php" class="btn btn-light btn-icon-split">
                     <span class="icon text-gray-600">
                       <i class="fas fa-balance-scale"></i>
                     </span>
