@@ -48,8 +48,8 @@
 
 <body >
 <div class="d-flex justify-content-center"> 
-    <?php if (isset($_GET['completar'])){?>
-    <div class="alert alert-warning">Complete el registro para poder acceder a Bookflix</div>
+    <?php if (isset($_GET['ERROR'])){?>
+    <div class="alert alert-warning">Su suscripcion ha vencido, por favor vuelva a elegir un plan y cargar su tarjeta</div>
     <br><br><br>
     <?php  }
     ?>

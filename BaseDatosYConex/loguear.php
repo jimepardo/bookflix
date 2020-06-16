@@ -15,9 +15,12 @@
 				die();
 			}else{
 				session_destroy();
+				session_start();
+				$_SESSION["EMAIL"]=$_POST["email"];
 				$error="?ERROR=No tiene su suscripcion al dia";
 				$link="../login.php".$error;
 				header("Location: $link");
+				die();
 			}
 			break;
 		case 2:
@@ -26,9 +29,12 @@
 			die(); 
 			}else{
 				session_destroy();
-				$error=;
+				session_start();
+				$_SESSION["EMAIL"]=$_POST["email"];
+				$error="?ERROR=No tiene su suscripcion al dia";
 				$link="../login.php".$error;
 				header("Location: $link");
+				die();
 			}
 			break;
 		case 3:
@@ -49,7 +55,7 @@
 				
 	function validarSuscripcion(){	
 	$idUser=$_SESSION["ID"];
-	$sql="SELECT * FROM suscipcion WHERE idUsuario=$idUser AND borradoLogica= 0";
+	$sql="SELECT * FROM suscripcion WHERE idUsuario=$idUser AND borradoLogica= 0";
 	$query=mysqli_query($conexion,$sql);
 	if (mysqli_num_rows($query)==1) {
 	  return true;
