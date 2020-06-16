@@ -10,7 +10,7 @@
 			header("Location: ../listaprecios.php/completar");
 			break;
 		case 1:
-			if (validarSuscripcion()) {
+			if (validarSuscripcion($conexion)) {
 				header("Location: ../seleccionarPerfil.php");
 				die();
 			}else{
@@ -18,13 +18,13 @@
 				session_start();
 				$_SESSION["EMAIL"]=$_POST["email"];
 				$error="?ERROR=No tiene su suscripcion al dia";
-				$link="../login.php".$error;
+				$link="../listaprecios.php".$error;
 				header("Location: $link");
 				die();
 			}
 			break;
 		case 2:
-			if (validarSuscripcion()) {
+			if (validarSuscripcion($conexion)) {
 			header("Location: ../seleccionarPerfil.php");
 			die(); 
 			}else{
@@ -32,7 +32,7 @@
 				session_start();
 				$_SESSION["EMAIL"]=$_POST["email"];
 				$error="?ERROR=No tiene su suscripcion al dia";
-				$link="../login.php".$error;
+				$link="../listaprecios.php".$error;
 				header("Location: $link");
 				die();
 			}
@@ -53,11 +53,12 @@
 	}
 		
 				
-	function validarSuscripcion(){	
+	function validarSuscripcion($conexion){	
 	$idUser=$_SESSION["ID"];
 	$sql="SELECT * FROM suscripcion WHERE idUsuario=$idUser AND borradoLogica= 0";
 	$query=mysqli_query($conexion,$sql);
-	if (mysqli_num_rows($query)==1) {
+	$cant=mysqli_num_rows($query);
+	if ($cant==1) {
 	  return true;
 	}
 	return false;

@@ -47,13 +47,6 @@
 </head>
 
 <body >
-<div class="d-flex justify-content-center"> 
-    <?php if (isset($_GET['ERROR'])){?>
-    <div class="alert alert-warning">Su suscripcion ha vencido, por favor vuelva a elegir un plan y cargar su tarjeta</div>
-    <br><br><br>
-    <?php  }
-    ?>
-</div>
 <?php
     $user=$_SESSION["EMAIL"];
     $sql="SELECT * FROM usuario WHERE emailUsuario='" . $user . "'";
@@ -64,6 +57,13 @@
 <hr> 
  <div class="container-fluid ">
     <div class="container py-5">
+        <div class="d-flex justify-content-center"> 
+        <?php if (isset($_GET['ERROR'])){?>
+        <div class="alert alert-warning">Su suscripcion ha vencido, por favor vuelva a elegir un plan y cargar su tarjeta</div>
+        <br><br><br>
+        <?php  }
+         ?>
+        </div>
         <h3><strong>Elige el plan de Bookflix ideal para ti.</strong></h3>
         <p style="font-size: 20px'">&nbspCambia de un plan a otro cuando quieras.<br><br></p>
         <div class="row d-flex justify-content-center">
