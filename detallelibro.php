@@ -280,6 +280,11 @@
                             </a>
 
                             <?php
+                        }else{
+                            ?>
+
+                            <p>Todavia no leyo nada</p>
+                            <?php
                         }
                     ?>
             </div>
