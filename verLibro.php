@@ -206,26 +206,43 @@
             </div><br>
             
                    
-<?php 
+        <?php 
+        //si es distinto el capitulo q me llego al que esta en la tabla 
+            $sql6="SELECT * FROM leyendo WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' AND idCapitulo!='".$_GET['num']."'  ";
+            $query6=mysqli_query($conexion,$sql6);
+            $num2=mysqli_num_rows($query6);
 
-$sql2="SELECT * FROM leyendo WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' ";
-$result2=mysqli_query($conexion,$sql2);
+            //selecciono y actualizo
+            if($num2==1){
+                
+                $sql5="UPDATE leyendo SET idCapitulo='".$_GET['num']."' WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' ";
+                $query5=mysqli_query($conexion,$sql5);
+                $sql="SELECT pdf FROM capitulo WHERE idLibro='".$_GET['id']."' AND nombreCapitulo='".$_GET['nombrepdf']."' ";
+                $result=mysqli_query($conexion,$sql);
+                $mostrar3=mysqli_fetch_array($result);
+            }else{
+                //sino quiere decir que es igual entonces pregunto
+                $sql2="SELECT * FROM leyendo WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' AND idCapitulo='".$_GET['num']."' ";
+                $result2=mysqli_query($conexion,$sql2);
+                $num=mysqli_num_rows($result2);
+                //es igual el capitulo al q estoy leyendo, leo nomas, no actualizo ni inserto nada
+                if($num == 1){
+                    $sql="SELECT pdf FROM capitulo WHERE idLibro='".$_GET['id']."' AND nombreCapitulo='".$_GET['nombrepdf']."' ";
+                    $result=mysqli_query($conexion,$sql);
+                    $mostrar3=mysqli_fetch_array($result);
+                }else{ 
+                    //sino quiere decir q NO ESTA AGREGADO en la tabla leyendo, entonces inserto y leo
+                    $sql1= "INSERT INTO leyendo(idPerfil, idLibro, idCapitulo) VALUES ('".$_GET['nombrePerfil']."', '".$_GET['id']."', '".$_GET['num']."')";
+                    $result4=mysqli_query($conexion,$sql1);
+                    $sql="SELECT pdf FROM capitulo WHERE idLibro='".$_GET['id']."' AND nombreCapitulo='".$_GET['nombrepdf']."' ";
+                    $result=mysqli_query($conexion,$sql);
+                    $mostrar3=mysqli_fetch_array($result);
 
-if( mysqli_num_rows($result2) == 0 ){
+                }                
+            }
 
-$sql1= "INSERT INTO leyendo(idPerfil, idLibro) VALUES ('".$_GET['nombrePerfil']."', '".$_GET['id']."')";
-$result4=mysqli_query($conexion,$sql1);
-
-}
-
-$sql="SELECT pdf FROM capitulo WHERE idLibro='".$_GET['id']."' AND nombreCapitulo='".$_GET['nombrepdf']."' ";
-$result=mysqli_query($conexion,$sql);
-$mostrar3=mysqli_fetch_array($result);
-
-
-
-
-?>
+            
+        ?>
                 <a href="<?=$_SERVER['HTTP_REFERER'] ?>"> <button class="btn btn-outline-secondary" id="boton" style="position: fixed; width: 80px; height: 80px">Volver al home</button></a>
                 <iframe id="frame" class="" src="pdfs/<?php echo $mostrar3['pdf']?>#toolbar=0&navpanes=0&scrollbar=0&page=0" style="width: 100%;height: 650px" ></iframe>
                 

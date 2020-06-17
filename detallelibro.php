@@ -258,7 +258,7 @@
                 <p>Capitulos</p>
                 <?php if (mysqli_num_rows($consulta2)!= 0){
                      while($mostrar2=mysqli_fetch_array($consulta2)) {?>
-                    <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['ID'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>" class=" btn btn-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
+                    <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
                 <?php 
                      }
                 }else{
@@ -269,6 +269,9 @@
             <div class="flex-row">            
                     <br>
                     <p>Continuar leyendo</p>
+                    <?php
+                        $sql4="SELECT * FROM leyendo WHERE idPerfil='".$_SESSION['ID']."' AND idLibro='".$_GET['idLibro']."'";
+                    ?>
             </div>
             <div class="flex-row"><br>
                 <p class="clasif">Calificar:</p>

@@ -5,9 +5,11 @@
 	$sesion = new manejadorSesiones;
 	unset($_SESSION['PERFIL']);
 	$sesion->set('PERFILIMG',$_GET['PERFILIMG']);
+	$sesion->set('IDPERFIL',$_GET['IDPERFIL']);
 	$sesion->set('GENEROFAV',$_GET['GENEROFAV']);
 	$sesion->set('AUTORFAV',$_GET['AUTORFAV']);
 	$sesion->set('PERFIL',$_GET['PERFIL']);
+
 	header('Location: home.php');
 
 ?>
