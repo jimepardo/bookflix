@@ -59,44 +59,36 @@ $(document).ready(function(){
             data: form_data2,
             type: "post",    
            success: function(data){  
-                if (data =="error1"){
-                    alertify.notify('¡Error! La fecha ingresada desde es menor a la fecha hasta ingresada ', 'error',3);
+                if (data=="error1"){
+                    alertify.notify('¡Error! La fecha HASTA cuando esta disponible el capitulo es MAYOR a la fecha HASTA cuando esta disponible el libro', 'error',6);
                 }else{
                     if (data=="error2"){
-                        alertify.notify('¡Error! El numero de capitulo ingresado para el libro seleccionado ya existe', 'error',3);
+                        alertify.notify('¡Error! La fecha DESDE cuando esta disponible el capitulo es MENOR a la fecha a partir de cuando esta disponible el libro ', 'error',6);
                     }else{
-                        if (data == "error3"){
-                            alertify.notify('¡Error! El archivo es invalido, intente con un PDF ', 'error',3);
+                        if (data=="error3"){
+                            alertify.notify('¡Error! La fecha HASTA cuando esta disponible el capitulo es MENOR a la fecha DESDE que esta disponible el mismo ', 'error',6);
                         }else{
-                            if (data == "error4"){
-                                alertify.notify('¡Error! El archivo PDF pesa mucho, elija otro', 'error',3);
+                            if (data=="error4"){
+                                alertify.notify('¡Error! El numero de capitulo ingresado para el libro seleccionado ya existe', 'error',6);
                             }else{
-                                //if(data == "error5"){ ¡Error! La fecha de hasta cuando estara disponible es inferior a la fecha de publicacion
-                                //    alerify.notify('¡Error! El archivo PDF de la vista previa no es un archivo PDF', 'error',3);
-                                //}else{
-                                //    if (data == "error6"){¡Error! La fecha ingresada DESDE es menor a la fecha de disponibilidad desde cuando esta disponible el libro seleccionado
-                                //        alerify.notify('¡Error! El archivo PDF de la vista previa pesa mucho, elija otro', 'error',3);
-                                //    }else{ 
-                                //         if (data == "error7"){La fecha ingresada HASTA es mayor a la fecha de disponibilidad de hasta cuando estara disponible el libro seleccionado
-                                //            alerify.notify('¡Error! El archivo del PDF es invalido, intente con un PDF', 'error',3);
-                                //        }else{
-                                //            if (data == "error8"){
-                                //                alerify.notify('¡Error! El archivo PDF pesa mucho, elija otro', 'error',3);
-                                //          }else{
-                                                alertify.notify('¡Cambios guardados exitosamente!','success',3);
-                                                tablaCap.ajax.reload(null, false); 
-                                                document.getElementById("num").disabled = false;
-                                                document.getElementById("nombre").disabled = false;
-                                                document.getElementById("pdf").disabled = false;
-                                                document.getElementById("libro").disabled = false;
-                                                document.getElementById("fechaD").disabled = false;
-                                                document.getElementById("fechaH").disabled = false;  
-                                                document.getElementById("borrado").disabled = false;  
-                                                $("#modalCRUD").modal("hide");
-                                            //}
-                                       // }                                             
-                                    //}
-                                //}
+                                if(data=="error5"){ 
+                                    alerify.notify('¡Error! No se admite este tipo de archivo, intente con un PDF', 'error',4);
+                                }else{
+                                    if (data=="error6"){
+                                        alerify.notify('¡Error! El archivo es muy grande, intente con otro PDF', 'error',3);
+                                    }else{ 
+                                        alertify.notify('¡Cambios guardados exitosamente!','success',3);
+                                        tablaCap.ajax.reload(null, false); 
+                                        document.getElementById("num").disabled = false;
+                                        document.getElementById("nombre").disabled = false;
+                                        document.getElementById("pdf").disabled = false;
+                                        document.getElementById("libro").disabled = false;
+                                        document.getElementById("fechaD").disabled = false;
+                                        document.getElementById("fechaH").disabled = false;  
+                                        document.getElementById("borrado").disabled = false;  
+                                        $("#modalCRUD").modal("hide");                                         
+                                    }
+                                }
                             }
                         }       
                     }
@@ -117,6 +109,7 @@ $(document).ready(function(){
 $("#btnNuevo").click(function(){
     opcion = 1; //alta
     id=null;
+    $("#pdf").attr("required", true);
     document.getElementById("borrado").disabled = true;
     $("#formcap").trigger("reset");
     $(".modal-header").css("background-color", "#CE0909");
@@ -133,9 +126,9 @@ $(document).on("click", ".btnEditar", function(){
     num = parseInt(fila.find('td:eq(1)').text());
     nombre = fila.find('td:eq(2)').text();
      //borrado= parseInt(find('td:eq(3)').text());
-   // pdf = fila.find('td:eq(4)').text();
+    pdf = fila.find('td:eq(4)').text();
   
-   // libro= fila.find('td:eq(5)').text();
+    libro= fila.find('td:eq(5)').text();
     fechaD = fila.find('td:eq(6)').text();
     fechaH = fila.find('td:eq(7)').text();
     
@@ -144,15 +137,15 @@ $(document).on("click", ".btnEditar", function(){
     $("#nombre").val(nombre);
   //  $("#pdf").val(pdf);
    // $("#vistaprevia").val(vistaprevia);
-   // $("#libro").val(libro);
+    $("#libro").val(libro);
     $("#fechaD").val(fechaD);
     $("#fechaH").val(fechaH);
-        
+    $("#pdf").removeAttr("required");    
     $(".modal-header").css("background-color", "#7D7A7A");
     $(".modal-header").css("color", "#F5F5F1");
     $(".modal-title").text("Modificar capitulo");            
     $("#modalCRUD").modal("show");  
-    document.getElementById("pdf").disabled= true;
+   
     document.getElementById("borrado").disabled= true;
     document.getElementById("libro").disabled=true;    
 });
@@ -165,7 +158,7 @@ $(document).on("click", ".btnBorrar", function(){
     borrado= fila.find('td:eq(3)').text();
     
     $("#borrado").val(borrado);
-    
+    $("#pdf").removeAttr("required");
     $(".modal-header").css("background-color", "#CE0909");
     $(".modal-header").css("color", "#F5F5F1");
     $(".modal-title").text("Borrar capitulo");            

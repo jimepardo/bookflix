@@ -93,7 +93,7 @@
                             <div class="col-lg-9">
                                 <div class="form-group">
                                     <label for="pdf" class="col-form-label">PDF:</label>
-                                    <input type="file" class="form-control" name="pdf" id="pdf" accept="application/pdf" required>
+                                    <input type="file" class="form-control" name="pdf" id="pdf" accept="application/pdf" >
                                 </div>
                             </div>                            
                         </div>
