@@ -21,8 +21,6 @@ function compararFechas($primera, $segunda)
  {
   if ($segunda == "0000-00-00" || empty($segunda)) {
       return 0;
-  }else if($primera =="0000-00-00" || empty($segunda)){
-
   }else{
       $valoresPrimera = explode ("-", $primera);   
       $valoresSegunda = explode ("-", $segunda); 
@@ -93,7 +91,7 @@ switch($opcion){
                 
         break;
     case 2: //modificación
-/*
+
 	    $result= compararFechas($fechaD,$fechaH);
 	        if ( $result < 0 ) {
 	                $data="error1"; //error la fecha hasta es menor a la fecha desde ingresada              
@@ -117,7 +115,7 @@ switch($opcion){
 
 	                            //Mover imagen del directorio temporal al directorio escogido
 	                            move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino.$nombrePdf);
-	                            $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo='$nombre', pdf='$nombrePdf', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico='0'";       
+	                            $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo= '$nombre', pdf='$nombrePdf', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico='0'";       
 	                            $resultado = $conexion->prepare($consulta);
 	                            $resultado->execute(); 
 
@@ -135,10 +133,10 @@ switch($opcion){
 	            }
 	        } 
        
-*/
 
 
 
+/*
         $result= compararFechas($fechaD,$fechaH);
         if ( $result < 0 ) {
                 $data="error1"; //error la fecha desde es menor a la fecha Hasta ingresada              
@@ -187,7 +185,7 @@ switch($opcion){
                 }                
             }
         }
-
+*/
 
         break;        
     case 3://baja logica, solo modifica

@@ -128,7 +128,7 @@ $(document).on("click", ".btnEditar", function(){
      //borrado= parseInt(find('td:eq(3)').text());
     pdf = fila.find('td:eq(4)').text();
   
-    libro= fila.find('td:eq(5)').text();
+   // libro= fila.find('td:eq(5)').text();
     fechaD = fila.find('td:eq(6)').text();
     fechaH = fila.find('td:eq(7)').text();
     
@@ -137,7 +137,7 @@ $(document).on("click", ".btnEditar", function(){
     $("#nombre").val(nombre);
   //  $("#pdf").val(pdf);
    // $("#vistaprevia").val(vistaprevia);
-    $("#libro").val(libro);
+  //  $("#libro").val(libro);
     $("#fechaD").val(fechaD);
     $("#fechaH").val(fechaH);
     $("#pdf").removeAttr("required");    
@@ -147,7 +147,7 @@ $(document).on("click", ".btnEditar", function(){
     $("#modalCRUD").modal("show");  
    
     document.getElementById("borrado").disabled= true;
-    document.getElementById("libro").disabled=true;    
+  //      document.getElementById("libro").disabled=true;    
 });
 
 //botón BORRAR

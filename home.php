@@ -298,7 +298,7 @@
             } /* fin if resultado*/
             else{?> <!-- si no tiene novedades muestra -->
                 <h2 class="titulos"> Novedades</h2>
-                <div style="color:white; text-size:20px; margin-left: 20px;">No hay novedades en el dia de hoy</div>
+                <div style="color:white; text-size:20px; margin-left: 20px;">No hay novedades en el dia de hoy  ?></div>
                 <?php
                 }  /* fin del else del resultado */?>
                  <?php        

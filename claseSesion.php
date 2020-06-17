@@ -66,6 +66,7 @@
 								$this->set('ESTADO','LOGUEADO');
 								return true; //si coincide la contraseña ,devuelvo cargado el usuario en la variable $_SESSION;
 								}else{ // si no coincide sale una excepcion
+									$_SESSION["PERMISO"]=5;
 									$msg="la constrasenia es invalida";
 									$error="?ERROR=$msg&mail=$eMail";
 									throw new Exception($error);

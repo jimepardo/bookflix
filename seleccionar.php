@@ -8,6 +8,7 @@
 	$sesion->set('GENEROFAV',$_GET['GENEROFAV']);
 	$sesion->set('AUTORFAV',$_GET['AUTORFAV']);
 	$sesion->set('PERFIL',$_GET['PERFIL']);
+	$sesion->set('IDPERFIL',$_GET['IDPERFIL']);
 	header('Location: home.php');
 
 ?>

@@ -44,13 +44,13 @@
 			unset($_SESSION["PERMISO"]);
 			header("Location: ../registrarse.php?regis");
 			break;
-		case false:
+		case 5:
 			$error=$_SESSION['ERROR'];
 			unset($_SESSION["PERMISO"]);
 			$link="../login.php".$error;
 			header("Location: $link");
 			break;
-	}
+	}	
 		
 				
 	function validarSuscripcion($conexion){	
