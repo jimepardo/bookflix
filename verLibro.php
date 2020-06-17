@@ -4,12 +4,12 @@
     require_once "claseSesion.php";
     $sesion = new manejadorSesiones;
    
-    $consulta= "SELECT * FROM libro l INNER JOIN genero g ON (l.idGenero=g.idGenero) INNER JOIN autor a ON (l.idAutor=a.idAutor) INNER JOIN editorial e ON (l.idEditorial=e.idEditorial) WHERE l.idLibro ='".$_GET['idLibro']."' ";
+    $consulta= "SELECT * FROM libro l INNER JOIN genero g ON (l.idGenero=g.idGenero) INNER JOIN autor a ON (l.idAutor=a.idAutor) INNER JOIN editorial e ON (l.idEditorial=e.idEditorial) WHERE l.idLibro ='".$_GET['id']."' ";
     $query = mysqli_query($conexion,$consulta);
     $mostrar = mysqli_fetch_array($query, MYSQLI_ASSOC);
 
     //traerme los pdf de todos los capitulos
-    $consulta2=mysqli_query($conexion,"SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['idLibro']."' ");
+    $consulta2=mysqli_query($conexion,"SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['id']."'AND c.nombreCapitulo= '".$_GET['nombrepdf']."' ");
    // $mostrar2=mysqli_fetch_array($consulta2);
 ?>
 <!DOCTYPE html>
@@ -191,112 +191,74 @@
     ?>
                
 </head>
-<script type="text/javascript">(function(d, t, e, m){
-    
-    // Async Rating-Widget initialization.
-    window.RW_Async_Init = function(){
-                
-        RW.init({
-            huid: "460630",
-            uid: "3a59ce7fc2c5a23294d5606d2ca4411f",
-            source: "website",
-            options: {
-                "advanced": {
-                    "font": {
-                        "italic": true,
-                        "type": "arial"
-                    }
-                },
-                "size": "medium",
-                "lng": "es",
-                "style": "oxygen",
-                "isDummy": false
-            } 
-        });
-        RW.render();
-    };
-        // Append Rating-Widget JavaScript library.
-    var rw, s = d.getElementsByTagName(e)[0], id = "rw-js",
-        l = d.location, ck = "Y" + t.getFullYear() + 
-        "M" + t.getMonth() + "D" + t.getDate(), p = l.protocol,
-        f = ((l.search.indexOf("DBG=") > -1) ? "" : ".min"),
-        a = ("https:" == p ? "secure." + m + "js/" : "js." + m);
-    if (d.getElementById(id)) return;              
-    rw = d.createElement(e);
-    rw.id = id; rw.async = true; rw.type = "text/javascript";
-    rw.src = p + "//" + a + "external" + f + ".js?ck=" + ck;
-    s.parentNode.insertBefore(rw, s);
-    }(document, new Date(), "script", "rating-widget.com/"));</script>
+
 <body style="background-color: #221f1f;">
   
     <header>
         <div class="container-fluid">
-            <h2 class="text-uppercase"><strong><?php echo $mostrar['nombreLibro']?></strong></h2>
+            <h2 class="text-uppercase pl-2 pt-2"><strong><?php echo $mostrar['nombreLibro']?></strong></h2>
         </div>
     </header>
     <div class="container-fluid">
-        <section class="main">
-            <article class="w-75 float-left pr-4">
-                <p class="desc"><?php echo $mostrar['descripcionLibro']?></p>
-            </article>
-            <aside class="text-justify w-25 float-right p-2">
-                <img src="/bookflix/bookImages/<?php echo $mostrar['portadaLibro']?>" class="d-flex justify-content-end  " alt="foto" style="heigth:180pt; width:180pt;">
-                <br>
-                <div class="media-body ">
-                    <p class=" gen "><i>ISBN: <?php echo $mostrar['ISBN']?></i></p>
-                    <p class=" gen "><i>Género: <?php echo $mostrar['nombreGenero']?></i></p>
-                    <p class=" gen "><i>Autor: <?php echo $mostrar['nombreAutor']?></i></p>
-                    <p class=" gen "><i>Editorial: <?php echo $mostrar['nombreEditorial']?></i></p>
-                    <p class=" gen lanza"><i>Fecha de lanzamiento: &nbsp; <?php echo $mostrar['fechaLanzamiento']?></i></p>
-                    <p class=" gen lanza "><i>Disponibilidad desde el <br> <?php echo $mostrar['fechaDesde']?> &nbsp;a&nbsp;  <?php if(isset($mostrar['fechaHasta'])) echo $mostrar['fechaHasta']; else{ echo "Indefinidamente"; }?> </i></p>
-                    <p class=" gen"><i>Calificación: ★★★★★</i></p>
-                </div>
-            </aside>
-        </section>
-        <div class="container-fluid">
-            <div class="flex-row">
-                <p>Capitulos</p>
-                <?php if (mysqli_num_rows($consulta2)!= 0){
-                     while($mostrar2=mysqli_fetch_array($consulta2)) {?>
-                    <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
-                <?php 
-                     }
-                }else{
-                    echo $mostrar="No hay nada para leer";
-                }
-                ?>
-            </div>
-            <div class="flex-row">            
-                    <br>
-                    <p>Continuar leyendo</p>
-                    <?php
-                        $sql4="SELECT * FROM leyendo WHERE idPerfil='".$_SESSION['ID']."' AND idLibro='".$_GET['idLibro']."'";
-                    ?>
-            </div>
-            <div class="flex-row"><br>
-                <p class="clasif">Calificar:</p>
+        <div class="main"><br>
+            <div class=" pr-5">
+                <p class="desc pl-3"><?php echo $mostrar['descripcionLibro']?></p>
+            </div><br>
+            
+                   
+        <?php 
+        //si es distinto el capitulo q me llego al que esta en la tabla 
+            $sql6="SELECT * FROM leyendo WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' AND idCapitulo!='".$_GET['num']."'  ";
+            $query6=mysqli_query($conexion,$sql6);
+            $num2=mysqli_num_rows($query6);
 
-                <div class="rw-ui-container"></div>
+            //selecciono y actualizo
+            if($num2==1){
+                
+                $sql5="UPDATE leyendo SET idCapitulo='".$_GET['num']."' WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' ";
+                $query5=mysqli_query($conexion,$sql5);
+                $sql="SELECT pdf FROM capitulo WHERE idLibro='".$_GET['id']."' AND nombreCapitulo='".$_GET['nombrepdf']."' ";
+                $result=mysqli_query($conexion,$sql);
+                $mostrar3=mysqli_fetch_array($result);
+            }else{
+                //sino quiere decir que es igual entonces pregunto
+                $sql2="SELECT * FROM leyendo WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' AND idCapitulo='".$_GET['num']."' ";
+                $result2=mysqli_query($conexion,$sql2);
+                $num=mysqli_num_rows($result2);
+                //es igual el capitulo al q estoy leyendo, leo nomas, no actualizo ni inserto nada
+                if($num == 1){
+                    $sql="SELECT pdf FROM capitulo WHERE idLibro='".$_GET['id']."' AND nombreCapitulo='".$_GET['nombrepdf']."' ";
+                    $result=mysqli_query($conexion,$sql);
+                    $mostrar3=mysqli_fetch_array($result);
+                }else{ 
+                    //sino quiere decir q NO ESTA AGREGADO en la tabla leyendo, entonces inserto y leo
+                    $sql1= "INSERT INTO leyendo(idPerfil, idLibro, idCapitulo) VALUES ('".$_GET['nombrePerfil']."', '".$_GET['id']."', '".$_GET['num']."')";
+                    $result4=mysqli_query($conexion,$sql1);
+                    $sql="SELECT pdf FROM capitulo WHERE idLibro='".$_GET['id']."' AND nombreCapitulo='".$_GET['nombrepdf']."' ";
+                    $result=mysqli_query($conexion,$sql);
+                    $mostrar3=mysqli_fetch_array($result);
 
-            </div>
-           <br>
-        <div class="flex-row "> 
-            <p>Comentarios: </p>
-                <pre class="pre-scrollable text-warning col-6 "> 
-                <blockquote class="blockquote-reverse">
-                <p>Recomiendo este libro.<footer style="font-style:italic; color:gray;">Jimena</footer></p>
-                <p>Muy buen libro.<footer style="font-style:italic; color:gray;">Romina</footer></p> 
-                <p>No entendi de que trataba, no lo recomiendo.<footer style="font-style:italic;  color:gray;">Lucio</footer></p> 
-                </blockquote>
-                </pre>
-            </div> 
-        </div> 
+                }                
+            }
+
+            
+        ?>
+                <a href="<?=$_SERVER['HTTP_REFERER'] ?>"> <button class="btn btn-outline-secondary" id="boton" style="position: fixed; width: 80px; height: 80px">Volver al home</button></a>
+                <iframe id="frame" class="" src="pdfs/<?php echo $mostrar3['pdf']?>#toolbar=0&navpanes=0&scrollbar=0&page=0" style="width: 100%;height: 650px" ></iframe>
+                
+        </div>
+         <div class="pl-5">
+             
+          
+         </div>
+                
     </div>   
-    
-           
                  
     
+        
+             
 
+   
 
 
   <!-- Logout Modal-->

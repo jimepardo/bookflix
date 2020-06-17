@@ -366,8 +366,8 @@
                             <div class="card-body">
                                 <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:left;"><?php echo recortar_texto($titulo, 50)?></p>
                                 <p class="card-text" style="color:#221f1f; font-size:13px; text-align:left;"><?php echo recortar_texto($desc, 45)?></p>                                
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#vermasng" data-whatever="<?php echo $desc?>">Ver mas</button> 
-                                <a href="registrarse.php?error1"> <button type="button" class="btn btn-danger" style="font-size:13px;">Ver detalle</button></a> <br><br>
+                                <a href="verVistaprevia.php?idLibro=<?php echo $name['idLibro']; ?>"><button type="button" class="btn btn-danger content-left" >Ver adelanto</button> </a><br><br>
+                                <a href="registrarse.php?error1"> <button type="button" class="btn btn-danger" style="">Ver mas</button></a> <br><br>
                                 <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha: <?php echo $name['fechaNovedad']?></p>            
                             </div> <!-- fin card-body-->
                         </div> <!-- fin card-->
