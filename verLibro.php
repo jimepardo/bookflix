@@ -208,33 +208,33 @@
                    
         <?php 
         //si es distinto el capitulo q me llego al que esta en la tabla 
-            $sql6="SELECT * FROM leyendo WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' AND idCapitulo!='".$_GET['num']."'  ";
+            $sql6="SELECT * FROM leyendo WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' AND idCapitulo!='".$_GET['num']."' AND borradoLogico='0' ";
             $query6=mysqli_query($conexion,$sql6);
             $num2=mysqli_num_rows($query6);
 
             //selecciono y actualizo
             if($num2==1){
                 
-                $sql5="UPDATE leyendo SET idCapitulo='".$_GET['num']."' WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' ";
+                $sql5="UPDATE leyendo SET idCapitulo='".$_GET['num']."' WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' AND borradoLogico='0'";
                 $query5=mysqli_query($conexion,$sql5);
                 $sql="SELECT pdf FROM capitulo WHERE idLibro='".$_GET['id']."' AND nombreCapitulo='".$_GET['nombrepdf']."' ";
                 $result=mysqli_query($conexion,$sql);
                 $mostrar3=mysqli_fetch_array($result);
             }else{
                 //sino quiere decir que es igual entonces pregunto
-                $sql2="SELECT * FROM leyendo WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' AND idCapitulo='".$_GET['num']."' ";
+                $sql2="SELECT * FROM leyendo WHERE idLibro='".$_GET['id']."' AND idPerfil='".$_GET['nombrePerfil']."' AND idCapitulo='".$_GET['num']."' AND borradoLogico='0'";
                 $result2=mysqli_query($conexion,$sql2);
                 $num=mysqli_num_rows($result2);
                 //es igual el capitulo al q estoy leyendo, leo nomas, no actualizo ni inserto nada
                 if($num == 1){
-                    $sql="SELECT pdf FROM capitulo WHERE idLibro='".$_GET['id']."' AND nombreCapitulo='".$_GET['nombrepdf']."' ";
+                    $sql="SELECT pdf FROM capitulo WHERE idLibro='".$_GET['id']."' AND nombreCapitulo='".$_GET['nombrepdf']."' AND borradoLogico='0' ";
                     $result=mysqli_query($conexion,$sql);
                     $mostrar3=mysqli_fetch_array($result);
                 }else{ 
                     //sino quiere decir q NO ESTA AGREGADO en la tabla leyendo, entonces inserto y leo
                     $sql1= "INSERT INTO leyendo(idPerfil, idLibro, idCapitulo) VALUES ('".$_GET['nombrePerfil']."', '".$_GET['id']."', '".$_GET['num']."')";
                     $result4=mysqli_query($conexion,$sql1);
-                    $sql="SELECT pdf FROM capitulo WHERE idLibro='".$_GET['id']."' AND nombreCapitulo='".$_GET['nombrepdf']."' ";
+                    $sql="SELECT pdf FROM capitulo WHERE idLibro='".$_GET['id']."' AND nombreCapitulo='".$_GET['nombrepdf']."' AND borradoLogico='0'";
                     $result=mysqli_query($conexion,$sql);
                     $mostrar3=mysqli_fetch_array($result);
 

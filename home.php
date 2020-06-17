@@ -343,6 +343,57 @@
                 <?php 
                 
              /* fin if resultado*/
+             if(($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2)){?>
+              <?php        
+                $sql="SELECT DISTINCT ley.idPerfil, ley.idCapitulo,ley.idLibro, c.nombreCapitulo,c.numeroCapitulo, l.nombreLibro,l.descripcionLibro,l.portadaLibro FROM leyendo ley INNER JOIN libro l ON (l.idLibro=ley.idLibro) INNER JOIN capitulo c ON (c.idLibro=ley.idLibro) WHERE ley.borradoLogico=0 AND c.idCapitulo=ley.idCapitulo AND ley.idPerfil='".$_SESSION['IDPERFIL']."' ORDER BY `l`.`nombreLibro` ASC"; 
+                $query= mysqli_query($conexion,$sql); 
+                $totalResultados= mysqli_num_rows($query);
+                if ($totalResultados > 0){ 
+                ?>
+                <!--primer slide -->
+                <div class="netflix-slider mx-5">                
+                    <h2 class="titulos">Continuar leyendo </h2>
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <?php  while ($name = mysqli_fetch_array($query)) {
+                                    $titulo= $name['nombreLibro'];
+                                    $desc= $name['descripcionLibro'];
+                                ?>
+                                <div class="swiper-slide">
+                                    <div class="card" style="width: 18rem;">
+                                        
+                                        <img class="card-img-top " style="height:400px; width:800px" src="/bookflix/bookImages/<?php echo $name['portadaLibro']?>" alt="Card image cap">
+
+                                        <div class="card-body">
+                                            <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:left;"><?php echo recortar_texto($titulo, 25)?></p>
+                                            <p class="card-text" style="color:#221f1f; font-size:13px; text-align:left;"><?php echo recortar_texto($desc, 56)?></p>
+                                            
+                                            <?php if ($_SESSION['PERMISO'] == 1 || $_SESSION['PERMISO'] == 2 ){?>
+                                            <a href="verLibro.php?&id=<?php echo $name['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $name['nombreCapitulo'];?>&num=<?php echo $name['idCapitulo'];?> " class="btn btn-outline-danger ">Continuar leyendo</a>
+                                           <!-- <a> <button type="button" class="btn btn-danger" style="font-size:13px;">Agregar a Mi lista</button></a>--><br><br>
+                                       <?php }?>
+                                            <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;"></p>
+                                           
+                                        </div> <!--fin card-body-->
+                                    </div> <!--fin card-->
+                                </div> <!--fin swiper-slide-->
+                                <?php 
+                                } ?><!--fin while-php-->
+                                </div> <!--fin swiper-wraper-->
+                                <!-- Add Pagination -->
+                                <div class="swiper-pagination"></div> 
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                        </div> <!--fin swiper-container-->
+                </div> <!--fin netflix-slider-->
+                <?php 
+            } /* fin if resultado*/
+            else{?> <!-- si no tiene novedades muestra -->
+                <h2 class="titulos"> Novedades</h2>
+                <div style="color:white; text-size:20px; margin-left: 20px;">No hay novedades en el dia de hoy</div>
+                <?php
+                }  /* fin del else del resultado */
+        }
         }/* fin if permisos 1 2 3  */
     } /* fin if del permiso, sino tiene permiso, no esta registrado */    
     else{ 
