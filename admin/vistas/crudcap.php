@@ -54,7 +54,6 @@ function compararFechas1($primera, $segunda)// desde y hasta del capitulo
 switch($opcion){
     case 1: //alta
 
-
         $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro'";
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
@@ -114,7 +113,7 @@ switch($opcion){
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
         $fechas= $resultado2->fetch();
-        if(fechas['fechaHasta'] == "0000-00-00"){
+        if($fechas['fechaHasta'] == "0000-00-00"){
             $fechalibroH="9999-12-31";
         }
         $result= compararFechas1($fechaD,$fechaH);
