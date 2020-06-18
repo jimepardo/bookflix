@@ -51,6 +51,7 @@
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function(form) {
           form.addEventListener('submit', function(event) {
+             pass.setCustomValidity("");
             if (form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();
@@ -59,7 +60,7 @@
             }else{
             var validity=( (pass.value) == (pass1.value));
             var validity2=( (pass.value) == (pass2.value));//hacen falta 2 validity porque no me los compara bien sino xd
-                if (validity==validity2) {
+                if ((validity==true) && (validity2==true)) {
                     pass.setCustomValidity("Las constraseñas son iguales");
                     invalid.innerHTML= "";
                     invalid.innerHTML= "Las 3 contraseñas tienen el mismo valor !";
