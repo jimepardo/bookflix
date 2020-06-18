@@ -255,10 +255,10 @@
         </section>
         <div class="container-fluid">
             <div class="flex-row">
-                <p>Capitulos</p>
+                <h4>Capitulos</h4>
                 <?php if (mysqli_num_rows($consulta2)!= 0){
                      while($mostrar2=mysqli_fetch_array($consulta2)) {?>
-                    <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
+                    <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
                 <?php 
                      }
                 }else{
@@ -268,10 +268,28 @@
             </div>
             <div class="flex-row">            
                     <br>
-                    <p>Continuar leyendo</p>
+                    <h4>Continuar leyendo</h4>
                     <?php
-                        $sql4="SELECT * FROM leyendo WHERE idPerfil='".$_SESSION['ID']."' AND idLibro='".$_GET['idLibro']."'";
+                        $sql4="SELECT * FROM leyendo l INNER JOIN capitulo c ON (c.idCapitulo=l.idCapitulo) WHERE l.idPerfil='".$_SESSION['IDPERFIL']."' AND l.idLibro='".$_GET['idLibro']."' AND l.idCapitulo=c.idCapitulo AND l.borradoLogico='0'";
+                        $query4=mysqli_query($conexion,$sql4);
+                        $mostrar4=mysqli_fetch_array($query4);
+                        if (mysqli_num_rows($query4) != 0 ){
+                            ?>
+                            <a href="verLibro.php?&id=<?php echo $mostrar4['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar4['nombreCapitulo'];?>&num=<?php echo $mostrar4['idCapitulo'];?>" class="btn btn-danger">
+                               Seguir leyendo Capitulo <?php echo $mostrar4['numeroCapitulo']?> 
+                            </a><br>
+                            <p><br>Si desea borrarlo de la lista que esta leyendo, seleccione el botón Borrar</p>
+                            <a href="borrarleyendo.php?&id=<?php echo $mostrar4['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&num=<?php echo $mostrar4['idCapitulo'];?>" class="btn btn-secondary">Borrar</a>
+
+                            <?php
+                        }else{
+                            ?>
+
+                            <p>Todavia no leyo nada</p>
+                            <?php
+                        }
                     ?>
+
             </div>
             <div class="flex-row"><br>
                 <p class="clasif">Calificar:</p>
