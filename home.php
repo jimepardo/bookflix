@@ -388,9 +388,9 @@
                 </div> <!--fin netflix-slider-->
                 <?php 
             } /* fin if resultado*/
-            else{?> <!-- si no tiene novedades muestra -->
-                <h2 class="titulos"> Novedades</h2>
-                <div style="color:white; text-size:20px; margin-left: 20px;">No hay novedades en el dia de hoy</div>
+            else{?> <!-- si no tiene novedades muestra --><br>
+                <h2 class="titulos pl-5"> Continuar leyendo</h2>
+                <div style="color:white; text-size:20px; margin-left: 20px;" class="pl-5">Todavia no ha leído ningún libro, es un buen momento para hacerlo</div>
                 <?php
                 }  /* fin del else del resultado */
         }
