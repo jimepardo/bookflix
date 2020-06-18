@@ -108,7 +108,6 @@ switch($opcion){
         $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-
         $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro'";
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
@@ -117,7 +116,8 @@ switch($opcion){
         if($result < 0){
             $data="error3";  
         }else{
-            if ($fechaD < $hoy){
+            $result= compararFechas1($fechaD,$fechas['fechaDesde']);
+            if ($result < 0){
                 $data="error2";
             }else{
                 $result3=compararFechas1($fechaH,$fechas['fechaHasta']);
