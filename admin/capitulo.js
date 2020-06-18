@@ -72,10 +72,10 @@ $(document).ready(function(){
                                 alertify.notify('¡Error! El numero de capitulo ingresado para el libro seleccionado ya existe', 'error',6);
                             }else{
                                 if(data=="error5"){ 
-                                    alerify.notify('¡Error! No se admite este tipo de archivo, intente con un PDF', 'error',4);
+                                    alertify.notify('¡Error! No se admite este tipo de archivo, intente con un PDF', 'error',4);
                                 }else{
                                     if (data=="error6"){
-                                        alerify.notify('¡Error! El archivo es muy grande, intente con otro PDF', 'error',3);
+                                        alertify.notify('¡Error! El archivo es muy grande, intente con otro PDF', 'error',3);
                                     }else{ 
                                         alertify.notify('¡Cambios guardados exitosamente!','success',3);
                                         tablaCap.ajax.reload(null, false); 
@@ -147,7 +147,7 @@ $(document).on("click", ".btnEditar", function(){
     $("#modalCRUD").modal("show");  
    
     document.getElementById("borrado").disabled= true;
-  //      document.getElementById("libro").disabled=true;    
+    document.getElementById("libro").disabled=true;    
 });
 
 //botón BORRAR

@@ -113,9 +113,6 @@ switch($opcion){
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
         $fechas= $resultado2->fetch();
-        if($fechas['fechaHasta'] == "0000-00-00"){
-            $fechalibroH="9999-12-31";
-        }
         $result= compararFechas1($fechaD,$fechaH);
         if($result < 0){
             $data="error3";  
@@ -134,7 +131,7 @@ switch($opcion){
                     
                         $nombrePdf= $num."-".$nomPdf;
                         if ($tamanio<= 1262074){
-                            if ($tipoPdf=="application/pdf") {    // compara que sea un tipo correcto de imagen   
+                            if ($tipoPdf=="application/pdf" || $tipoPdf=="pdf") {    // compara que sea un tipo correcto de imagen   
                                 $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfs/';
 
                                 //Mover imagen del directorio temporal al directorio escogido
