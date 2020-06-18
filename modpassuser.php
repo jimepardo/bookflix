@@ -20,20 +20,20 @@
 		$contraseña2=$_POST['pass2'];
 		$id = $_POST['id'];
 
-		$sql="SELECT * FROM usuario WHERE (permisoUsuario=1 OR permisoUsuario=2)  AND password = '".$contraseñaActual."' ";
+		$sql="SELECT * FROM usuario WHERE id=$id  AND password = '".$contraseñaActual."' ";
 		$query=mysqli_query($conexion,$sql);
 		if ($query){
 			$cantRows=mysqli_num_rows($query);
 			if ($cantRows > 0){
 				if ($contraseña1==$contraseña2){
-					$sql_password="UPDATE usuario SET password='$contraseña1' WHERE id='$id' ";
+					$sql_password="UPDATE usuario SET usuario.password = '$contraseña1' WHERE id=$id ";
 					$queryPassword=mysqli_query($conexion,$sql_password);
 					if ($queryPassword){
 						$exito="Se modificó la contraseña exitosamente";
 						header("Location: cambiarpass.php?EXITO=$exito");
 						
 					}else{
-						$error="Fallo la consulta $queryPassword";
+						$error="Fallo la consulta queryPassword";
 						$location.="&ERROR=$error";
 						header($location);
 					}
@@ -48,7 +48,7 @@
 				header($location);
 			}	
 		}else{
-			$error="Fallo la consulta $query";
+			$error="Fallo la consulta query";
 			$location.="&ERROR=$error";
 			header($location);
 		}

@@ -54,7 +54,7 @@
         
         <div class="row d-flex justify-content-center">
 
-            <form method="POST" action="cargarTarjeta.php">
+            <form method="POST" action="cargarTarjeta.php" >
             <h3><strong>Configura tu tarjeta de crédito</strong></h3><br>
                 <div class="row">
                     <div class="form-group col-6">
@@ -158,7 +158,7 @@
     <footer>
     <a class="pfrecuentes" href="preguntasfrecuentes.php" style="margin-left:65px; color:gray;"><u>Preguntas Frecuentes</u></a>
     </footer>
-    
+ 
 </body>
 
 </html>

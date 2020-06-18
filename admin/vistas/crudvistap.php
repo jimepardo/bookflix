@@ -45,7 +45,9 @@ function compararFechas($primera, $segunda)
 }
 
 switch($opcion){
+
     case 1: //alta
+    
         $result= compararFechas($fechaD,$fechaH);
         if ( $result < 0 ) {
                 $data="error1"; //error la fecha desde es menor a la fecha Hasta ingresada              
@@ -63,7 +65,7 @@ switch($opcion){
                 
                     $nombrePdf= $num."-".$libro."-".$nomPdf;
                     if ($tamanio<= 999999){
-                        if ($tipoPdf=="application/pdf") {    // compara que sea un tipo correcto de imagen   
+                        if ($tipoPdf=="application/pdf" || $tipoPdf=="pdf") {    // compara que sea un tipo correcto de imagen   
                             $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfsVP/';
 
                             //Mover imagen del directorio temporal al directorio escogido

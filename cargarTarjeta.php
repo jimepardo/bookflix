@@ -31,6 +31,11 @@
 			header("Location: $link");
 			die();
 		}
+		if ($_POST["tarjeta"]=="2222222222222222") {
+			$link.="&error-tarjeta=La tarjeta no tiene fondos";
+			header("Location: $link");
+			die();
+		}
 		$cvv=intval($_POST["cvv"]);
 		$tarjeta=($_POST["tarjeta"]);
 		$fecha=$_POST["fecha"];
