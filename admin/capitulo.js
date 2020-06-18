@@ -4,7 +4,7 @@ $(document).ready(function(){
     tablaCap = $("#tablaCap").DataTable({
         "ajax":{            
             "url": "vistas/crudcap.php", 
-            "method": 'POST', //usamos el metodo POST
+            "method": 'POST', //usamos el metodo POST copiaaaa
             "data":{opcion:opcion}, //enviamos opcion 4 para que haga un SELECT
             "dataSrc":""
         },

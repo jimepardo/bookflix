@@ -3,7 +3,7 @@ include_once 'conexion.php';
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
-// Recepción de los datos enviados mediante POST desde el JS libro  
+// Recepción de los datos enviados mediante POST desde el JS libro  spaksoa
 $data= "no entro a nada";
 $hoy = date("Y-m-d");
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';

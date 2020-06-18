@@ -1,6 +1,7 @@
 <?php require_once "vistas/parte_superior.php"?>
  
-<!--INICIO del cont principal-->
+<!-- copia aa INICIO del cont principal-->
+
 <div class="container-fluid">
     <h1> &nbsp Capitulos de libros</h1>
         <div class="container-fluid">

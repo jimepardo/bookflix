@@ -36,6 +36,11 @@
 			header("Location: $link");
 			die();
 		}
+		if ($_POST["tarjeta"]=="4444444444444444") {
+			$link.="&error-tarjeta=Conexion fallida con el servidor del banco";
+			header("Location: $link");
+			die();
+		}
 		$cvv=intval($_POST["cvv"]);
 		$tarjeta=($_POST["tarjeta"]);
 		$fecha=$_POST["fecha"];
