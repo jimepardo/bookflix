@@ -58,9 +58,7 @@ switch($opcion){
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
         $fechas= $resultado2->fetch();
-        if($fechas['fechaHasta'] == "0000-00-00"){
-            $fechalibroH="9999-12-31";
-        }
+        
         $result= compararFechas1($fechaD,$fechaH);
         if($result < 0){
             $data="error3";  
