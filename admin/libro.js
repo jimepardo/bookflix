@@ -144,7 +144,7 @@ $(document).on("click", ".btnEditar", function(){
     nombre = fila.find('td:eq(2)').text();
     desc = fila.find('td:eq(3)').text();
     //borrado= parseInt(find('td:eq(4)').text());
-    //portada = fila.find('td:eq(5)').text();
+    portada = fila.find('td:eq(5)').text();
    // fechaL= fila.find('td:eq(6)').text();
     idGen = parseInt(fila.find('td:eq(7)').text());
     idAu = parseInt(fila.find('td:eq(8)').text());
@@ -169,7 +169,7 @@ $(document).on("click", ".btnEditar", function(){
     $(".modal-header").css("color", "#F5F5F1");
     $(".modal-title").text("Modificar libro");            
     $("#modalCRUD").modal("show");  
-    document.getElementById("portada").disabled=true; 
+  //  document.getElementById("portada").disabled=true; 
     document.getElementById("borrado").disabled= true;
     document.getElementById("isbn").disabled=true;    
 });

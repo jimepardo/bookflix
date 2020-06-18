@@ -102,15 +102,50 @@ switch($opcion){
         if ( $result < 0 ) {
                 $data="error2";
         }else{
-            $consulta = "UPDATE libro SET nombreLibro='$nombre', descripcionLibro='$desc', idGenero='$idGen', idAutor='$idAu', idEditorial='$idEd', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idLibro='$id' AND borradoLogico=0   ";     
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute();       
-            
-            $consulta = "SELECT * FROM libro WHERE idLibro='$id' ";              
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute();
-            $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
-        }
+            if ($_FILES['portada']['name'] != null){
+
+                $nombreIm=$_FILES['portada']["name"];
+                $tipoImagen=$_FILES['portada']['type'];
+                $tamanio=$_FILES['portada']['size'];
+              
+                $nombreImagen= $isbn.$nombreIm;
+                if ($tamanio<= 30000000){
+                    if (($tipoImagen=="image/jpg") || ($tipoImagen =="image/png") || ($tipoImagen=="image/jpeg")) {    // compara que sea un tipo correcto de imagen
+                        //$path=$pathImg.$isbn.$archName;
+                        $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/bookImages/';
+
+                        //$fileDestination = '../../'.$path;
+                        //$carpetaDestino= $carpetaDestino.$nombreImagen;
+                        //Mover imagen del directorio temporal al directorio escogido
+                        move_uploaded_file($_FILES['portada']['tmp_name'], $carpetaDestino.$nombreImagen);
+                        //realizo la insercion
+                        $consulta = "UPDATE libro SET nombreLibro='$nombre', descripcionLibro='$desc', portadaLibro='$nombreImagen', idGenero='$idGen', idAutor='$idAu', idEditorial='$idEd', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idLibro='$id' AND borradoLogico=0   ";     
+                        $resultado = $conexion->prepare($consulta);
+                        $resultado->execute();       
+                        
+                        $consulta = "SELECT * FROM libro WHERE idLibro='$id' ";              
+                        $resultado = $conexion->prepare($consulta);
+                        $resultado->execute();
+                        $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
+                    }else{
+                        $data="error6"; // El tipo de la portada no esta permitido, intente con jpg 
+                    }
+                }else{
+                    $data="error4";// La portada pesa demasiado
+                }
+
+            }else{
+                $consulta = "UPDATE libro SET nombreLibro='$nombre', descripcionLibro='$desc', idGenero='$idGen', idAutor='$idAu', idEditorial='$idEd', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idLibro='$id' AND borradoLogico=0   ";     
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();       
+                
+                $consulta = "SELECT * FROM libro WHERE idLibro='$id' ";              
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+                $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
+            }
+                
+            }
         break;        
     case 3://baja logica, solo modifica
         $consulta = "UPDATE libro SET borradoLogico='$borrado' WHERE idLibro='$id' ";       
