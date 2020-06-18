@@ -84,9 +84,10 @@ $(document).ready(function(){
         opcion = 2; //editar
         fila = $(this).closest("tr");
         id = parseInt(fila.find('td:eq(0)').text());
+        novedad = fila.find('td:eq(1)').text();
         descripcion = fila.find('td:eq(2)').text();
         desde = fila.find('td:eq(3)').text();
-
+        $("#novedad").val(novedad);
         $("#descripcion").val(descripcion);
         $("#desde").val(desde);
         
@@ -95,7 +96,7 @@ $(document).ready(function(){
         $(".modal-title").text("Modificar novedad");            
         $('#modalCRUD').modal('show');  
     
-        document.getElementById("novedad").disabled = true;
+       // document.getElementById("novedad").disabled = true;
         document.getElementById("borrado").disabled = true;    
     });
     

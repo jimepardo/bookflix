@@ -13,6 +13,13 @@
   <?php 
   }
   ?>
+  <?php
+  if(isset($_GET["borrado"])){
+  ?>
+    <div class="alert alert-success"> Se han cobrado las suscripciones</div>
+  <?php
+  } 
+  ?>
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -110,7 +117,7 @@
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Listado de género</div>
-              <a href="generos.php" class="btn btn-light btn-icon-split">
+              <a href="genero.php" class="btn btn-light btn-icon-split">
                 <span class="icon text-gray-600">
                   <i class="fas fa-arrow-right"></i>
                 </span>
