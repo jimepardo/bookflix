@@ -18,16 +18,6 @@ switch($opcion){
         if ($desde< $hoy){
             $data="error";
         }else{
-            if(empty($novedad)){
-                $consulta = "INSERT INTO novedadlibro (descripcion, fechaNovedad) VALUES('$descripcion', '$desde') ";
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute(); 
-
-            $consulta = "SELECT * FROM novedadlibro ORDER BY idNovedadLibro DESC LIMIT 1";
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute();
-            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-            }else
                 $consulta = "INSERT INTO novedadlibro (idLibro, descripcion, fechaNovedad) VALUES('$novedad', '$descripcion', '$desde') ";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute(); 
