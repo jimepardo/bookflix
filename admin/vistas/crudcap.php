@@ -17,12 +17,16 @@ $fechaD = (isset($_POST['fechaD'])) ? $_POST['fechaD'] : '';
 $fechaH = (isset($_POST['fechaH'])) ? $_POST['fechaH'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
-function compararFechas($primera, $segunda)
- {
-  if ($segunda == "0000-00-00" || empty($segunda)) {
-      return 0;
-  }else if($primera =="0000-00-00" || empty($segunda)){
+if($fechaH=="0000-00=00"){
+    $hasta="9999-12-31";
+}
 
+function compararFechas1($primera, $segunda)// desde y hasta del capitulo
+ {
+  if ($segunda == '0000-00-00' || empty($segunda)) {
+      return 0;
+  }else if($primera == '0000-00-00' || empty($primera)){
+        return -1;
   }else{
       $valoresPrimera = explode ("-", $primera);   
       $valoresSegunda = explode ("-", $segunda); 
@@ -44,150 +48,128 @@ function compararFechas($primera, $segunda)
         return  $diasSegundaJuliano - $diasPrimeraJuliano ;
       } 
   }
-
 }
+
 
 switch($opcion){
     case 1: //alta
-        $result= compararFechas($fechaD,$fechaH);
-        if ( $result < 0 ) {
-                $data="error1"; //error la fecha hasta es menor a la fecha desde ingresada              
-        }else{ //si las fechas estan bien y el numero de capitulo no se repiten para ese libro seleccionado entonces pregunto por los pdf y agrego
-            
-            $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute();
-            if ($data= $resultado->fetch()){
-                $data="error2"; // numero de capitulo existente
+
+
+        $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro'";
+        $resultado2 = $conexion->prepare($consulta2);
+        $resultado2->execute();
+        $fechas= $resultado2->fetch();
+        if($fechas['fechaHasta'] == "0000-00-00"){
+            $fechalibroH="9999-12-31";
+        }
+        $result= compararFechas1($fechaD,$fechaH);
+        if($result < 0){
+            $data="error3";  
+        }else{
+            $result2=compararFechas1($fechas['fechaDesde'],$fechaD);
+            if ($result2 < 0){
+                $data="error2";
             }else{
-                if($_FILES['pdf']['name'] != null){
-                    $nomPdf=$_FILES['pdf']["name"];
-                    $tipoPdf=$_FILES['pdf']['type'];
-                    $tamanio=$_FILES['pdf']['size'];
-                
-                    $nombrePdf= $num."-".$nomPdf;
-                    if ($tamanio<= 1262074){
-                        if ($tipoPdf=="application/pdf") {    // compara que sea un tipo correcto de imagen   
-                            $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfs/';
-
-                            //Mover imagen del directorio temporal al directorio escogido
-                            move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino.$nombrePdf);
-                            $consulta = "INSERT INTO capitulo (numeroCapitulo, nombreCapitulo, borradoLogico, pdf, idLibro, fechaDesde, fechaHasta) VALUES('$num', '$nombre', '0', '$nombrePdf', '$libro', '$fechaD', '$fechaH')";          
-                            $resultado = $conexion->prepare($consulta);
-                            $resultado->execute(); 
-
-                            $consulta = "SELECT * FROM capitulo ORDER BY idCapitulo DESC LIMIT 1";
-                            $resultado = $conexion->prepare($consulta);
-                            $resultado->execute();
-                            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-                        }else{
-                            $data="error3"; // El tipo de la portada no esta permitido, intente con jpg 
-                        }
-                    }else{
-                        $data="error4";// La portada pesa demasiado
-                    }
-                }                
-            }
-        } 
-        
-                
-        break;
-    case 2: //modificación
-/*
-	    $result= compararFechas($fechaD,$fechaH);
-	        if ( $result < 0 ) {
-	                $data="error1"; //error la fecha hasta es menor a la fecha desde ingresada              
-	        }else{ //si las fechas estan bien y el numero de capitulo no se repiten para ese libro seleccionado entonces pregunto por los pdf y agrego
-	            
-	            $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
-	            $resultado = $conexion->prepare($consulta);
-	            $resultado->execute();
-	            if ($data= $resultado->fetch()){
-	                $data="error2"; // numero de capitulo existente
-	            }else{
-	                if($_FILES['pdf']['name'] != null){
-	                    $nomPdf=$_FILES['pdf']["name"];
-	                    $tipoPdf=$_FILES['pdf']['type'];
-	                    $tamanio=$_FILES['pdf']['size'];
-	                
-	                    $nombrePdf= $num."-".$nomPdf;
-	                    if ($tamanio<= 1262074){
-	                        if ($tipoPdf=="application/pdf") {    // compara que sea un tipo correcto de imagen   
-	                            $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfs/';
-
-	                            //Mover imagen del directorio temporal al directorio escogido
-	                            move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino.$nombrePdf);
-	                            $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo='$nombre', pdf='$nombrePdf', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico='0'";       
-	                            $resultado = $conexion->prepare($consulta);
-	                            $resultado->execute(); 
-
-	                            $consulta = "SELECT * FROM capitulo ORDER BY idCapitulo DESC LIMIT 1";
-	                            $resultado = $conexion->prepare($consulta);
-	                            $resultado->execute();
-	                            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-	                        }else{
-	                            $data="error3"; // El tipo de la portada no esta permitido, intente con jpg 
-	                        }
-	                    }else{
-	                        $data="error4";// La portada pesa demasiado
-	                    }
-	                }                
-	            }
-	        } 
-       
-*/
-
-
-
-        $result= compararFechas($fechaD,$fechaH);
-        if ( $result < 0 ) {
-                $data="error1"; //error la fecha desde es menor a la fecha Hasta ingresada              
-        }else{ //si las fechas estan bien y el numero de capitulo no se repiten para ese libro seleccionado entonces pregunto por los pdf y agrego
-            $consulta="SELECT * FROM capitulo WHERE numeroCapitulo=$num AND idLibro=$libro";
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute();
-            if ($data= $resultado->fetch()){
-                $data="error2"; // numero de capitulo existente
-            }else{
-                if($_FILES['pdf']['name'] != null){
-                    $nomPdf=$_FILES['pdf']["name"];
-                    $tipoPdf=$_FILES['pdf']['type'];
-                    $tamanio=$_FILES['pdf']['size'];
-                
-                    $nombrePdf= $num."-".$nomPdf;
-                    if ($tamanio<= 1262074){
-                        if ($tipoPdf=="application/pdf") {    // compara que sea un tipo correcto de imagen   
-                            $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfs/';
-
-                            //Mover imagen del directorio temporal al directorio escogido
-                            move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino.$nombrePdf);
-                             $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo= '$nombre', pdf='$nombrePdf', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico=0   ";     
-                            $resultado = $conexion->prepare($consulta);
-                            $resultado->execute();       
-                            
-                            $consulta = "SELECT * FROM capitulo WHERE idCapitulo='$id' ";              
-                            $resultado = $conexion->prepare($consulta);
-                            $resultado->execute();
-                            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-                        }else{
-                            $data="error3"; // El tipo de la portada no esta permitido, intente con jpg 
-                        }
-                    }else{
-                        $data="error4";// La portada pesa demasiado
-                    }
+                $result3=compararFechas1($fechaH,$fechas['fechaHasta']);
+                if ($result3 < 0){
+                    $data="error1";
                 }else{
-                    $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo= '$nombre', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico=0   ";     
-                    $resultado = $conexion->prepare($consulta);
-                    $resultado->execute();       
+                        $nomPdf=$_FILES['pdf']["name"];
+                        $tipoPdf=$_FILES['pdf']['type'];
+                        $tamanio=$_FILES['pdf']['size'];
                     
-                    $consulta = "SELECT * FROM capitulo WHERE idCapitulo='$id' ";              
-                    $resultado = $conexion->prepare($consulta);
-                    $resultado->execute();
-                    $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-                }                
+                        $nombrePdf= $num."-".$nomPdf;
+                        if ($tamanio<= 1262074){
+                            if ($tipoPdf=="application/pdf") {    // compara que sea un tipo correcto de imagen   
+                                $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfs/';
+
+                                //Mover imagen del directorio temporal al directorio escogido
+                                move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino.$nombrePdf);
+                                $consulta = "INSERT INTO capitulo (numeroCapitulo, nombreCapitulo, borradoLogico, pdf, idLibro, fechaDesde, fechaHasta) VALUES('$num', '$nombre', '0', '$nombrePdf', '$libro', '".$fechaD."', '".$fechaH."')";       
+                                $resultado = $conexion->prepare($consulta);
+                                $resultado->execute();       
+                                
+                                $consulta = "SELECT * FROM capitulo WHERE idCapitulo='$id' ";              
+                                $resultado = $conexion->prepare($consulta);
+                                $resultado->execute();
+                                $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+                            }else{
+                                $data="error5"; // El tipo de la portada no esta permitido, intente con jpg 
+                            }
+                        }else{
+                            $data="error6";// La portada pesa demasiado
+                        }
+                    }
+                }
+            }
+
+        break;
+    case 2: 
+
+        $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+
+        $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro'";
+        $resultado2 = $conexion->prepare($consulta2);
+        $resultado2->execute();
+        $fechas= $resultado2->fetch();
+        if(fechas['fechaHasta'] == "0000-00-00"){
+            $fechalibroH="9999-12-31";
+        }
+        $result= compararFechas1($fechaD,$fechaH);
+        if($result < 0){
+            $data="error3";  
+        }else{
+            if ($fechaD < $hoy){
+                $data="error2";
+            }else{
+                $result3=compararFechas1($fechaH,$fechas['fechaHasta']);
+                if ($result3 < 0){
+                    $data="error1";
+                }else{
+                    if ($_FILES['pdf']['name'] != null){
+                        $nomPdf=$_FILES['pdf']["name"];
+                        $tipoPdf=$_FILES['pdf']['type'];
+                        $tamanio=$_FILES['pdf']['size'];
+                    
+                        $nombrePdf= $num."-".$nomPdf;
+                        if ($tamanio<= 1262074){
+                            if ($tipoPdf=="application/pdf") {    // compara que sea un tipo correcto de imagen   
+                                $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfs/';
+
+                                //Mover imagen del directorio temporal al directorio escogido
+                                move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino.$nombrePdf);
+
+                                 $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo= '$nombre', pdf='$nombrePdf', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico='0'   ";  
+
+                                $resultado = $conexion->prepare($consulta);
+                                $resultado->execute();       
+                                
+                                $consulta = "SELECT * FROM capitulo WHERE idCapitulo='$id' ";              
+                                $resultado = $conexion->prepare($consulta);
+                                $resultado->execute();
+                                $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+                            }else{
+                                $data="error5"; // El tipo de la portada no esta permitido, intente con jpg 
+                            }
+                        }else{
+                            $data="error6";// La portada pesa demasiado
+                        }
+                    }else{
+                        $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo= '$nombre', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico='0'   ";     
+                        $resultado = $conexion->prepare($consulta);
+                        $resultado->execute();       
+                        
+                        $consulta = "SELECT * FROM capitulo WHERE idCapitulo='$id' ";              
+                        $resultado = $conexion->prepare($consulta);
+                        $resultado->execute();
+                        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+                    }
+                }
             }
         }
-
+       
 
         break;        
     case 3://baja logica, solo modifica
