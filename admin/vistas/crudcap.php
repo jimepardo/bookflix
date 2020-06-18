@@ -53,8 +53,13 @@ function compararFechas1($primera, $segunda)// desde y hasta del capitulo
 
 switch($opcion){
     case 1: //alta
-
-        $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro'";
+        $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        if ($data=$resultado->fetch()){
+            $data="error4";
+        }else{
+           $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro'";
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
         $fechas= $resultado2->fetch();
@@ -100,30 +105,32 @@ switch($opcion){
                         }
                     }
                 }
-            }
+            } 
+        }
+        
 
         break;
-    case 2: 
+    case 2: //modificacion
 
-        $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
+       /* $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
         $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro'";
+        $resultado->execute();*/
+      /*  $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro'";
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
-        $fechas= $resultado2->fetch();
+        $fechas= $resultado2->fetch();*/
         $result= compararFechas1($fechaD,$fechaH);
         if($result < 0){
             $data="error3";  
         }else{
-            $result= compararFechas1($fechaD,$fechas['fechaDesde']);
+           /* $result= compararFechas1($fechaD,$fechas['fechaDesde']);
             if ($result < 0){
                 $data="error2";
             }else{
                 $result3=compararFechas1($fechaH,$fechas['fechaHasta']);
                 if ($result3 < 0){
                     $data="error1";
-                }else{
+                }else{*/
                     if ($_FILES['pdf']['name'] != null){
                         $nomPdf=$_FILES['pdf']["name"];
                         $tipoPdf=$_FILES['pdf']['type'];
@@ -163,8 +170,8 @@ switch($opcion){
                         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                     }
                 }
-            }
-        }
+         //   }
+       // }
        
 
         break;        
