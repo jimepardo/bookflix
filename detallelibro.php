@@ -256,13 +256,18 @@
         <div class="container-fluid">
             <div class="flex-row">
                 <h4>Capitulos</h4>
-                <?php if (mysqli_num_rows($consulta2)!= 0){
+                <?php $cant=mysqli_num_rows($consulta2); 
+                if ($cant == 1){?>
+                     <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-danger">Leer libro </a>
+<?php           }else{ 
+                    if($cant>1){
                      while($mostrar2=mysqli_fetch_array($consulta2)) {?>
                     <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
                 <?php 
                      }
-                }else{
-                    echo $mostrar="No hay nada para leer";
+                    }else{
+                        echo $mostrar="No hay nada para leer";
+                    }
                 }
                 ?>
             </div>
@@ -275,6 +280,7 @@
                         $mostrar4=mysqli_fetch_array($query4);
                         if (mysqli_num_rows($query4) != 0 ){
                             ?>
+
                             <a href="verLibro.php?&id=<?php echo $mostrar4['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar4['nombreCapitulo'];?>&num=<?php echo $mostrar4['idCapitulo'];?>" class="btn btn-danger">
                                Seguir leyendo Capitulo <?php echo $mostrar4['numeroCapitulo']?> 
                             </a><br>

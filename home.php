@@ -342,7 +342,7 @@
 
                 <?php 
                 
-             /* fin if resultado*/
+             /* fin if resultado*/ /*continuar leyendo*/
              if(($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2)){?>
               <?php        
                 $sql="SELECT DISTINCT ley.idPerfil, ley.idCapitulo,ley.idLibro, c.nombreCapitulo,c.numeroCapitulo, l.nombreLibro,l.descripcionLibro,l.portadaLibro FROM leyendo ley INNER JOIN libro l ON (l.idLibro=ley.idLibro) INNER JOIN capitulo c ON (c.idLibro=ley.idLibro) WHERE ley.borradoLogico=0 AND c.idCapitulo=ley.idCapitulo AND ley.idPerfil='".$_SESSION['IDPERFIL']."' ORDER BY `l`.`nombreLibro` ASC"; 
