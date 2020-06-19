@@ -9,15 +9,18 @@
     $mostrar = mysqli_fetch_array($query, MYSQLI_ASSOC);
 
     //traerme los pdf de todos los capitulos
-    $consulta2=mysqli_query($conexion,"SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['idLibro']."' AND c.borradoLogico='0' ");
+    $consulta2=mysqli_query($conexion,"SELECT pdf FROM libro l INNER JOIN vistaprevia c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['idLibro']."' ");
    // $mostrar2=mysqli_fetch_array($consulta2);
+
+   // $query3=mysqli_query($conexion,"SELECT * FROM novedadlibro n WHERE n.idLibro='".$_GET['idLibro']."' ");
+    //$mostrar3= mysqli_fetch_array($query3, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Bookflix - <?php echo $mostrar['nombreLibro']?></title>
+    <title>Bookflix - Vista previa de <?php echo $mostrar['nombreLibro']?></title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     
@@ -26,7 +29,7 @@
     
     <!-- Demo styles -->
     <link href="css/detalle.css" rel="stylesheet">
-    <?php     
+   <?php     
     if (isset($_SESSION['PERMISO'])) {   
    
     switch ($_SESSION['PERMISO']) {
@@ -188,162 +191,55 @@
     }else{
         header("Location: home.php");
     }
-    ?>
+    ?>    
+   
                
 </head>
-<script type="text/javascript">(function(d, t, e, m){
-    
-    // Async Rating-Widget initialization.
-    window.RW_Async_Init = function(){
-                
-        RW.init({
-            huid: "460630",
-            uid: "3a59ce7fc2c5a23294d5606d2ca4411f",
-            source: "website",
-            options: {
-                "advanced": {
-                    "font": {
-                        "italic": true,
-                        "type": "arial"
-                    }
-                },
-                "size": "medium",
-                "lng": "es",
-                "style": "oxygen",
-                "isDummy": false
-            } 
-        });
-        RW.render();
-    };
-        // Append Rating-Widget JavaScript library.
-    var rw, s = d.getElementsByTagName(e)[0], id = "rw-js",
-        l = d.location, ck = "Y" + t.getFullYear() + 
-        "M" + t.getMonth() + "D" + t.getDate(), p = l.protocol,
-        f = ((l.search.indexOf("DBG=") > -1) ? "" : ".min"),
-        a = ("https:" == p ? "secure." + m + "js/" : "js." + m);
-    if (d.getElementById(id)) return;              
-    rw = d.createElement(e);
-    rw.id = id; rw.async = true; rw.type = "text/javascript";
-    rw.src = p + "//" + a + "external" + f + ".js?ck=" + ck;
-    s.parentNode.insertBefore(rw, s);
-    }(document, new Date(), "script", "rating-widget.com/"));</script>
+
 <body style="background-color: #221f1f;">
   
     <header>
         <div class="container-fluid">
-            <h2 class="text-uppercase"><strong><?php echo $mostrar['nombreLibro']?></strong></h2>
+            <h2 class="text-uppercase pl-2 pt-2"><strong><?php echo $mostrar['nombreLibro']?></strong></h2>
         </div>
     </header>
     <div class="container-fluid">
-        <section class="main">
-            <article class="w-75 float-left pr-4">
-                <p class="desc"><?php echo $mostrar['descripcionLibro']?></p>
-            </article>
-            <aside class="text-justify w-25 float-right p-2">
-                <img src="/bookflix/bookImages/<?php echo $mostrar['portadaLibro']?>" class="d-flex justify-content-end  " alt="foto" style="heigth:180pt; width:180pt;">
-                <br>
-                <div class="media-body ">
-                    <p class=" gen "><i>ISBN: <?php echo $mostrar['ISBN']?></i></p>
-                    <p class=" gen "><i>Género: <?php echo $mostrar['nombreGenero']?></i></p>
-                    <p class=" gen "><i>Autor: <?php echo $mostrar['nombreAutor']?></i></p>
-                    <p class=" gen "><i>Editorial: <?php echo $mostrar['nombreEditorial']?></i></p>
-                    <p class=" gen lanza"><i>Fecha de lanzamiento: &nbsp; <?php echo $mostrar['fechaLanzamiento']?></i></p>
-                    <p class=" gen lanza "><i>Disponibilidad desde el <br> <?php echo $mostrar['fechaDesde']?> &nbsp;a&nbsp;  <?php if((isset($mostrar['fechaHasta'])) && ($mostrar['fechaHasta'] != "0000-00-00")) echo $mostrar['fechaHasta']; else{ echo "Indefinidamente"; }?> </i></p>
-                    <p class=" gen"><i>Calificación: ★★★★★</i></p>
-                </div>
-            </aside>
-        </section>
-        <div class="container-fluid">
-            <div class="flex-row">
-                <h4>Capitulos</h4>
-                <?php $cant=mysqli_num_rows($consulta2); 
-                if ($cant == 1){
-                    $mostrar2=mysqli_fetch_array($consulta2)?>
+        <div class="main"><br>
+            <div class=" pr-5">
+                <p class="desc pl-3"><?php echo $mostrar['descripcionLibro']?></p>
+            </div><br>
+            
+                   
+<?php 
+    $sql="SELECT pdf FROM vistaprevia WHERE idLibro='".$_GET['idLibro']."' ";
+    $result=mysqli_query($conexion,$sql);
+    $mostrar=mysqli_fetch_array($result);
+if (mysqli_num_rows($result)!= 0){
+?>
+                <a href="home.php"> <button class="btn btn-outline-secondary" id="boton" style="position: fixed; width: 80px; height: 80px">Volver al home</button></a>
+                <iframe id="frame" class="" src="pdfsVP/<?php echo $mostrar['pdf']?>#toolbar=0&navpanes=0&scrollbar=0&page=0" style="width: 100%;height: 650px" ></iframe>
+               
 
-                     <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-danger">Leer libro </a>
-<?php           }else{ 
-                    if($cant>1){
-                     while($mostrar2=mysqli_fetch_array($consulta2)) {?>
-                    <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
-                <?php 
-                     }
-                    }else{
-                        echo $mostrar="No hay nada para leer";
-                    }
-                }
+        </div>
+         <?php
+            } else{
                 ?>
-            </div>
-            <div class="flex-row">            
-                    <br>
-                    <h4>Continuar leyendo</h4>
-                    <?php
-                        $sql4="SELECT * FROM leyendo l INNER JOIN capitulo c ON (c.idCapitulo=l.idCapitulo) WHERE l.idPerfil='".$_SESSION['IDPERFIL']."' AND l.idLibro='".$_GET['idLibro']."' AND l.idCapitulo=c.idCapitulo AND l.borradoLogico='0'";
-                        $query4=mysqli_query($conexion,$sql4);
-                        $mostrar4=mysqli_fetch_array($query4);
-                        $num2=mysqli_num_rows($query4);
-                        if ($num2 == 1 ){
-                            ?>
-
-                            <a href="verLibro.php?&id=<?php echo $mostrar4['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar4['nombreCapitulo'];?>&num=<?php echo $mostrar4['idCapitulo'];?>" class="btn btn-danger">
-                               Seguir leyendo  
-                            </a><br>
-
-                            <p><br>Si desea borrarlo de la lista que esta leyendo, seleccione el botón Borrar</p>
-                            <a href="borrarleyendo.php?&id=<?php echo $mostrar4['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&num=<?php echo $mostrar4['idCapitulo'];?>" class="btn btn-secondary">Borrar</a>
-
-                            <?php
-                        }else{
-                            ?>
-
-                            <p>Todavia no leyo nada</p>
-                            <?php
-                        }
-                    ?>
-
-            </div>
-             <div class="flex-row"><br>
-                <p class="clasif">Vista previa:</p>
-                <?php 
-
-                $sql6= "SELECT l.idLibro FROM libro l INNER JOIN vistaprevia v ON (v.idLibro=l.idLibro) WHERE v.idLibro='".$_GET['idLibro']."' ";
-                $query6=mysqli_query($conexion, $sql6);
-                $mostrar6=mysqli_fetch_array($query6);
-                $cant6=mysqli_num_rows($query6);
-                if ($cant6 > 0){
-                ?>
-                <a href="verVistapreviaReg.php?idLibro=<?php echo $mostrar['idLibro']; ?>"><button type="button" class="btn btn-danger content-left" >Ver adelanto</button> </a><br><br>
+         <div class="pl-5">
+             
+             <h5>Este libro no tiene una vista previa, pero te invitamos a suscribirte, no te pierdas esta nueva experiencia  <a href="registrarse.php"> registrate </a> o si ya tenés una cuenta <a href="login.php"> inicia sesión </a></h5>
+            
                 <?php
-            }else{
-                ?>
-                <p>No hay adelanto para este libro</p>
-                <?php
-            }?>
-            </div>
-            <br>
-            <div class="flex-row"><br>
-                <p class="clasif">Calificar:</p>
-
-                <div class="rw-ui-container"></div>
-
-            </div>
-           <br>
-        <div class="flex-row "> 
-            <p>Comentarios: </p>
-                <pre class="pre-scrollable text-warning col-6 "> 
-                <blockquote class="blockquote-reverse">
-                <p>Recomiendo este libro.<footer style="font-style:italic; color:gray;">Jimena</footer></p>
-                <p>Muy buen libro.<footer style="font-style:italic; color:gray;">Romina</footer></p> 
-                <p>No entendi de que trataba, no lo recomiendo.<footer style="font-style:italic;  color:gray;">Lucio</footer></p> 
-                </blockquote>
-                </pre>
-            </div> 
-        </div> 
+            }
+            ?> 
+         </div>
+                
     </div>   
-    
-           
                  
     
+        
+             
 
+   
 
 
   <!-- Logout Modal-->

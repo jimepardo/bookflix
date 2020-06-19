@@ -194,7 +194,7 @@
                   </a>
                   <a href="cobrarPlan.php" class="btn btn-light btn-icon-split">
                     <span class="icon text-gray-600">
-                      <i class="fas fa-balance-scale"></i>
+                      <i class="fas fa-arrow-right"></i>
                     </span>
                     <span class="text">Cobrar Suscripciones</span>
                   </a>
@@ -216,13 +216,33 @@
             </div>
           </div>
           <div class="col-auto">
-            <i class="fas fa-search fa-2x text-gray-300"></i>
+            <i class="fas fa-balance-scale fa-2x text-gray-300"></i>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+<div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-warning shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Ejemplo tabla vacia</div>
+              <a href="ejemplo.php" class="btn btn-light btn-icon-split">
+                <span class="icon text-gray-600">
+                  <i class="fas fa-arrow-right"></i>
+                </span>
+                <span class="text">Ejemplo listado sin resultados</span>
+              </a>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-newspaper fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 </div>

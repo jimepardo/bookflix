@@ -243,7 +243,7 @@
 
             
         ?>
-                <a href="<?=$_SERVER['HTTP_REFERER'] ?>"> <button class="btn btn-outline-secondary" id="boton" style="position: fixed; width: 80px; height: 80px">Volver al home</button></a>
+                <a href="<?=$_SERVER['HTTP_REFERER'] ?>"> <button class="btn btn-outline-secondary" id="boton" style="position: fixed; width: 80px; height: 80px">Volver atras</button></a>
                 <iframe id="frame" class="" src="pdfs/<?php echo $mostrar3['pdf']?>#toolbar=0&navpanes=0&scrollbar=0&page=0" style="width: 100%;height: 650px" ></iframe>
                 
         </div>
