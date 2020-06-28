@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var id, opcion;  
+    var id, opcion;
     opcion = 4;
     tablaLibros = $("#tablaLibros").DataTable({
         "ajax":{            
@@ -9,7 +9,7 @@ $(document).ready(function(){
             "dataSrc":""
         },
         "columns":[
-            {"data": "idLibro","bSearchable": false, "bVisible": false},
+            {"data": "idLibro"},
             {"data": "ISBN"},
             {"data": "nombreLibro"},
             {"data": "descripcionLibro"},
@@ -23,7 +23,7 @@ $(document).ready(function(){
             {"data": "fechaHasta"},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button></div></div>"
         }],
-   
+        
         //Para cambiar el lenguaje a español
     "language": {
             "lengthMenu": "Mostrar _MENU_ registros",
@@ -61,7 +61,8 @@ $(document).ready(function(){
         var form_data2 = new FormData(document.getElementById("formLibros")); 
         console.log(Array.from(form_data2));
         form_data2.getAll("formLibros");
-        form_data2.append("opcion", opcion);                                    
+        form_data2.append("opcion", opcion); 
+        form_data2.append("id", id);                                     
         console.log(Array.from(form_data2));
 
         $.ajax({
@@ -80,18 +81,16 @@ $(document).ready(function(){
                         alertify.notify('¡Error! La fecha de hasta cuando estara disponible es inferior a la fecha de publicacion', 'error',3);
                     }else{
                         if (data == "error3"){
-                            var value= Array.from(form_data2)[1][1];
-                            var string="¡Error! El ISBN "+value+" ya se encuentra registrado";
-                            alertify.notify(string, 'error',3);
+                            alerify.notify('¡Error! El ISBN ya se encuentra registrado', 'error',3);
                         }else{
                             if (data == "error4"){
-                                alertify.notify('¡Error! La portada es muy pesada', 'error',3);
+                                alerify.notify('¡Error! La portada es muy pesada', 'error',3);
                             }else{
                                 if(data == "error5"){
-                                    alertify.notify('¡Error! Hubo un error al subir la foto', 'error',3);
+                                    alerify.notify('¡Error! Hubo un error al subir la foto', 'error',3);
                                 }else{
                                     if (data == "error6"){
-                                        alertify.notify('¡Error! Formato invalido', 'error',3);
+                                        alerify.notify('¡Error! Formato invalido', 'error',3);
                                     }else{                                      
                                         alertify.notify('¡Cambios guardados exitosamente!','success',3);
                                         tablaLibros.ajax.reload(null, false); 
@@ -138,38 +137,23 @@ $("#btnNuevo").click(function(){
      
 //botón EDITAR    
 $(document).on("click", ".btnEditar", function(){
-
     opcion = 2; //editar
     fila = $(this).closest("tr");
-
-    var data = $('#tablaLibros').DataTable().row(fila).data();//cpn esta linea accedo a toda una fila de la tabla
-    console.log(data["idLibro"]); //con esta linea imprimo la columna escondida del ID,asi el cliente no la ve
-
-    //id = parseInt(fila.find('td:eq(0)').text());
-    isbn = fila.find('td:eq(0)').text();
-    nombre = fila.find('td:eq(1)').text();
-    desc = fila.find('td:eq(2)').text();
+    id = parseInt(fila.find('td:eq(0)').text());
+    //isbn = parseInt(find('td:eq(1)').text());
+    nombre = fila.find('td:eq(2)').text();
+    desc = fila.find('td:eq(3)').text();
     //borrado= parseInt(find('td:eq(4)').text());
-    portada = fila.find('td:eq(4)').text();
+    portada = fila.find('td:eq(5)').text();
    // fechaL= fila.find('td:eq(6)').text();
-    idGen = parseInt(fila.find('td:eq(6)').text());
-    idAu = parseInt(fila.find('td:eq(7)').text());
-    idEd = parseInt(fila.find('td:eq(8)').text());
-    fechaD = fila.find('td:eq(9)').text();
-    fechaH = fila.find('td:eq(10)').text();
-    console.log(nombre);
-    console.log(desc);
-    console.log(portada);
-    console.log(idGen);
-    console.log(idAu);
-    console.log(idEd);
-    console.log(fechaD);
-    console.log(fechaH);
+    idGen = parseInt(fila.find('td:eq(7)').text());
+    idAu = parseInt(fila.find('td:eq(8)').text());
+    idEd = parseInt(fila.find('td:eq(9)').text());
+    fechaD = fila.find('td:eq(10)').text();
+    fechaH = fila.find('td:eq(11)').text();
     
-
     
-    $("#id").val(data["idLibro"]);
-    $("#isbn").val(isbn);
+  //  $("#isbn").val(isbn);
     $("#nombre").val(nombre);
     $("#desc").val(desc);
    // $("#borrado").val(borrado);
@@ -187,7 +171,7 @@ $(document).on("click", ".btnEditar", function(){
     $("#modalCRUD").modal("show");  
   //  document.getElementById("portada").disabled=true; 
     document.getElementById("borrado").disabled= true;
-   document.getElementById("isbn").disabled=true;    
+    document.getElementById("isbn").disabled=true;    
 });
 
 //botón BORRAR

@@ -19,7 +19,7 @@
                     <table id="tablaLibros" class="table table-striped table-bordered table-condensed" style="width:100%">
                         <thead class="text-center">
                             <tr>
-                                <th>ID Libro</th>
+                                <th hidden>ID Libro</th>
                                 <th>ISBN</th>
                                 <th>Nombre libro</th>
                                 <th>Descripción del libro</th>                  
@@ -53,6 +53,11 @@
                 <form id="formLibros" enctype="multipart/form-data">    
                     <div class="modal-body">
                         <div class="row">
+                                <div class="form-group">                
+                                   
+                                    <input type="hidden" class="form-control" id="id" name="id" >
+
+                                </div>
                             <div class="col-lg-6">
                                 <div class="form-group">                
                                     <label for="isbn" class="col-form-label">ISBN:</label>

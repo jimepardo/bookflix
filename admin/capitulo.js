@@ -9,12 +9,13 @@ $(document).ready(function(){
             "dataSrc":""
         },
         "columns":[
-            {"data": "idCapitulo"},
+            {"data":"nombreLibro"},
+            {"data": "idCapitulo","bSearchable": false, "bVisible": false},
             {"data": "numeroCapitulo"},
             {"data": "nombreCapitulo"},
             {"data": "borradoLogico"},
             {"data": "pdf"},
-            {"data": "idLibro"},
+            {"data": "idLibro" ,"bSearchable": false, "bVisible": false},
             {"data": "fechaDesde"},
             {"data": "fechaHasta"},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button></div></div>"
@@ -46,10 +47,9 @@ $(document).ready(function(){
         var form_data2 = new FormData(document.getElementById("formcap")); 
         console.log(Array.from(form_data2));
         form_data2.getAll("formcap");
-        form_data2.append("opcion", opcion); 
-        form_data2.append("id", id);                                     
+        form_data2.append("opcion", opcion);                           
         console.log(Array.from(form_data2));
-
+        alert();    
         $.ajax({
             url: "vistas/crudcap.php",            
             dataType: "json",
@@ -122,18 +122,32 @@ $("#btnNuevo").click(function(){
 $(document).on("click", ".btnEditar", function(){
     opcion = 2; //editar
     fila = $(this).closest("tr");
-    id = parseInt(fila.find('td:eq(0)').text());
-    num = parseInt(fila.find('td:eq(1)').text());
+
+    var data = $('#tablaCap').DataTable().row(fila).data();//cpn esta linea accedo a toda una fila de la tabla
+    console.log(data); //con esta linea imprimo la columna escondida del ID,asi el cliente no la ve
+
+
+   // id = parseInt(fila.find('td:eq(0)').text());
+   // num = parseInt(fila.find('td:eq(1)').text());
+    nombreLibro = fila.find('td:eq(0)').text();
+    numCapitulo = fila.find('td:eq(1)').text();
     nombre = fila.find('td:eq(2)').text();
      //borrado= parseInt(find('td:eq(3)').text());
     pdf = fila.find('td:eq(4)').text();
   
    // libro= fila.find('td:eq(5)').text();
-    fechaD = fila.find('td:eq(6)').text();
-    fechaH = fila.find('td:eq(7)').text();
+    fechaD = fila.find('td:eq(5)').text();
+    fechaH = fila.find('td:eq(6)').text();
     
+    console.log(data["idCapitulo"]);
+    console.log(numCapitulo);
+    console.log(nombre);
+    console.log(pdf);
+    console.log(fechaD);
+    console.log(fechaH);
     
-    $("#num").val(num);
+    $("#id").val(data["idCapitulo"]);
+    $("#num").val(numCapitulo);
     $("#nombre").val(nombre);
   //  $("#pdf").val(pdf);
    // $("#vistaprevia").val(vistaprevia);
@@ -154,9 +168,14 @@ $(document).on("click", ".btnEditar", function(){
 $(document).on("click", ".btnBorrar", function(){ 
     opcion = 3 //borrar   
     fila = $(this).closest("tr");
-    id = parseInt(fila.find('td:eq(0)').text());
+
+    var data = $('#tablaCap').DataTable().row(fila).data();//cpn esta linea accedo a toda una fila de la tabla
+    console.log(data); //con esta linea imprimo la columna escondida del ID,asi el cliente no la ve
+
+    //id = parseInt(fila.find('td:eq(0)').text());
     borrado= fila.find('td:eq(3)').text();
     
+    $("#id").val(data["idCapitulo"]);
     $("#borrado").val(borrado);
     $("#pdf").removeAttr("required");
     $(".modal-header").css("background-color", "#CE0909");

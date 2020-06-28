@@ -70,7 +70,7 @@ switch($opcion){
               
                 $nombreImagen= $isbn.$nombreIm;
                 if ($tamanio<= 30000000){
-                    if (($tipoImagen=="image/jpg") || ($tipoImagen =="image/png") || ($tipoImagen=="image/jpeg")) {    // compara que sea un tipo correcto de imagen
+                    if (($tipoImagen=="image/jpg") || ($tipoImagen =="image/png") || ($tipoImagen=="image/jpeg") ) {    // compara que sea un tipo correcto de imagen
                         //$path=$pathImg.$isbn.$archName;
                         $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/bookImages/';
 

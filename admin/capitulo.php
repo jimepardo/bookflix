@@ -20,12 +20,13 @@
                     <table id="tablaCap" class="table table-striped table-bordered table-condensed" style="width:100%">
                         <thead class="text-center">
                             <tr>
-                                <th>ID Capitulo</th>
+                                <th>Nombre Libro</th>
+                                <th hidden>ID Capitulo</th>
                                 <th>N° capitulo</th>
                                 <th>Nombre capitulo</th>
                                 <th>Borrado</th>                  
                                 <th>Archivo PDF</th>
-                                <th>ID Libro</th>
+                                <th hidden>ID Libro</th>
                                 <th>Disponible desde</th>
                                 <th>Disponible hasta</th>
                                 <th>Acciones</th>
@@ -68,6 +69,12 @@
                                     </select>
                                 </div>  
                             </div>
+                            <div class="form-group">                
+                                    <input type="hidden" class="form-control" id="id" name="id" >
+                            </div>
+                            <div class="form-group">                
+                                    <input type="hidden" class="form-control" id="nombreLibro" name="nombreLibro" >
+                                </div>
                             <div class="col-lg-2">
                                 <div class="form-group">                
                                     <label for="num" class="col-form-label">N° Cap</label>
