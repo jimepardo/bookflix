@@ -9,12 +9,24 @@ $(document).ready(function(){
             "dataSrc":""
         },
         "columns":[
-            {"data": "idEditorial"},
+            {"data": "idEditorial", "bSearchable": false, "bVisible": false},
             {"data": "nombreEditorial"},
-            {"data": "borradoLogico"},
-            {"data": "borradoParanoagregar"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button></div></div>"
-        }], //<button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button>
+            {"render": function(data,type,full){
+                var eventId = full['borradoLogico'];
+                if(eventId == '0')
+                return 'No esta borrado';
+                else   
+                    return 'Borrado sin ocultar libros';
+               }},
+            {"render": function(data,type,full){
+                var eventId = full['borradoParanoagregar'];
+                if(eventId == '0')
+                return 'No esta borrado para ocultar libros';
+                else   
+                    return 'Borrado ocultando libros';
+               }},
+            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button><button class='btn btn-dark btn-sm btnBorrarF'><i class='material-icons'>Borrar y ocultar</i></button></div></div>"
+        }], //
          
             //Para cambiar el lenguaje a español
         "language": {
@@ -38,14 +50,12 @@ $(document).ready(function(){
     
     $("#formEditorial").submit(function(e){
         e.preventDefault();    
-        nombre = $.trim($("#nombre").val());
-        borrado =$.trim($("#borrado").val());
-        borrado2 =$.trim($("#borrado2").val());  
+        nombre = $.trim($("#nombre").val());  
         $.ajax({
             url: "vistas/crudeditorial.php",
             type: "POST",
             dataType: "json",
-            data: {nombre:nombre, borrado:borrado, borrado2:borrado2, id:id, opcion:opcion},
+            data: {nombre:nombre, id:id, opcion:opcion},
             success: function(data){ 
                 if (data == "error"){
                     alertify.notify('¡Error! La editorial ya se encuentra registrada','error',3);
@@ -53,8 +63,6 @@ $(document).ready(function(){
                     alertify.notify('¡Cambios guardados exitosamente!','success',3);   
                     tablaEditorial.ajax.reload(null,false);
                     document.getElementById("nombre").disabled = false;
-                    document.getElementById("borrado").disabled = false;
-                    document.getElementById("borrado2").disabled = false;
                      $('#modalCRUD').modal('hide');
                 }
                 
@@ -66,8 +74,6 @@ $(document).ready(function(){
     $("#btnNuevo").click(function(){
         opcion = 1; //alta
         id=null;
-        document.getElementById("borrado").disabled = true;
-        document.getElementById("borrado2").disabled = true;
         $("#formEditorial").trigger("reset");
         $(".modal-header").css("background-color", "#CE0909");
         $(".modal-header").css("color", "#F5F5F1");
@@ -78,37 +84,75 @@ $(document).ready(function(){
     //botón EDITAR    
     $(document).on("click", ".btnEditar", function(){
         opcion = 2; //editar
+        //id = parseInt(fila.find('td:eq(0)').text());
         fila = $(this).closest("tr");
-        id = parseInt(fila.find('td:eq(0)').text());
-        nombre = fila.find('td:eq(1)').text();
-        
-        $("#nombre").val(nombre);
-        
+        var data = $('#tablaEditorial').DataTable().row(fila).data();
+        nombre = fila.find('td:eq(0)').text();
+        $("#id").val(data["idEditorial"]);
+        $("#nombre").val(nombre); 
         $(".modal-header").css("background-color", "#7D7A7A");
         $(".modal-header").css("color", "#F5F5F1");
         $(".modal-title").text("Modificar editorial");            
         $('#modalCRUD').modal('show');  
-    
-        document.getElementById("borrado").disabled = true;
-        document.getElementById("borrado2").disabled = true;    
+        
     });
     
-    //botón BORRAR
-   /* $(document).on("click", ".btnBorrar", function(){    
-        opcion = 3; //borrar
-        fila = $(this).closest("tr");
-        id = parseInt(fila.find('td:eq(0)').text());
-        borrado = fila.find('td:eq(2)').text();
-        borrado2 = fila.find('td:eq(3)').text();
-        
-        $("#borrado").val(borrado);
-        $("#borrado2").val(borrado2);
-    
-        $(".modal-header").css("background-color", "#CE0909");
-        $(".modal-header").css("color", "#F5F5F1");
-        $(".modal-title").text("Borrar editorial");            
-        $('#modalCRUD').modal('show'); 
-        document.getElementById("nombre").disabled = true;
-    });*/
+    $(document).on("click", ".btnBorrar", function(){
+        opcion = 3; //eliminar    
+        fila = $(this).closest("tr"); 
+        var data = $('#tablaEditorial').DataTable().row(fila).data();  
+        id=data["idEditorial"];
+        nombre = fila.find('td:eq(0)').text();
+        console.log(nombre);
+        console.log(data["idEditorial"]);
+        var respuesta = confirm("¿Está seguro de borrar la editorial "+nombre+"?");                
+        if (respuesta) {            
+            $.ajax({
+                url: "vistas/crudeditorial.php",
+                type: "POST",
+                dataType: "json",
+                data: {id:id, opcion:opcion},      
+              success: function(data) {
+                if (data== "error"){
+                    alertify.notify('¡Error! La editorial ya se borro','error',3);
+                }else{
+                    alertify.notify('¡Editorial borrada exitosamente!','success',3); 
+                    tablaEditorial.ajax.reload(null,false);                  
+               }
+            }
+            });	
+        }else{
+            alertify.notify('Cancelado','error',3);
+        }
+     });
+
+     $(document).on("click", ".btnBorrarF", function(){
+        opcion = 5; //eliminar y ocultar libros   
+        fila = $(this).closest("tr"); 
+        var data = $('#tablaEditorial').DataTable().row(fila).data();  
+        id=data["idEditorial"];
+        nombre = fila.find('td:eq(0)').text();
+        console.log(nombre);
+        console.log(data["idEditorial"]);
+        var respuesta = confirm("¿Está seguro de borrar la editorial "+nombre+"?");                
+        if (respuesta) {            
+            $.ajax({
+                url: "vistas/crudeditorial.php",
+                type: "POST",
+                dataType: "json",
+                data: {id:id, opcion:opcion},      
+              success: function(data) {
+                if (data== "error"){
+                    alertify.notify('¡Error! La editorial ya se borro para ocultar los libros de esta editorial','error',3);
+                }else{
+                    alertify.notify('¡Editorial borrada exitosamente, ocultando libros!','success',3); 
+                    tablaEditorial.ajax.reload(null,false);                  
+               }
+            }
+            });	
+        }else{
+            alertify.notify('Cancelado','error',3);
+        }
+     });
     
     });
