@@ -116,10 +116,14 @@ $(document).ready(function(){
                 type: "POST",
                 dataType: "json",
                 data: {id:id, opcion:opcion},      
-              success: function() {
-                alertify.notify('¡Genero borrado exitosamente!','success',3); 
-                tablaGenero.ajax.reload(null,false);                  
-               }
+              success: function(data) {
+                if (data == "error"){
+                     alertify.notify('¡Error! El género ya se borro previamente','error',3);
+                }else{
+                    alertify.notify('¡Genero borrado exitosamente!','success',3); 
+                    tablaGenero.ajax.reload(null,false);                  
+                }
+            }
             });	
         }else{
             alertify.notify('Cancelado','error',3);

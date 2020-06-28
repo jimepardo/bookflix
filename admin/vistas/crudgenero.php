@@ -47,14 +47,21 @@ switch($opcion){
         }
         break;        
     case 3://baja
-        $consulta = "UPDATE genero SET borradoLogico='1' WHERE idGenero='$id'";     
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();        
-        
-        $consulta = "SELECT * FROM genero WHERE idGenero='$id' ";       
+        $consulta = "SELECT * FROM genero WHERE idGenero='$id' AND borradoLogico='1' ";           
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);                           
+        if ($data= $resultado->fetch()){
+            $data="error";
+        }else{
+            $consulta = "UPDATE genero SET borradoLogico='1' WHERE idGenero='$id'";     
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();        
+            
+            $consulta = "SELECT * FROM genero WHERE idGenero='$id' ";       
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        }                           
         break;   
     case 4:    
         $consulta = "SELECT * FROM genero ";
