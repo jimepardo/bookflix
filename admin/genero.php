@@ -19,10 +19,10 @@
                 <table id="tablaGenero" class="table table-striped table-bordered table-condensed" style="width:100%">
                     <thead class="text-center">
                         <tr>
-                            <th>ID Género</th>
+                            <th hidden>ID Género</th>
                             <th>Nombre género</th>
-                            <th>Borrado logico</th>                                
-                            <th>Borrado para no agregar</th>  
+                            <th>Borrado</th>                                
+                            
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -45,17 +45,21 @@
             </div>
         <form id="formGenero">    
             <div class="modal-body">
-                <div class="form-group">
-                <label for="nombre" class="col-form-label">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" required>
+                <div class="form-group">                
+                    <input type="hidden" class="form-control" id="id" name="id" >
                 </div>
                 <div class="form-group">
-                <label for="borrado" class="col-form-label">Borrado:</label>
-                <input type="number" class="form-control" id="borrado" required>
+                <label for="nombre" class="col-form-label">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                
+                <div class="form-group">
+               <!-- <label for="borrado" class="col-form-label">Borrado:</label>-->
+                <input type="hidden" class="form-control" id="borrado" name="borrado" required>
                 </div>                
                 <div class="form-group">
-                <label for="borrado2" class="col-form-label">Borrado para no agregar mas:</label>
-                <input type="number" class="form-control" id="borrado2" required>
+              <!--  <label for="borrado2" class="col-form-label">Borrado para no agregar mas:</label>-->
+                <input type="hidden" class="form-control" id="borrado2" name="borrado2" required>
                 </div>            
             </div>
             <div class="modal-footer">
