@@ -13,13 +13,13 @@ $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "SELECT * FROM genero WHERE nombreGenero='$nombre' ";           
+        $consulta = "SELECT * FROM genero WHERE nombreGenero='$nombre' AND borradoLogico='0' ";           
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         if ($data= $resultado->fetch()){
             $data="error";
         }else{
-            $consulta = "INSERT INTO genero (nombreGenero) VALUES('$nombre') ";			
+            $consulta = "INSERT INTO genero (nombreGenero) VALUES('$nombre') ";         
             $resultado = $conexion->prepare($consulta);
             $resultado->execute(); 
 
@@ -30,13 +30,13 @@ switch($opcion){
         }
         break;
     case 2: //modificación
-        $consulta = "SELECT * FROM genero WHERE nombreGenero='$nombre' ";           
+        $consulta = "SELECT * FROM genero WHERE nombreGenero='$nombre' AND borradoLogico='0' ";           
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         if ($data= $resultado->fetch()){
             $data="error";
         }else{
-            $consulta = "UPDATE genero SET nombreGenero='$nombre' WHERE idGenero='$id' and borradoLogico=0 and borradoParanoagregar=0 ";		
+            $consulta = "UPDATE genero SET nombreGenero='$nombre' WHERE idGenero='$id' and borradoLogico='0' ";     
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();        
             
@@ -47,7 +47,7 @@ switch($opcion){
         }
         break;        
     case 3://baja
-        $consulta = "UPDATE genero SET borradoLogico='$borrado', borradoParanoagregar='$borrado2' WHERE idGenero='$id'";		
+        $consulta = "UPDATE genero SET borradoLogico='1' WHERE idGenero='$id'";     
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
@@ -57,7 +57,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);                           
         break;   
     case 4:    
-        $consulta = "SELECT * FROM genero";
+        $consulta = "SELECT * FROM genero ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
