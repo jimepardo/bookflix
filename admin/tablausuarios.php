@@ -68,9 +68,9 @@
                 </div>
             </div>   
         </div>    
-    </div>       
-                        <?php 
-                        ?>
+    </div>
+    <br>&nbsp&nbsp&nbsp&nbsp&nbsp       
+    <a  class="btn btn-danger" href="buscarusuarios.php" class="btn btn-danger">Consultar otras fechas</a>
 </div>
 
 <?php require_once "vistas/parte_inferior.php" ?>
