@@ -193,13 +193,13 @@ $(document).on("click", ".btnBorrar", function(){
             success: function(data) {
                 if (data=="errorleyendo"){
                     var respuesta2 = confirm("¿Está seguro de borrar el libro "+nombre+"? Hay personas que lo estan leyendo");
-                    opcion=5;
+                   
                     if (respuesta2){
                         $.ajax({
                             url: "vistas/crudLibros.php",
                             type: "POST",
                             dataType: "json",
-                            data: {id:id, opcion:opcion},      
+                            data: {id:id, opcion:5},      
                         success: function() {
                             alertify.notify('¡Libro borrado exitosamente!','success',3); 
                             tablaLibros.ajax.reload(null,false);
@@ -209,20 +209,22 @@ $(document).on("click", ".btnBorrar", function(){
                         alertify.notify('Cancelado','error',3);
                     }
                 }else{
-                    opcion=5;
-                    if (respuesta){
+                    var respuesta3 = confirm("¿Está seguro de borrar el libro "+nombre+"? No hay nadie leyendo este libro");
+                    if (respuesta3){
                         $.ajax({
                             url: "vistas/crudLibros.php",
                             type: "POST",
                             dataType: "json",
-                            data: {id:id, opcion:opcion},      
+                            data: {id:id, opcion:5},      
                         success: function() {
                             alertify.notify('¡Libro borrado exitosamente!','success',3); 
                             tablaLibros.ajax.reload(null,false);
                         }
                         });
-                    } 
-                     
+                    }
+                    else{
+                        alertify.notify('Cancelado','error',3);
+                    }                
                 }                 
             }
             });	

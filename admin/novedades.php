@@ -18,12 +18,12 @@
                 <table id="tablaNov" class="table table-striped table-bordered table-condensed" style="width:100%">
                     <thead class="text-center">
                         <tr>
-                            <th>ID Novedad</th>
-                            <th>ID Libro</th>
+                            <th hidden>ID Novedad</th>
+                            <th hidden>ID Libro</th>
+                            <th>Nombre Libro</th>
                             <th>Descripcion</th>     
                             <th>Fecha de publicación</th>                            
-                            <th>Borrado Lógico</th>
-                            <th>Acciones</th>
+                            <th>Acciones</>
                         </tr>
                     </thead>
                     <tbody>                               
@@ -45,9 +45,12 @@
             </div>
         <form id="formNov">    
             <div class="modal-body">
+                <div class="form-group">                
+                    <input type="hidden" class="form-control" id="id" name="id" >
+                </div>
                     <div class="form-group">
                         <label for="novedad">Novedad del libro </label>
-                        <select class="custom-select" id="novedad" name="estado" required>
+                        <select class="custom-select" id="novedad" name="novedad" required>
                             <option value="">Seleccione un libro</option>
                             <?php  
                             $consulta = "SELECT idLibro,ISBN,nombreLibro FROM libro WHERE borradoLogico=0";
@@ -63,16 +66,12 @@
                     </div>  
                     <div class=form-group>                
                         <label for="descripcion">Descripción de la novedadad </label>
-                        <input type="text" class="form-control" id="descripcion" placeholder="Ingrese una descripción" name="descripcion" required> 
+                        <input type="text" class="form-control" id="descripcion" placeholder="Ingrese una descripcion" name="descripcion" required> 
                     </div> 
                     <div class="form-group">
                         <label for="desde" class="col-form-label">Fecha disponibilidad</label>
                         <input class="form-control" type="date"  id="desde" name="desde" required>
-                    </div>            
-                    <div class="form-group">
-                        <label for="borrado" class="col-form-label">Borrado Lógico </label>
-                        <input type="number" class="form-control" id="borrado" required>
-                    </div>                
+                    </div>                           
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="btnCancelar" onclick="window.location='novedades.php';return false;" class="btn btn-light" data-dismiss="modal">Cancelar</button>
