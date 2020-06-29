@@ -13,7 +13,7 @@ $id         = (isset($_POST['id'])) ? $_POST['id'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "SELECT * FROM autor WHERE nombreAutor='$nombre' ";           
+        $consulta = "SELECT * FROM autor WHERE nombreAutor='$nombre' AND borradoLogico='0' AND borradoParanoagregar='0' ";           
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         if ($data= $resultado->fetch()){
@@ -30,13 +30,13 @@ switch($opcion){
         }
         break;
     case 2: //modificación
-        $consulta = "SELECT * FROM autor WHERE nombreAutor='$nombre' ";           
+        $consulta = "SELECT * FROM autor WHERE nombreAutor='$nombre' AND borradoLogico='0' AND borradoParanoagregar='0' ";           
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         if ($data= $resultado->fetch()){
             $data="error";
         }else{
-            $consulta = "UPDATE autor SET nombreAutor='$nombre' WHERE idAutor='$id' and borradoLogico=0 and borradoParanoagregar=0";
+            $consulta = "UPDATE autor SET nombreAutor='$nombre' WHERE idAutor='$id' ";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();        
             
@@ -47,7 +47,7 @@ switch($opcion){
         }
         break;        
     case 3://baja
-        $consulta = "UPDATE autor SET borradoLogico='$borrado', borradoParanoagregar='$borrado2' WHERE idAutor='$id'";		
+        $consulta = "UPDATE autor SET borradoLogico='1' WHERE idAutor='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
@@ -57,11 +57,21 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);                           
         break;   
     case 4:    
-        $consulta = "SELECT * FROM autor";
+        $consulta = "SELECT * FROM autor ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-        break;     
+        break;   
+    case 5://baja
+        $consulta = "UPDATE autor SET borradoParanoagregar='1' WHERE idAutor='$id' ";		
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();        
+        
+        $consulta = "SELECT * FROM autor WHERE idAutor='$id'";       
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);                           
+        break;         
 }
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS

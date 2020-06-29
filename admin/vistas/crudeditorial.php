@@ -36,7 +36,7 @@ switch($opcion){
         if ($data= $resultado->fetch()){
             $data="error";
         }else{
-            $consulta = "UPDATE editorial SET nombreEditorial='$nombre' WHERE idEditorial='$id' ";		
+            $consulta = "UPDATE editorial SET nombreEditorial='$nombre' WHERE idEditorial='$id' AND borradoLogico='0' AND borradoParanoagregar='0'";		
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();        
             
@@ -46,22 +46,15 @@ switch($opcion){
             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         }
         break;        
-    case 3://baja
-        $consulta = "SELECT * FROM editorial WHERE idEditorial='$id' AND borradoLogico='1' ";           
+    case 3://baja        
+        $consulta = "UPDATE editorial SET borradoLogico='1' WHERE idEditorial='$id' ";		
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();        
+        
+        $consulta = "SELECT * FROM editorial WHERE idEditorial='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-        if ($data= $resultado->fetch()){
-            $data="error";
-        }else{
-            $consulta = "UPDATE editorial SET borradoLogico='1' WHERE idEditorial='$id' ";		
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute();        
-            
-            $consulta = "SELECT * FROM editorial WHERE idEditorial='$id' ";       
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute();
-            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);   
-        }                        
+        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);                       
         break;   
     case 4:    
         $consulta = "SELECT * FROM editorial ";
@@ -70,21 +63,15 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 5://baja y ocultar
-        $consulta = "SELECT * FROM editorial WHERE idEditorial='$id' AND borradoParanoagregar='1' ";           
+        $consulta = "UPDATE editorial SET borradoParanoagregar='1' WHERE idEditorial='$id' ";		
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();        
+        
+        $consulta = "SELECT * FROM editorial WHERE idEditorial='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-        if ($data= $resultado->fetch()){
-            $data="error";
-        }else{
-            $consulta = "UPDATE editorial SET borradoParanoagregar='1' WHERE idEditorial='$id' ";		
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute();        
-            
-            $consulta = "SELECT * FROM editorial WHERE idEditorial='$id' ";       
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute();
-            $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
-        }                          
+        $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
+                                
         break;     
 }
 

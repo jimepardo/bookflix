@@ -83,7 +83,7 @@ switch($opcion){
                         $resultado = $conexion->prepare($consulta);
                         $resultado->execute(); 
 
-                        $consulta = "SELECT * FROM libro ORDER BY idLibro DESC LIMIT 1";
+                        $consulta = "SELECT g.idGenero,g.nombreGenero, a.idAutor, a.nombreAutor, e.idEditorial, e.nombreEditorial, l.* FROM libro l INNER JOIN autor a ON (a.idAutor=l.idAutor) INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN genero g ON (g.idGenero=l.idGenero) ORDER BY l.idLibro DESC LIMIT 1";
                         $resultado = $conexion->prepare($consulta);
                         $resultado->execute();
                         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -123,7 +123,7 @@ switch($opcion){
                         $resultado = $conexion->prepare($consulta);
                         $resultado->execute();       
                         
-                        $consulta = "SELECT * FROM libro WHERE idLibro='$id' ";              
+                        $consulta = "SELECT g.idGenero,g.nombreGenero, a.idAutor, a.nombreAutor, e.idEditorial, e.nombreEditorial, l.* FROM libro l INNER JOIN autor a ON (a.idAutor=l.idAutor) INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN genero g ON (g.idGenero=l.idGenero) WHERE l.idLibro='$id' ";              
                         $resultado = $conexion->prepare($consulta);
                         $resultado->execute();
                         $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
@@ -139,7 +139,7 @@ switch($opcion){
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();       
                 
-                $consulta = "SELECT * FROM libro WHERE idLibro='$id' ";              
+                $consulta = "SELECT g.idGenero,g.nombreGenero, a.idAutor, a.nombreAutor, e.idEditorial, e.nombreEditorial, l.* FROM libro l INNER JOIN autor a ON (a.idAutor=l.idAutor) INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN genero g ON (g.idGenero=l.idGenero) WHERE l.idLibro='$id' ";              
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
                 $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
@@ -148,21 +148,30 @@ switch($opcion){
             }
         break;        
     case 3://baja logica, solo modifica
-        $consulta = "UPDATE libro SET borradoLogico='$borrado' WHERE idLibro='$id' ";       
+        $consulta = "SELECT COUNT(*) FROM leyendo ley INNER JOIN libro l ON (l.idLibro= ley.idLibro) WHERE ley.idLibro = l.idLibro ";       
         $resultado = $conexion->prepare($consulta);
-        $resultado->execute();                 
-        
-        $consulta = "SELECT * FROM libro WHERE idLibro='$id' ";       
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);         
+        $resultado->execute(); 
+        $data= $resultado->fetchAll(PDO::FETCH_ASSOC);
+        if ($data > 0){
+            $data="errorleyendo";
+        }
         break;        
     case 4:    
-        $consulta = "SELECT * FROM libro";
+        $consulta = "SELECT g.idGenero,g.nombreGenero, a.idAutor, a.nombreAutor, e.idEditorial, e.nombreEditorial, l.* FROM libro l INNER JOIN autor a ON (a.idAutor=l.idAutor) INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN genero g ON (g.idGenero=l.idGenero)";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
+    case 5:
+        $consulta = "UPDATE libro SET borradoLogico='1' WHERE idLibro='$id' ";       
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();                 
+        
+        $consulta = "SELECT g.idGenero,g.nombreGenero, a.idAutor, a.nombreAutor, e.idEditorial, e.nombreEditorial, l.* FROM libro l INNER JOIN autor a ON (a.idAutor=l.idAutor) INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN genero g ON (g.idGenero=l.idGenero) WHERE l.idLibro='$id' ";       
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
+    break;
 }
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final el formato json a AJAX
