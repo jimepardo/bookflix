@@ -148,7 +148,7 @@ switch($opcion){
             }
         break;        
     case 3://consulta si lo esta leyendo
-        $consulta = "SELECT COUNT(*) as cantidad FROM leyendo ley INNER JOIN libro l ON (l.idLibro=ley.idLibro) WHERE ley.idLibro='$id' ";       
+        $consulta = "SELECT COUNT(*) as cantidad FROM leyendo ley INNER JOIN libro l ON (l.idLibro=ley.idLibro) WHERE ley.idLibro='$id' AND ley.borradoLogico='0' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         $data= $resultado->fetchAll(PDO::FETCH_ASSOC);

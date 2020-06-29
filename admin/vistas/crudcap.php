@@ -91,7 +91,7 @@ switch($opcion){
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();       
                                 
-                                $consulta = "SELECT * FROM capitulo WHERE idCapitulo='$id' ";              
+                                $consulta = "SELECT c.*,l.nombreLibro, l.idLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";              
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();
                                 $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -109,86 +109,99 @@ switch($opcion){
 
         break;
     case 2: //modificacion
-
-       /* $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();*/
-      /*  $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro'";
+        /*  $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro'";
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
         $fechas= $resultado2->fetch();*/
-        $result= compararFechas1($fechaD,$fechaH);
-        if($result < 0){
-            $data="error3";  
+        $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        if($data=$resultado->fetchAll(PDO::FETCH_ASSOC)){
+            $data="error4";
         }else{
-           /* $result= compararFechas1($fechaD,$fechas['fechaDesde']);
-            if ($result < 0){
-                $data="error2";
+      
+            $result= compararFechas1($fechaD,$fechaH);
+            if($result < 0){
+                $data="error3";  
             }else{
-                $result3=compararFechas1($fechaH,$fechas['fechaHasta']);
-                if ($result3 < 0){
-                    $data="error1";
-                }else{*/
-                    if ($_FILES['pdf']['name'] != null){
-                        $nomPdf=$_FILES['pdf']["name"];
-                        $tipoPdf=$_FILES['pdf']['type'];
-                        $tamanio=$_FILES['pdf']['size'];
-                    
-                        $nombrePdf= $num."-".$nomPdf;
-                        if ($tamanio<= 1262074){
-                            if ($tipoPdf=="application/pdf" || $tipoPdf=="pdf") {    // compara que sea un tipo correcto de imagen   
-                                $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfs/';
+            /* $result= compararFechas1($fechaD,$fechas['fechaDesde']);
+                if ($result < 0){
+                    $data="error2";
+                }else{
+                    $result3=compararFechas1($fechaH,$fechas['fechaHasta']);
+                    if ($result3 < 0){
+                        $data="error1";
+                    }else{*/
+                        if ($_FILES['pdf']['name'] != null){
+                            $nomPdf=$_FILES['pdf']["name"];
+                            $tipoPdf=$_FILES['pdf']['type'];
+                            $tamanio=$_FILES['pdf']['size'];
+                        
+                            $nombrePdf= $num."-".$nomPdf;
+                            if ($tamanio<= 1262074){
+                                if ($tipoPdf=="application/pdf" || $tipoPdf=="pdf") {    // compara que sea un tipo correcto de imagen   
+                                    $carpetaDestino=$_SERVER ['DOCUMENT_ROOT'].'/bookflix/pdfs/';
 
-                                //Mover imagen del directorio temporal al directorio escogido
-                                move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino.$nombrePdf);
+                                    //Mover imagen del directorio temporal al directorio escogido
+                                    move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino.$nombrePdf);
 
-                                 $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo= '$nombre', pdf='$nombrePdf', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico='0'   ";  
+                                    $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo= '$nombre', pdf='$nombrePdf', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico='0'   ";  
 
-                                $resultado = $conexion->prepare($consulta);
-                                $resultado->execute();       
-                                
-                                $consulta = "SELECT * FROM capitulo WHERE idCapitulo='$id' ";              
-                                $resultado = $conexion->prepare($consulta);
-                                $resultado->execute();
-                                $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+                                    $resultado = $conexion->prepare($consulta);
+                                    $resultado->execute();       
+                                    
+                                    $consulta = "SELECT c.*,l.nombreLibro, l.idLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";              
+                                    $resultado = $conexion->prepare($consulta);
+                                    $resultado->execute();
+                                    $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+                                }else{
+                                    $data="error5"; // El tipo de la portada no esta permitido, intente con jpg 
+                                }
                             }else{
-                                $data="error5"; // El tipo de la portada no esta permitido, intente con jpg 
+                                $data="error6";// La portada pesa demasiado
                             }
                         }else{
-                            $data="error6";// La portada pesa demasiado
+                            $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo= '$nombre', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico='0'   ";     
+                            $resultado = $conexion->prepare($consulta);
+                            $resultado->execute();       
+                            
+                            $consulta = "SELECT c.*,l.nombreLibro, l.idLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";              
+                            $resultado = $conexion->prepare($consulta);
+                            $resultado->execute();
+                            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                         }
-                    }else{
-                        $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo= '$nombre', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico='0'   ";     
-                        $resultado = $conexion->prepare($consulta);
-                        $resultado->execute();       
-                        
-                        $consulta = "SELECT * FROM capitulo WHERE idCapitulo='$id' ";              
-                        $resultado = $conexion->prepare($consulta);
-                        $resultado->execute();
-                        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                     }
-                }
          //   }
        // }
        
-
+        }
         break;        
-    case 3://baja logica, solo modifica
-        $consulta = "UPDATE capitulo SET borradoLogico='$borrado' WHERE idCapitulo='$id' ";       
+    case 3://verifica que el capitulo no este siendo leido
+        $consulta = "SELECT COUNT(*) as cantidad FROM leyendo ley INNER JOIN capitulo c ON (c.idCapitulo=ley.idCapitulo) WHERE ley.idLibro='$libro' AND ley.idCapitulo='$id' AND ley.borradoLogico='0' AND c.numeroCapitulo='$num'";       
         $resultado = $conexion->prepare($consulta);
-        $resultado->execute();                 
-        
-        $consulta = "SELECT * FROM capitulo WHERE idCapitulo='$id' ";       
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);         
+        $resultado->execute(); 
+        $data= $resultado->fetchAll(PDO::FETCH_ASSOC);
+        if ($data[0]["cantidad"]> 0){
+            $data="errorleyendo";
+        }
+         
         break;        
     case 4:    
-        $consulta = "SELECT capitulo.*,libro.nombreLibro FROM capitulo INNER JOIN libro on (capitulo.idLibro=libro.idLibro) WHERE capitulo.borradoLogico=0 AND capitulo.borradoLogico=libro.borradoLogico";
+        $consulta = "SELECT c.*,l.nombreLibro, l.idLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
+    case 5:
+        $consulta = "UPDATE capitulo SET borradoLogico='1' WHERE idCapitulo='$id' ";       
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();                 
+        
+        $consulta = "SELECT c.*,l.nombreLibro, l.idLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";       
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+    break;
 }
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final el formato json a AJAX
