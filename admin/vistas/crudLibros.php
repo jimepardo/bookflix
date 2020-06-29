@@ -147,12 +147,12 @@ switch($opcion){
                 
             }
         break;        
-    case 3://baja logica, solo modifica
-        $consulta = "SELECT COUNT(*) FROM leyendo ley INNER JOIN libro l ON (l.idLibro= ley.idLibro) WHERE ley.idLibro = l.idLibro ";       
+    case 3://consulta si lo esta leyendo
+        $consulta = "SELECT COUNT(*) as cantidad FROM leyendo ley INNER JOIN libro l ON (l.idLibro=ley.idLibro) WHERE ley.idLibro='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         $data= $resultado->fetchAll(PDO::FETCH_ASSOC);
-        if ($data > 0){
+        if ($data[0]["cantidad"]> 0){
             $data="errorleyendo";
         }
         break;        

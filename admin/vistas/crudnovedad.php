@@ -22,7 +22,7 @@ switch($opcion){
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute(); 
 
-                $consulta = "SELECT * FROM novedadlibro ORDER BY idNovedadLibro DESC LIMIT 1";
+                $consulta = "SELECT n.*, l.nombreLibro, l.idLibro FROM novedadlibro n INNER JOIN libro l ON (l.idLibro=n.idLibro) ORDER BY l.idNovedadLibro DESC LIMIT 1";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
                 $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -36,7 +36,7 @@ switch($opcion){
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();        
             
-            $consulta = "SELECT * FROM novedadlibro WHERE idNovedadLibro='$id' ";       
+            $consulta = "SELECT n.*, l.nombreLibro, l.idLibro FROM novedadlibro n INNER JOIN libro l ON (l.idLibro=n.idLibro) WHERE l.idNovedadLibro='$id' ";       
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -47,13 +47,13 @@ switch($opcion){
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
-        $consulta = "SELECT * FROM novedadlibro WHERE idNovedadLibro='$id' ";       
+        $consulta = "SELECT n.*, l.nombreLibro, l.idLibro FROM novedadlibro n INNER JOIN libro l ON (l.idLibro=n.idLibro) WHERE l.idNovedadLibro='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);                           
         break;   
     case 4:    
-        $consulta = "SELECT * FROM novedadlibro";
+        $consulta = "SELECT n.*, l.nombreLibro, l.idLibro FROM novedadlibro n INNER JOIN libro l ON (l.idLibro=n.idLibro)";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
