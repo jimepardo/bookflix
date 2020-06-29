@@ -22,7 +22,6 @@
                             <th hidden>ID Género</th>
                             <th>Nombre género</th>
                             <th>Borrado</th>                                
-                            
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -71,8 +70,6 @@
     </div>
 </div>  
       
-    
-    
 </div>
 <!--FIN del cont principal-->
 

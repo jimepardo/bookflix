@@ -62,13 +62,10 @@ $(document).ready(function(){
                 }else{
                     alertify.notify('¡Cambios guardados exitosamente!','success',3);   
                     tablaEditorial.ajax.reload(null,false);
-                    document.getElementById("nombre").disabled = false;
                      $('#modalCRUD').modal('hide');
-                }
-                
+                }    
             }        
-        });
-            
+        });        
     }); 
         
     $("#btnNuevo").click(function(){
@@ -84,17 +81,24 @@ $(document).ready(function(){
     //botón EDITAR    
     $(document).on("click", ".btnEditar", function(){
         opcion = 2; //editar
-        //id = parseInt(fila.find('td:eq(0)').text());
         fila = $(this).closest("tr");
         var data = $('#tablaEditorial').DataTable().row(fila).data();
-        nombre = fila.find('td:eq(0)').text();
-        $("#id").val(data["idEditorial"]);
-        $("#nombre").val(nombre); 
-        $(".modal-header").css("background-color", "#7D7A7A");
-        $(".modal-header").css("color", "#F5F5F1");
-        $(".modal-title").text("Modificar editorial");            
-        $('#modalCRUD').modal('show');  
-        
+        if(data["borradoLogico"] == 0){
+            if (data["borradoParanoagregar"] == 0){
+            nombre = fila.find('td:eq(0)').text();
+            $("#id").val(data["idEditorial"]);
+            $("#nombre").val(nombre); 
+
+            $(".modal-header").css("background-color", "#7D7A7A");
+            $(".modal-header").css("color", "#F5F5F1");
+            $(".modal-title").text("Modificar editorial");            
+            $('#modalCRUD').modal('show'); 
+            }else{
+                alertify.notify('¡Error! No se puede modificar si esta borrado','error',3);
+            } 
+        }else{
+            alertify.notify('¡Error! No se puede modificar si esta borrado','error',3);
+        }    
     });
     
     $(document).on("click", ".btnBorrar", function(){
@@ -105,24 +109,28 @@ $(document).ready(function(){
         nombre = fila.find('td:eq(0)').text();
         console.log(nombre);
         console.log(data["idEditorial"]);
-        var respuesta = confirm("¿Está seguro de borrar la editorial "+nombre+"?");                
-        if (respuesta) {            
-            $.ajax({
-                url: "vistas/crudeditorial.php",
-                type: "POST",
-                dataType: "json",
-                data: {id:id, opcion:opcion},      
-              success: function(data) {
-                if (data== "error"){
-                    alertify.notify('¡Error! La editorial ya se borro','error',3);
-                }else{
-                    alertify.notify('¡Editorial borrada exitosamente!','success',3); 
-                    tablaEditorial.ajax.reload(null,false);                  
-               }
+        if (data["borradoLogico"] == 0){
+            var respuesta = confirm("¿Está seguro de borrar la editorial "+nombre+"?");                
+            if (respuesta) {            
+                $.ajax({
+                    url: "vistas/crudeditorial.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: {id:id, opcion:opcion},      
+                success: function(data) {
+                    if (data== "error"){
+                        alertify.notify('¡Error! La editorial ya se borro','error',3);
+                    }else{
+                        alertify.notify('¡Editorial borrada exitosamente!','success',3); 
+                        tablaEditorial.ajax.reload(null,false);                  
+                    }
+                }
+                });	
+            }else{
+                alertify.notify('Cancelado','error',3);
             }
-            });	
         }else{
-            alertify.notify('Cancelado','error',3);
+            alertify.notify('¡Error! La editorial ya se borro','error',3);
         }
      });
 
@@ -134,24 +142,29 @@ $(document).ready(function(){
         nombre = fila.find('td:eq(0)').text();
         console.log(nombre);
         console.log(data["idEditorial"]);
-        var respuesta = confirm("¿Está seguro de borrar la editorial "+nombre+"?");                
-        if (respuesta) {            
-            $.ajax({
-                url: "vistas/crudeditorial.php",
-                type: "POST",
-                dataType: "json",
-                data: {id:id, opcion:opcion},      
-              success: function(data) {
-                if (data== "error"){
-                    alertify.notify('¡Error! La editorial ya se borro para ocultar los libros de esta editorial','error',3);
-                }else{
-                    alertify.notify('¡Editorial borrada exitosamente, ocultando libros!','success',3); 
-                    tablaEditorial.ajax.reload(null,false);                  
-               }
+        if (data["borradoParanoagregar"] == 0){
+            var respuesta = confirm("¿Está seguro de borrar la editorial "+nombre+"?");                
+            if (respuesta) {            
+                $.ajax({
+                    url: "vistas/crudeditorial.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: {id:id, opcion:opcion},      
+                success: function(data) {
+                    if (data== "error"){
+                        alertify.notify('¡Error! La editorial ya se borro para ocultar los libros de esta editorial','error',3);
+                    }else{
+                        alertify.notify('¡Editorial borrada exitosamente, ocultando libros!','success',3); 
+                        tablaEditorial.ajax.reload(null,false);                  
+                }
+                }
+                });	
+            }else{
+                alertify.notify('Cancelado','error',3);
             }
-            });	
-        }else{
-            alertify.notify('Cancelado','error',3);
+        }
+        else{
+            alertify.notify('¡Error! La editorial ya se borro para ocultar los libros de esta editorial','error',3);
         }
      });
     

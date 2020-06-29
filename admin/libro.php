@@ -26,9 +26,12 @@
                                 <th>Borrado</th>
                                 <th>Portada path</th>  
                                 <th>Fecha lanzamiento</th>
-                                <th>Genero ID</th>
-                                <th>Autor ID</th>
-                                <th>Editorial ID</th>
+                                <th hidden>Genero ID</th>
+                                <th>Genero</th>
+                                <th hidden>Autor ID</th>
+                                <th>Autor</th>
+                                <th hidden>Editorial ID</th>
+                                <th>Editorial</th>
                                 <th>Disponible desde</th>
                                 <th>Disponible hasta</th>
                                 <th>Acciones</th>
@@ -83,18 +86,35 @@
                             <input type="text" class="form-control" id="desc" name="desc" required>
                         </div>   
                         <div class="row">
-                            <div class="col-lg-2">
-                                <div class="form-group">
-                                    <label for="borrado" class="col-form-label">Borrado:</label>
-                                    <input type="number" class="form-control" name="borrado" id="borrado" required>
-                                </div> 
-                            </div>           
-                            <div class="col-lg-10">
+                            <div class="form-group">
+                                <!-- <label for="borrado" class="col-form-label">Borrado:</label>-->
+                                <input type="hidden" class="form-control" name="borrado" id="borrado" required>    
+                            </div>
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="portada" class="col-form-label">Path portada:</label>
                                     <input type="file" class="form-control" name="portada" id="portada">
                                 </div>
-                            </div>
+                            </div> 
+                            <div class="col-lg-6">                            
+                                <div class="form-group">
+                                    <label for="idEd" class="col-form-label">Editorial</label>
+                                    <select class="custom-select" name="idEd" required id="idEd">
+                                        <option value="">Seleccione una editorial</option>
+                                        <?php  
+                                            $consulta = "SELECT idEditorial,nombreEditorial FROM editorial WHERE borradoLogico=0 AND borradoParanoagregar=0";
+                                            $resultado= $conexion->prepare($consulta);
+                                            $resultado->execute();
+                                            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+                                            foreach($data as $valores){
+                                                echo '<option value="'.$valores['idEditorial'].'"';                
+                                                echo '>'.$valores['nombreEditorial'].'</option>';
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>          
+                            
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
@@ -103,7 +123,7 @@
                                     <select class="custom-select" required id="idGen" name="idGen">
                                         <option value="">Seleccione un género</option>
                                         <?php  
-                                            $consulta= "SELECT idGenero, nombreGenero FROM genero WHERE (borradoLogico=0 AND borradoParanoagregar=0)";
+                                            $consulta= "SELECT idGenero, nombreGenero FROM genero WHERE (borradoLogico=0)";
                                             $resultado= $conexion->prepare($consulta);
                                             $resultado->execute();
                                             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -134,24 +154,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="idEd" class="col-form-label">Editorial</label>
-                                <select class="custom-select" name="idEd" required id="idEd">
-                                    <option value="">Seleccione una editorial</option>
-                                    <?php  
-                                        $consulta = "SELECT idEditorial,nombreEditorial FROM editorial WHERE borradoLogico=0 AND borradoParanoagregar=0";
-                                        $resultado= $conexion->prepare($consulta);
-                                        $resultado->execute();
-                                        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-                                        foreach($data as $valores){
-                                            echo '<option value="'.$valores['idEditorial'].'"';                
-                                            echo '>'.$valores['nombreEditorial'].'</option>';
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
+                        
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">

@@ -9,12 +9,24 @@ tablaAutor = $('#tablaAutor').DataTable({
         "dataSrc":""
     },
     "columns":[
-        {"data": "idAutor"},
+        {"data": "idAutor", "bSearchable": false, "bVisible": false},
         {"data": "nombreAutor"},
-        {"data": "borradoLogico"},
-        {"data": "borradoParanoagregar"},
-        {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button></div></div>"
-    }], //<button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button> para borrar
+        {"render": function(data,type,full){
+            var eventId = full['borradoLogico'];
+            if(eventId == '0')
+            return 'No esta borrado';
+            else   
+                return 'Borrado sin ocultar libros';
+           }},
+        {"render": function(data,type,full){
+            var eventId = full['borradoParanoagregar'];
+            if(eventId == '0')
+            return 'No esta borrado para ocultar libros';
+            else   
+                return 'Borrado ocultando libros';
+           }},
+        {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button><button class='btn btn-dark btn-sm btnBorrarF'><i class='material-icons'>Borrar y ocultar</i></button></div></div>"
+    }], 
      
         //Para cambiar el lenguaje a español
     "language": {
@@ -38,37 +50,27 @@ var fila; //capturar la fila para editar o borrar el registro
 
 $("#formAutor").submit(function(e){
     e.preventDefault();    
-    nombre = $.trim($("#nombre").val());
-    borrado =$.trim($("#borrado").val());
-    borrado2 =$.trim($("#borrado2").val());  
+    nombre = $.trim($("#nombre").val()); 
     $.ajax({
         url: "vistas/crudautor.php",
         type: "POST",
         dataType: "json",
-        data: {nombre:nombre, borrado:borrado, borrado2:borrado2, id:id, opcion:opcion},
+        data: {nombre:nombre, id:id, opcion:opcion},
         success: function(data){ 
             if (data == "error"){
                 alertify.notify('¡Error! El autor ya se encuentra registrado','error',3);
             }else{
                 alertify.notify('¡Cambios guardados exitosamente!','success',3);   
                 tablaAutor.ajax.reload(null,false);
-                document.getElementById("nombre").disabled = false;
-                document.getElementById("borrado").disabled = false;
-                document.getElementById("borrado2").disabled = false;
                 $('#modalCRUD').modal('hide'); 
-            }
-            
+            }   
         } 
-        
     });
-        
 }); 
     
 $("#btnNuevo").click(function(){
     opcion = 1; //alta
     id=null;
-    document.getElementById("borrado").disabled = true;
-    document.getElementById("borrado2").disabled = true;
     $("#formAutor").trigger("reset");
     $(".modal-header").css("background-color", "#CE0909");
     $(".modal-header").css("color", "#F5F5F1");
@@ -80,35 +82,86 @@ $("#btnNuevo").click(function(){
 $(document).on("click", ".btnEditar", function(){
     opcion = 2; //editar
     fila = $(this).closest("tr");
-    id = parseInt(fila.find('td:eq(0)').text());
-    nombre = fila.find('td:eq(1)').text();
-    
-    $("#nombre").val(nombre);
-    
-    $(".modal-header").css("background-color", "#7D7A7A");
-    $(".modal-header").css("color", "#F5F5F1");
-    $(".modal-title").text("Modificar autor");            
-    $('#modalCRUD').modal('show');  
-    document.getElementById("borrado").disabled = true;
-    document.getElementById("borrado2").disabled = true;    
+    var data = $('#tablaAutor').DataTable().row(fila).data(); 
+    if (data["borradoLogico"]==0){
+        if (data["borradoParanoagregar"] == 0){
+            id=data["idAutor"];
+            nombre = fila.find('td:eq(0)').text();
+            $("#id").val(data["idAutor"]);
+            $("#nombre").val(nombre);
+            $(".modal-header").css("background-color", "#7D7A7A");
+            $(".modal-header").css("color", "#F5F5F1");
+            $(".modal-title").text("Modificar autor");            
+            $('#modalCRUD').modal('show');      
+        }else{
+            alertify.notify('¡Error! No se puede modificar si esta borrado','error',3);
+        }
+    }else{
+        alertify.notify('¡Error! No se puede modificar si esta borrado','error',3);
+    }   
 });
 
 //botón BORRAR
-$(document).on("click", ".btnBorrar", function(){    
-    opcion = 3; //borrar
-    fila = $(this).closest("tr");
-    id = parseInt(fila.find('td:eq(0)').text());
-    borrado = fila.find('td:eq(2)').text();
-    borrado2 = fila.find('td:eq(3)').text();
-    
-    $("#borrado").val(borrado);
-    $("#borrado2").val(borrado2);
+$(document).on("click", ".btnBorrar", function(){
+    opcion = 3; //eliminar    
+    fila = $(this).closest("tr"); 
+    var data = $('#tablaAutor').DataTable().row(fila).data();
+    if (data["borradoLogico"] == 0){
 
-    $(".modal-header").css("background-color", "#CE0909");
-    $(".modal-header").css("color", "#F5F5F1");
-    $(".modal-title").text("Borrar autor");            
-    $('#modalCRUD').modal('show'); 
-    document.getElementById("nombre").disabled = true;
-});
+  
+        id=data["idAutor"];
+        nombre = fila.find('td:eq(0)').text();
+        console.log(nombre);
+        console.log(data["idAutor"]);
+        var respuesta = confirm("¿Está seguro de borrar el autor "+nombre+"?");                
+        if (respuesta) {            
+            $.ajax({
+                url: "vistas/crudautor.php",
+                type: "POST",
+                dataType: "json",
+                data: {id:id, opcion:opcion},      
+            success: function() {
+                alertify.notify('¡Autor borrado exitosamente!','success',3); 
+                tablaAutor.ajax.reload(null,false);                  
+            }
+            });	
+        }else{
+            alertify.notify('Cancelado','error',3);
+        }
+    }
+    else{
+        alertify.notify('¡Error! El autor ya se borró','error',3);
+    }
+ });
 
+
+ //botón BORRAR para no agregar mas
+$(document).on("click", ".btnBorrarF", function(){
+    opcion = 5; //eliminar    
+    fila = $(this).closest("tr"); 
+    var data = $('#tablaAutor').DataTable().row(fila).data();  
+    if (data["borradoParanoagregar"] == 0){
+        id=data["idAutor"];
+        nombre = fila.find('td:eq(0)').text();
+        console.log(nombre);
+        console.log(data["idAutor"]);
+        var respuesta = confirm("¿Está seguro de borrar el autor "+nombre+" para no agregar mas libros del mismo?");                
+        if (respuesta) {            
+            $.ajax({
+                url: "vistas/crudautor.php",
+                type: "POST",
+                dataType: "json",
+                data: {id:id, opcion:opcion},      
+            success: function() {
+                alertify.notify('¡Autor borrado exitosamente!','success',3); 
+                tablaAutor.ajax.reload(null,false);                  
+            }
+            });	
+        }else{
+            alertify.notify('Cancelado','error',3);
+        }
+    }else{
+        alertify.notify('¡Error! El autor ya se borró','error',3);
+    }
+ });
 });

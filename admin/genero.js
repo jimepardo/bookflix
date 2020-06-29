@@ -91,13 +91,17 @@ $(document).ready(function(){
         opcion = 2; //editar
         fila = $(this).closest("tr");
         var data = $('#tablaGenero').DataTable().row(fila).data();//cpn esta linea accedo a toda una fila de la tabla
-        nombre = fila.find('td:eq(0)').text();
-        $("#id").val(data["idGenero"]);
-        $("#nombre").val(nombre);
-        $(".modal-header").css("background-color", "#7D7A7A");
-        $(".modal-header").css("color", "#F5F5F1");
-        $(".modal-title").text("Modificar género");            
-        $('#modalCRUD').modal('show');  
+        if (data["borradoLogico"] == 0){
+            nombre = fila.find('td:eq(0)').text();
+            $("#id").val(data["idGenero"]);
+            $("#nombre").val(nombre);
+            $(".modal-header").css("background-color", "#7D7A7A");
+            $(".modal-header").css("color", "#F5F5F1");
+            $(".modal-title").text("Modificar género");            
+            $('#modalCRUD').modal('show'); 
+        }else{
+            alertify.notify('¡Error! No se puede modificar si esta borrado','error',3);
+        } 
            
     });
     
@@ -109,24 +113,24 @@ $(document).ready(function(){
         nombre = fila.find('td:eq(0)').text();
         console.log(nombre);
         console.log(data["idGenero"]);
-        var respuesta = confirm("¿Está seguro de borrar el genero "+nombre+"?");                
-        if (respuesta) {            
-            $.ajax({
-                url: "vistas/crudgenero.php",
-                type: "POST",
-                dataType: "json",
-                data: {id:id, opcion:opcion},      
-              success: function(data) {
-                if (data == "error"){
-                     alertify.notify('¡Error! El género ya se borro previamente','error',3);
-                }else{
-                    alertify.notify('¡Genero borrado exitosamente!','success',3); 
-                    tablaGenero.ajax.reload(null,false);                  
+        if (data["borradoLogico"]==0){
+            var respuesta = confirm("¿Está seguro de borrar el genero "+nombre+"?");                
+            if (respuesta) {            
+                $.ajax({
+                    url: "vistas/crudgenero.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: {id:id, opcion:opcion},      
+                success: function(data) {
+                        alertify.notify('¡Genero borrado exitosamente!','success',3); 
+                        tablaGenero.ajax.reload(null,false);                  
                 }
+                });	
+            }else{
+                alertify.notify('Cancelado','error',3);
             }
-            });	
         }else{
-            alertify.notify('Cancelado','error',3);
+            alertify.notify('¡Error! El género ya se borró previamente','error',3);
         }
      });
     

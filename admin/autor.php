@@ -19,10 +19,10 @@
                 <table id="tablaAutor" class="table table-striped table-bordered table-condensed" style="width:100%">
                     <thead class="text-center">
                         <tr>
-                            <th>ID Autor</th>
+                            <th hidden>ID Autor</th>
                             <th>Nombre autor</th>
-                            <th>Borrado logico</th>                                
-                            <th>Borrado para no agregar</th>  
+                            <th>Borrado sin ocultar libros</th>
+                            <th>Borrado para ocultar libros</th>  
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -45,17 +45,20 @@
             </div>
         <form id="formAutor">    
             <div class="modal-body">
+                <div class="form-group">                
+                    <input type="hidden" class="form-control" id="id" name="id" >
+                </div>
                 <div class="form-group">
                 <label for="nombre" class="col-form-label">Nombre:</label>
                 <input type="text" class="form-control" id="nombre" required>
                 </div>
                 <div class="form-group">
-                <label for="borrado" class="col-form-label">Borrado:</label>
-                <input type="number" class="form-control" id="borrado" required>
+              <!--  <label for="borrado" class="col-form-label">Borrado:</label>-->
+                <input type="hidden" class="form-control" id="borrado" required>
                 </div>                
                 <div class="form-group">
-                <label for="borrado2" class="col-form-label">Borrado para no agregar mas:</label>
-                <input type="number" class="form-control" id="borrado2" required>
+               <!-- <label for="borrado2" class="col-form-label">Borrado para no agregar mas:</label>-->
+                <input type="hidden" class="form-control" id="borrado2" required>
                 </div>            
             </div>
             <div class="modal-footer">

@@ -13,12 +13,30 @@ $(document).ready(function(){
             {"data": "ISBN"},
             {"data": "nombreLibro"},
             {"data": "descripcionLibro"},
-            {"data": "borradoLogico"},
+            {"render": function(data,type,full){
+                var eventId = full['borradoLogico'];
+                if(eventId == '0')
+                return 'No esta borrado';
+                else   
+                    return 'Borrado';
+               }},
             {"data": "portadaLibro"},
             {"data": "fechaLanzamiento"},
-            {"data": "idGenero"},
-            {"data": "idAutor"},
-            {"data": "idEditorial"},
+            {"data": "idGenero","bSearchable": false, "bVisible": false},
+            {"render": function(data,type,full){
+                var eventId = full['nombreGenero'];
+                return eventId;
+            }},
+            {"data": "idAutor","bSearchable": false, "bVisible": false},
+            {"render": function(data,type,full){
+                var eventId = full['nombreAutor'];
+                return eventId;
+            }},
+            {"data": "idEditorial","bSearchable": false, "bVisible": false},
+            {"render": function(data,type,full){
+                var eventId = full['nombreEditorial'];
+                return eventId;
+            }},
             {"data": "fechaDesde"},
             {"data": "fechaHasta"},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button></div></div>"
@@ -46,18 +64,7 @@ $(document).ready(function(){
 
     $("#formLibros").submit(function(e){ //submit para el alta y actualizacion
         e.preventDefault();    
-        /* isbn     =  $.trim($("#isbn").val());
-        nombre   =  $.trim($("#nombre").val());
-        desc     =  $.trim($("#desc").val());
-        borrado  =  $.trim($("#borrado").val());
-        portada  =  $.trim($("#portada").val());
-      //  fechaL   =  $.trim($("#fechaL").val());
-        idGen    =  $.trim($("#idGen").val());
-        idAu     =  $.trim($("#idAu").val());  
-        idEd     =  $.trim($("#idEd").val());  
-        fechaD   =  $.trim($("#fechaD").val());
-        fechaH   =  ($("#fechaH").val());  */
-        
+               
         var form_data2 = new FormData(document.getElementById("formLibros")); 
         console.log(Array.from(form_data2));
         form_data2.getAll("formLibros");
@@ -95,16 +102,7 @@ $(document).ready(function(){
                                     }else{                                      
                                         alertify.notify('¡Cambios guardados exitosamente!','success',3);
                                         tablaLibros.ajax.reload(null, false); 
-                                        document.getElementById("isbn").disabled = false;
-                                        document.getElementById("nombre").disabled = false;
-                                        document.getElementById("desc").disabled = false;
-                                        document.getElementById("portada").disabled = false;
-                                        document.getElementById("idGen").disabled = false;
-                                        document.getElementById("idAu").disabled = false;
-                                        document.getElementById("idEd").disabled = false;
-                                        document.getElementById("fechaD").disabled = false;
-                                        document.getElementById("fechaH").disabled = false;  
-                                        document.getElementById("borrado").disabled = false;  
+                                        document.getElementById("isbn").disabled = false;  
                                         $("#modalCRUD").modal("hide"); 
                                     }
                                 }
@@ -128,7 +126,6 @@ $(document).ready(function(){
 $("#btnNuevo").click(function(){
     opcion = 1; //alta
     id=null;
-    document.getElementById("borrado").disabled = true;
     $("#formLibros").trigger("reset");
     $(".modal-header").css("background-color", "#CE0909");
     $(".modal-header").css("color", "#F5F5F1");
@@ -138,36 +135,22 @@ $("#btnNuevo").click(function(){
      
 //botón EDITAR    
 $(document).on("click", ".btnEditar", function(){
-
     opcion = 2; //editar
     fila = $(this).closest("tr");
-
-    var data = $('#tablaLibros').DataTable().row(fila).data();//cpn esta linea accedo a toda una fila de la tabla
+    var data = $('#tablaLibros').DataTable().row(fila).data();//con esta linea accedo a toda una fila de la tabla
     console.log(data["idLibro"]); //con esta linea imprimo la columna escondida del ID,asi el cliente no la ve
 
-    //id = parseInt(fila.find('td:eq(0)').text());
     isbn = fila.find('td:eq(0)').text();
     nombre = fila.find('td:eq(1)').text();
     desc = fila.find('td:eq(2)').text();
-    //borrado= parseInt(find('td:eq(4)').text());
-    portada = fila.find('td:eq(4)').text();
-   // fechaL= fila.find('td:eq(6)').text();
-    idGen = parseInt(fila.find('td:eq(6)').text());
-    idAu = parseInt(fila.find('td:eq(7)').text());
-    idEd = parseInt(fila.find('td:eq(8)').text());
-    fechaD = fila.find('td:eq(9)').text();
-    fechaH = fila.find('td:eq(10)').text();
-    console.log(nombre);
-    console.log(desc);
-    console.log(portada);
-    console.log(idGen);
-    console.log(idAu);
-    console.log(idEd);
-    console.log(fechaD);
-    console.log(fechaH);
-    
-
-    
+    portada = fila.find('td:eq(3)').text();
+    fechaD = fila.find('td:eq(5)').text();
+    fechaH = fila.find('td:eq(6)').text();
+   
+    idGen=data["idGenero"];
+    idAu=data["idAutor"];
+    idEd=data["idEditorial"];
+      
     $("#id").val(data["idLibro"]);
     $("#isbn").val(isbn);
     $("#nombre").val(nombre);
@@ -175,9 +158,9 @@ $(document).on("click", ".btnEditar", function(){
    // $("#borrado").val(borrado);
    // $("#portada").val(portada);
     //$("#fechaL").val(fechaL);
-    $("#idGen").val(idGen);
-    $("#idAu").val(idAu);
-    $("#idEd").val(idEd);
+    $("#idGen").val(data["idGenero"]);
+    $("#idAu").val(data["idAutor"]);
+    $("#idEd").val(data["idEditorial"]);
     $("#fechaD").val(fechaD);
     $("#fechaH").val(fechaH);
         
@@ -186,32 +169,70 @@ $(document).on("click", ".btnEditar", function(){
     $(".modal-title").text("Modificar libro");            
     $("#modalCRUD").modal("show");  
   //  document.getElementById("portada").disabled=true; 
-    document.getElementById("borrado").disabled= true;
    document.getElementById("isbn").disabled=true;    
 });
+   
 
 //botón BORRAR
-$(document).on("click", ".btnBorrar", function(){ 
-    opcion = 3 //borrar   
-    fila = $(this).closest("tr");
-    id = parseInt(fila.find('td:eq(0)').text());
-    borrado= fila.find('td:eq(4)').text();
-    
-    $("#borrado").val(borrado);
-    
-    $(".modal-header").css("background-color", "#CE0909");
-    $(".modal-header").css("color", "#F5F5F1");
-    $(".modal-title").text("Borrar libro");            
-    $('#modalCRUD').modal('show'); 
-    document.getElementById("isbn").disabled = true;
-    document.getElementById("nombre").disabled = true;
-    document.getElementById("desc").disabled = true;
-    document.getElementById("portada").disabled = true;
-    document.getElementById("idGen").disabled = true;
-    document.getElementById("idAu").disabled = true;
-    document.getElementById("idEd").disabled = true;
-    document.getElementById("fechaD").disabled = true;
-    document.getElementById("fechaH").disabled = true;  
-});
-   
+$(document).on("click", ".btnBorrar", function(){
+    opcion = 3; //eliminar    
+    fila = $(this).closest("tr"); 
+    var data = $('#tablaLibros').DataTable().row(fila).data();
+    if (data["borradoLogico"] == 0){
+        id=data["idLibro"];
+        nombre = fila.find('td:eq(1)').text();
+        console.log(nombre);
+        console.log(data["idLibro"]);
+        var respuesta = confirm("¿Está seguro de borrar el libro "+nombre+"?");                
+        if (respuesta) {            
+            $.ajax({
+                url: "vistas/crudLibros.php",
+                type: "POST",
+                dataType: "json",
+                data: {id:id, opcion:opcion},      
+            success: function(data) {
+                if (data=="errorleyendo"){
+                    var respuesta2 = confirm("¿Está seguro de borrar el libro "+nombre+"? Hay personas que lo estan leyendo");
+                    opcion=5;
+                    if (respuesta2){
+                        $.ajax({
+                            url: "vistas/crudLibros.php",
+                            type: "POST",
+                            dataType: "json",
+                            data: {id:id, opcion:opcion},      
+                        success: function() {
+                            alertify.notify('¡Libro borrado exitosamente!','success',3); 
+                            tablaLibros.ajax.reload(null,false);
+                        }
+                        });
+                    }else{
+                        alertify.notify('Cancelado','error',3);
+                    }
+                }else{
+                    opcion=5;
+                    if (respuesta){
+                        $.ajax({
+                            url: "vistas/crudLibros.php",
+                            type: "POST",
+                            dataType: "json",
+                            data: {id:id, opcion:opcion},      
+                        success: function() {
+                            alertify.notify('¡Libro borrado exitosamente!','success',3); 
+                            tablaLibros.ajax.reload(null,false);
+                        }
+                        });
+                    } 
+                     
+                }                 
+            }
+            });	
+        }else{
+            alertify.notify('Cancelado','error',3);
+        }
+    }
+    else{
+        alertify.notify('¡Error! El libro ya se borró','error',3);
+    }
+ });
+
 });
