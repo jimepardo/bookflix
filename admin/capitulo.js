@@ -9,11 +9,20 @@ $(document).ready(function(){
             "dataSrc":""
         },
         "columns":[
-            {"data":"nombreLibro"},
+            {"render": function(data,type,full){
+                var eventId = full['nombreLibro'];
+                return eventId;
+            }},
             {"data": "idCapitulo","bSearchable": false, "bVisible": false},
             {"data": "numeroCapitulo"},
             {"data": "nombreCapitulo"},
-            {"data": "borradoLogico"},
+            {"render": function(data,type,full){
+                var eventId = full['borradoLogico'];
+                if(eventId == '0')
+                return 'No esta borrado';
+                else   
+                    return 'Capitulo Borrado';
+               }},
             {"data": "pdf"},
             {"data": "idLibro" ,"bSearchable": false, "bVisible": false},
             {"data": "fechaDesde"},
@@ -45,11 +54,11 @@ $(document).ready(function(){
         e.preventDefault();    
         
         var form_data2 = new FormData(document.getElementById("formcap")); 
-        console.log(Array.from(form_data2));
+       // console.log(Array.from(form_data2));
         form_data2.getAll("formcap");
-        form_data2.append("opcion", opcion);                           
-        console.log(Array.from(form_data2));
-        alert();    
+        form_data2.append("opcion", opcion); 
+        form_data2.append("libro", libro);                          
+        console.log(Array.from(form_data2));    
         $.ajax({
             url: "vistas/crudcap.php",            
             dataType: "json",
@@ -59,6 +68,7 @@ $(document).ready(function(){
             data: form_data2,
             type: "post",    
            success: function(data){  
+               console.log(data);
                 if (data=="error1"){
                     alertify.notify('¡Error! La fecha HASTA cuando esta disponible el capitulo es MAYOR a la fecha HASTA cuando esta disponible el libro', 'error',6);
                 }else{
@@ -79,13 +89,8 @@ $(document).ready(function(){
                                     }else{ 
                                         alertify.notify('¡Cambios guardados exitosamente!','success',3);
                                         tablaCap.ajax.reload(null, false); 
-                                        document.getElementById("num").disabled = false;
-                                        document.getElementById("nombre").disabled = false;
-                                        document.getElementById("pdf").disabled = false;
                                         document.getElementById("libro").disabled = false;
-                                        document.getElementById("fechaD").disabled = false;
-                                        document.getElementById("fechaH").disabled = false;  
-                                        document.getElementById("borrado").disabled = false;  
+                                          
                                         $("#modalCRUD").modal("hide");                                         
                                     }
                                 }
@@ -110,7 +115,6 @@ $("#btnNuevo").click(function(){
     opcion = 1; //alta
     id=null;
     $("#pdf").attr("required", true);
-    document.getElementById("borrado").disabled = true;
     $("#formcap").trigger("reset");
     $(".modal-header").css("background-color", "#CE0909");
     $(".modal-header").css("color", "#F5F5F1");
@@ -124,70 +128,103 @@ $(document).on("click", ".btnEditar", function(){
     fila = $(this).closest("tr");
 
     var data = $('#tablaCap').DataTable().row(fila).data();//cpn esta linea accedo a toda una fila de la tabla
-    console.log(data); //con esta linea imprimo la columna escondida del ID,asi el cliente no la ve
+   // console.log(data); //con esta linea imprimo la columna escondida del ID,asi el cliente no la ve
 
-
-   // id = parseInt(fila.find('td:eq(0)').text());
-   // num = parseInt(fila.find('td:eq(1)').text());
-    nombreLibro = fila.find('td:eq(0)').text();
-    numCapitulo = fila.find('td:eq(1)').text();
+    libro=data["idLibro"];
+    id=data["idCapitulo"];
+    num = fila.find('td:eq(1)').text();
     nombre = fila.find('td:eq(2)').text();
-     //borrado= parseInt(find('td:eq(3)').text());
-    pdf = fila.find('td:eq(4)').text();
-  
-   // libro= fila.find('td:eq(5)').text();
+    pdf = fila.find('td:eq(3)').text();
     fechaD = fila.find('td:eq(5)').text();
     fechaH = fila.find('td:eq(6)').text();
     
-    console.log(data["idCapitulo"]);
-    console.log(numCapitulo);
-    console.log(nombre);
-    console.log(pdf);
-    console.log(fechaD);
-    console.log(fechaH);
-    
+  //  console.log(data["idCapitulo"]);
+   // console.log(num);    
+   // console.log(data["idLibro"]);
+        
     $("#id").val(data["idCapitulo"]);
-    $("#num").val(numCapitulo);
+    $("#libro").val(data["idLibro"]);
+    $("#num").val(num);
     $("#nombre").val(nombre);
-  //  $("#pdf").val(pdf);
-   // $("#vistaprevia").val(vistaprevia);
-  //  $("#libro").val(libro);
     $("#fechaD").val(fechaD);
     $("#fechaH").val(fechaH);
+
     $("#pdf").removeAttr("required");    
     $(".modal-header").css("background-color", "#7D7A7A");
     $(".modal-header").css("color", "#F5F5F1");
     $(".modal-title").text("Modificar capitulo");            
     $("#modalCRUD").modal("show");  
-   
-    document.getElementById("borrado").disabled= true;
-    document.getElementById("libro").disabled=true;    
+    
+   document.getElementById("libro").disabled=true;    
 });
+
 
 //botón BORRAR
-$(document).on("click", ".btnBorrar", function(){ 
-    opcion = 3 //borrar   
-    fila = $(this).closest("tr");
-
-    var data = $('#tablaCap').DataTable().row(fila).data();//cpn esta linea accedo a toda una fila de la tabla
-    console.log(data); //con esta linea imprimo la columna escondida del ID,asi el cliente no la ve
-
-    //id = parseInt(fila.find('td:eq(0)').text());
-    borrado= fila.find('td:eq(3)').text();
-    
-    $("#id").val(data["idCapitulo"]);
-    $("#borrado").val(borrado);
-    $("#pdf").removeAttr("required");
-    $(".modal-header").css("background-color", "#CE0909");
-    $(".modal-header").css("color", "#F5F5F1");
-    $(".modal-title").text("Borrar capitulo");            
-    $('#modalCRUD').modal('show'); 
-    document.getElementById("num").disabled = true;
-    document.getElementById("nombre").disabled = true;
-    document.getElementById("pdf").disabled = true;
-    document.getElementById("libro").disabled = true;
-    document.getElementById("fechaD").disabled = true;
-    document.getElementById("fechaH").disabled = true;  
-});
+$(document).on("click", ".btnBorrar", function(){
+    opcion = 3; //eliminar    
+    fila = $(this).closest("tr"); 
+    var data = $('#tablaCap').DataTable().row(fila).data();
+    if (data["borradoLogico"] == 0){
+        id=data["idCapitulo"];
+        num = fila.find('td:eq(1)').text();
+        nombre = fila.find('td:eq(2)').text();
+        libro=data["idLibro"];
+        nombrel=data["nombreLibro"]
+        console.log(nombre);
+        console.log(data["idLibro"]);
+        var respuesta = confirm("¿Está seguro de borrar el capitulo "+nombre+" del libro "+nombrel +"?");                
+        if (respuesta) {            
+            $.ajax({
+                url: "vistas/crudcap.php",
+                type: "POST",
+                dataType: "json",
+                data: {id:id, opcion:opcion, num:num, libro:libro},      
+            success: function(data) {
+                console.log(data);
+                if (data=="errorleyendo"){
+                    var respuesta2 = confirm("¿Está seguro de borrar el capitulo "+nombre+" del libro "+nombrel +"? Hay personas que lo estan leyendo");
+                   
+                    if (respuesta2){
+                        $.ajax({
+                            url: "vistas/crudcap.php",
+                            type: "POST",
+                            dataType: "json",
+                            data: {id:id, opcion:5, num:num, libro:libro},      
+                        success: function() {
+                            alertify.notify('¡Capitulo borrado exitosamente!','success',3); 
+                            tablaCap.ajax.reload(null,false);
+                        }
+                        });
+                    }else{
+                        alertify.notify('Cancelado','error',3);
+                    }
+                }else{
+                    var respuesta3 = confirm("¿Está seguro de borrar el capitulo "+nombre+" del libro "+nombrel +"? No hay nadie leyendo este capitulo");
+                    if (respuesta3){
+                        $.ajax({
+                            url: "vistas/crudcap.php",
+                            type: "POST",
+                            dataType: "json",
+                            data: {id:id, opcion:5, num:num, libro:libro},      
+                        success: function() {
+                            alertify.notify('¡Capitulo borrado exitosamente!','success',3); 
+                            tablaCap.ajax.reload(null,false);
+                        }
+                        });
+                    }
+                    else{
+                        alertify.notify('Cancelado','error',3);
+                    }                
+                }                 
+            }
+            });	
+        }else{
+            alertify.notify('Cancelado','error',3);
+        }
+    }
+    else{
+        alertify.notify('¡Error! El capitulo ya se borró','error',3);
+    }
+ });
    
 });

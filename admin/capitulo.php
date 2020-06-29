@@ -50,10 +50,16 @@
                 </div>
                 <form id="formcap" enctype="multipart/form-data">    
                     <div class="modal-body">
+                        <div class="form-group">                
+                            <input type="hidden" class="form-control" id="id" name="id" >
+                        </div>
+                        <div class="form-group">                
+                            <input type="hidden" class="form-control" id="nombrel" name="nombrel" >
+                        </div>
                         <div class="row">
-                            <div class="col-lg-5">
+                            <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="libro">Libro </label>
+                                    <label for="libro">Libro: </label>
                                     <select class="custom-select" id="libro" name="libro" required>
                                         <option value="">Seleccione un libro</option>
                                         <?php  
@@ -69,21 +75,8 @@
                                     </select>
                                 </div>  
                             </div>
-                            <div class="form-group">                
-                                    <input type="hidden" class="form-control" id="id" name="id" >
-                            </div>
-                            <div class="form-group">                
-                                    <input type="hidden" class="form-control" id="nombreLibro" name="nombreLibro" >
-                                </div>
-                            <div class="col-lg-2">
-                                <div class="form-group">                
-                                    <label for="num" class="col-form-label">N° Cap</label>
-                                    <input type="number" class="form-control" id="num" name="num" required>
-
-                                </div>
-                            </div>
                             
-                            <div class="col-lg-5">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="nombre" class="col-form-label">Nombre capitulo:</label>
                                     <input type="text" class="form-control" id="nombre" name="nombre" required>
@@ -92,11 +85,18 @@
                             
                         </div>  
                         <div class="row">
-                            <div class="col-lg-3">
+                        <div class="col-lg-3">
+                                <div class="form-group">                
+                                    <label for="num" class="col-form-label">N° Cap</label>
+                                    <input type="number" class="form-control" id="num" name="num" required>
+
+                                </div>
+                            </div>
+                            
                                 <div class="form-group">
-                                    <label for="borrado" class="col-form-label">Borrado:</label>
-                                    <input type="number" class="form-control" name="borrado" id="borrado" required>
-                                </div> 
+                                   <!-- <label for="borrado" class="col-form-label">Borrado:</label>-->
+                                    <input type="hidden" class="form-control" name="borrado" id="borrado" required>
+                                
                             </div>           
                             <div class="col-lg-9">
                                 <div class="form-group">
