@@ -6,10 +6,17 @@
         
     <h3 class="text-dark"> &nbsp Estadísticas de libros según cantidad de lecturas </h3>
     <?php   
-        $consulta= "SELECT DISTINCT l.nombreLibro, l.idLibro, ley.idPerfil, COUNT( ley.idLibro) as cant FROM libro l LEFT JOIN leyendo ley ON (ley.idLibro=l.idLibro) GROUP BY l.idLibro ORDER BY COUNT(l.idlibro) DESC";
+        $consulta= "SELECT DISTINCT l.nombreLibro, l.idLibro, ley.idPerfil, COUNT( ley.idLibro) as cant 
+        FROM libro l LEFT JOIN leyendo ley ON (ley.idLibro=l.idLibro)
+        WHERE l.borradoLogico='0' AND (ley.borradoLogico='0' OR NOT EXISTS (Select *
+                                           From Libro 
+                                           Where  l.borradoLogico='1' AND ley.borradoLogico='1' ))
+        GROUP BY l.idLibro
+        ORDER BY COUNT(l.idlibro) DESC";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-               
+           
+        
         if ($datos=$resultado->fetchAll(PDO::FETCH_ASSOC)){
     ?>
     <br> 
