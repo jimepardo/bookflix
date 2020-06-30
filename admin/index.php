@@ -148,7 +148,8 @@
               </a>
             </div>
             <div class="col-auto">
-              <i class="fas fa-newspaper fa-2x text-gray-300"></i>
+            
+              <i class="fas fa-rss-square fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -170,7 +171,7 @@
               </a>
             </div>
             <div class="col-auto">
-              <i class="fas fa-newspaper fa-2x text-gray-300"></i>
+              <i class="fas fa-table fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -183,7 +184,7 @@
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Adicional</div>
+            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Adicional</div>
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
               <a href="buscarusuarios.php" class="btn btn-light btn-icon-split">
@@ -198,18 +199,14 @@
                     </span>
                     <span class="text">Cobrar Suscripciones</span>
                   </a>
-                  <a href="../home.php" class="btn btn-light btn-icon-split">
+                  <a href="verEstadisticas.php" class="btn btn-light btn-icon-split">
                     <span class="icon text-gray-600">
                       <i class="fas fa-arrow-right"></i>
                     </span>
-                    <span class="text">Pagina principal del user</span>
+                    <span class="text">Estadisticas de lecturas</span>
                   </a>
-                  <a href="../novedades.php" class="btn btn-light btn-icon-split">
-                    <span class="icon text-gray-600">
-                      <i class="fas fa-arrow-right"></i>
-                    </span>
-                    <span class="text">Todas las novedades</span>
-                  </a>
+
+                 
               </div>
               <div class="col">               
               </div>
@@ -222,6 +219,34 @@
       </div>
     </div>
   </div>
+  <!-- Paginas -->
+  <div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-info shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Páginas</div>
+            <a href="../home.php" class="btn btn-light btn-icon-split">
+                    <span class="icon text-gray-600">
+                      <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <span class="text">Pagina principal del user</span>
+                  </a>
+                  <a href="../novedades.php" class="btn btn-light btn-icon-split">
+                    <span class="icon text-gray-600">
+                      <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <span class="text">Todas las novedades</span>
+                  </a>
+            </div>
+            <div class="col-auto">
+            
+              <i class="fas fa-rss fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <div class="col-xl-4 col-md-6 mb-4">
     <div class="card border-left-warning shadow h-100 py-2">

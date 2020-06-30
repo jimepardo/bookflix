@@ -129,14 +129,28 @@
             <li class="nav-item">
                 <a class="nav-link" href="buscarusuarios.php">
                 <i class="fas fa-search"></i>
-                    <span>Buscar usuarios registrados</span></a>
+                <span>Buscar usuarios registrados</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="cobrarPlan.php">
                 <i class="fas fa-balance-scale"></i>
-                    <span>Cobrar Suscripciones</span></a>
+                <span>Cobrar Suscripciones</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="verEstadisticas.php">
+                <i class="far fa-chart-bar"></i>
+                <span>Estadísticas de lecturas</span></a>
+            </li>
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Páginas
+            </div>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">

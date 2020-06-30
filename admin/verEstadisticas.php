@@ -6,7 +6,7 @@
         
     <h3 class="text-dark"> &nbsp Estadísticas de libros según cantidad de lecturas </h3>
     <?php   
-        $consulta= "SELECT l.nombreLibro, l.idLibro FROM libro l WHERE l.borradoLogico='0'  ";
+        $consulta= "SELECT l.nombreLibro, l.idLibro FROM libro l WHERE l.borradoLogico='0' ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         
@@ -29,7 +29,7 @@
                         </thead>
                         <?php foreach ($datos as $dato) { 
                             $id=$dato['idLibro'];
-                            $consulta2= "SELECT DISTINCT ley.idPerfil, l.nombreLibro, COUNT(*) as cant FROM libro l INNER JOIN leyendo ley ON (ley.idLibro=l.idLibro) WHERE l.borradoLogico='0' AND ley.borradoLogico='0' AND ley.idLibro='$id'  ";
+                            $consulta2= "SELECT DISTINCT ley.idPerfil, l.nombreLibro, COUNT(*) as cant FROM libro l INNER JOIN leyendo ley ON (ley.idLibro=l.idLibro) WHERE l.borradoLogico='0' AND ley.borradoLogico='0' AND ley.idLibro='$id' ORDER BY cant ASC ";
                             $resultado2 = $conexion->prepare($consulta2);
                             $resultado2->execute();
                             $datos2=$resultado2->fetch();
@@ -54,3 +54,11 @@
 </div>
 
 <?php require_once "vistas/parte_inferior.php" ?>
+<script>
+$(document).ready(function() {
+    $('#tabla').DataTable( {
+        "iDisplayLength": -1,
+       "aaSorting": [[ 0, "desc" ]] // Sort by first column descending
+    } );
+} );
+</script>
