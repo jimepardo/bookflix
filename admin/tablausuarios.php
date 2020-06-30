@@ -53,7 +53,7 @@
                             <th><?php echo $dato['apellido']?></th>
                             <th><?php echo $dato['emailUsuario']?></th>                  
                             <th><?php echo $dato['fechaReg']?></th>
-                            <th><?php if( $dato['permisoUsuario'] == 1) echo "Usuario Básico"; else echo "Usuario Premium";?></th> 
+                            <th><?php if( $dato['permisoUsuario'] == 1) echo "Usuario Básico"; else{ if($dato['permisoUsuario'] == 2) echo "Usuario Premium"; else{ echo "No contrato plan todavia";  } } ?></th> 
                           </tr>                    
                         </tbody> 
                         <?php } 
