@@ -6,13 +6,10 @@
         
     <h3 class="text-dark"> &nbsp Estadísticas de libros según cantidad de lecturas </h3>
     <?php   
-        $consulta= "SELECT l.nombreLibro, l.idLibro FROM libro l WHERE l.borradoLogico='0' ";
+        $consulta= "SELECT DISTINCT l.nombreLibro, l.idLibro, ley.idPerfil, COUNT( ley.idLibro) as cant FROM libro l LEFT JOIN leyendo ley ON (ley.idLibro=l.idLibro) GROUP BY l.idLibro ORDER BY COUNT(l.idlibro) DESC";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-        
-
-        
-                
+               
         if ($datos=$resultado->fetchAll(PDO::FETCH_ASSOC)){
     ?>
     <br> 
@@ -21,23 +18,17 @@
             <div class="col-lg-12">
                 <div class="table-responsive">        
                     <table id="tabla" class="table table-striped table-bordered table-condensed" style="width:100%">
-                        <thead class="text-center">
+                        <thead class="text-center" >
                             <tr>
-                                <th>Nombre Libro</th>
-                                <th>Cantidad de lecturas</th>
+                                <th class="text-center" style="width:300pt"> Nombre Libro</th>
+                                <th class="text-center" style="width:50pt">Cantidad de lecturas</th>
                             </tr>
                         </thead>
-                        <?php foreach ($datos as $dato) { 
-                            $id=$dato['idLibro'];
-                            $consulta2= "SELECT DISTINCT ley.idPerfil, l.nombreLibro, COUNT(*) as cant FROM libro l INNER JOIN leyendo ley ON (ley.idLibro=l.idLibro) WHERE l.borradoLogico='0' AND ley.borradoLogico='0' AND ley.idLibro='$id' ORDER BY cant ASC ";
-                            $resultado2 = $conexion->prepare($consulta2);
-                            $resultado2->execute();
-                            $datos2=$resultado2->fetch();
-                            ?>
+                        <?php foreach ($datos as $dato) { ?>
                         <tbody>
                            <tr>
                             <th><?php echo $dato['nombreLibro']?></th>
-                            <th><?php echo $datos2['cant']?></th>
+                            <th><?php echo $dato['cant']?></th>
                           </tr>                    
                         </tbody> 
                         <?php } 
@@ -55,10 +46,5 @@
 
 <?php require_once "vistas/parte_inferior.php" ?>
 <script>
-$(document).ready(function() {
-    $('#tabla').DataTable( {
-        "iDisplayLength": -1,
-       "aaSorting": [[ 0, "desc" ]] // Sort by first column descending
-    } );
-} );
+
 </script>
