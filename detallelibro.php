@@ -11,6 +11,8 @@
     //traerme los pdf de todos los capitulos
     $consulta2=mysqli_query($conexion,"SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['idLibro']."' AND c.borradoLogico='0' ");
    // $mostrar2=mysqli_fetch_array($consulta2);
+    $nombreLibro=$mostrar['nombreLibro'];
+    $idLibro=$mostrar['idLibro'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +63,7 @@
                                         }
                                         ?>
                                 </div>
-                            <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="miLista.php">Mi lista</a> </li>
                             </li>
                         </ul>
 
@@ -137,7 +139,7 @@
                                         }
                                         ?>
                                     </div>
-                                    <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" href="miLista.php">Mi lista</a> </li>
                                 </li>
                             </ul>
                             <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
@@ -320,23 +322,128 @@
             }?>
             </div>
             <br>
+            <?php
+            $idperf=$_SESSION["IDPERFIL"];
+            $sqlFavorito="SELECT count(*) as count FROM favoritos WHERE  idLibro=$idLibro AND idPerfil=$idperf AND borradoLogico=0";
+            $queryFavorito=mysqli_query($conexion, $sqlFavorito);
+            $mostrarFavorito=mysqli_fetch_array($queryFavorito);
+            if ($mostrarFavorito["count"]==0) {
+            ?>
+                <form action="favorito.php" method="POST">
+                    <input type="hidden" name="opcion" id="opcion" value="0">
+                    <input type="hidden" name="idPerfil" id="idPerfil" value="<?= $_SESSION["IDPERFIL"] ?>">
+                    <input type="hidden" name="idLibro" id="idLibro" value="<?= $idLibro?> " >
+                    <input type="hidden" name="nombrePerfil" id="nombrePerfil" value="<?= $nombreLibro ?>">
+                    <input type="submit" name="submit" value="agregar a favoritos :D">
+                </form>
+            <?php
+            }else{
+            ?>
+                <form action="favorito.php" method="POST">
+                    <input type="hidden" name="opcion" id="opcion" value="1">
+                    <input type="hidden" name="idPerfil" id="idPerfil" value="<?= $_SESSION["IDPERFIL"] ?>">
+                    <input type="hidden" name="idLibro" id="idLibro" value="<?= $idLibro?> " >
+                     <input type="hidden" name="nombrePerfil" id="nombrePerfil" value="<?= $nombreLibro ?>">
+                    <input type="submit" name="submit" value="quitar de favoritos :C ">
+                </form>
+            <?php
+            }
+            ?>
+            <br>
+            <?php
+            $idperf=$_SESSION["IDPERFIL"];
+            $consultaHistorial= "SELECT count(*)as count FROM historial WHERE idLibro=$idLibro AND idPerfil=$idperf";
+            $queryHistorial=mysqli_query($conexion, $consultaHistorial);
+            $mostrarHistorial=mysqli_fetch_array($queryHistorial);
+            if ($mostrarHistorial["count"]!=0) {
+                $consultaCalificacion= "SELECT numero,count(*)as count FROM calificacion WHERE idLibro=$idLibro AND idPerfil=$idperf";
+                $queryCalificacion=mysqli_query($conexion, $consultaCalificacion);
+                $mostrarCalificacion=mysqli_fetch_array($queryCalificacion);
+            ?>
             <div class="flex-row"><br>
                 <p class="clasif">Calificar:</p>
-
-                <div class="rw-ui-container"></div>
-
+                <form method="POST" action="calificarLibro.php">
+                <input type="hidden" name="idPerfil" id="idPerfil" value="<?= $_SESSION["IDPERFIL"] ?>">
+                <input type="hidden" name="idLibro" id="idLibro" value="<?= $idLibro?> " >
+                <input type="hidden" name="nombrePerfil" id="nombrePerfil" value="<?= $nombreLibro ?>">
+                <input type="hidden" name="actualizacion" id="actualizacion" value="<?= $mostrarCalificacion["count"] ?>">
+                <div class="form-group">
+                <select name="calificacion" id="calificacion">
+                    <option value="0">Seleccione una calificacion</option>
+                    <option value="1" <?php if($mostrarCalificacion["numero"]==1){ ?> selected <?php } ?> >★</option>
+                    <option value="2" <?php if($mostrarCalificacion["numero"]==2){ ?> selected <?php } ?>>★★</option>
+                    <option value="3" <?php if($mostrarCalificacion["numero"]==3){ ?> selected <?php } ?>>★★★</option>
+                    <option value="4" <?php if($mostrarCalificacion["numero"]==4){ ?> selected <?php } ?>>★★★★</option>
+                    <option value="5" <?php if($mostrarCalificacion["numero"]==5){ ?> selected <?php } ?>>★★★★★</option>
+                </select> 
+                <input type="submit" name="submit" value="calificar">
+                </div>
+            </form>
             </div>
            <br>
+        <form id="comentar" method="POST" action="cargarComentario.php"> 
+            <p>Comentar :</p>
+            <input type="hidden" name="nombreLibro" id="nombreLibro" value="<?= $nombreLibro ?>">
+            <input type="hidden" name="idLibro" id="idLibro" value="<?= $idLibro ?>">
+            <input type="hidden" name="idPerfil" id="idPerfil" value="<?= $_SESSION["IDPERFIL"] ?>">
+            <textarea id="comentario" name="comentario" style="height:200px ;width: 500px"></textarea>
+            <br>  
+            <input type="submit" name="submit-comentar" value="Cargar Comentario">
+            <?php
+            if(isset($_GET["ERR_COMENT"])){
+            ?>
+            <div class="alert alert-danger" style="width: 500px"> <?= $_GET["ERR_COMENT"] ?></div>
+            <?php
+            }
+            ?>
+        </form>
+        <?php
+        }else{
+            ?>
+            <div class="alert alert-warning" style="width: 600px;"> Debe terminar de leer el libro antes de comentarlo o calificarlo !</div>
+            <?php
+        }
+        ?>
+        <br>
+        <br>
         <div class="flex-row "> 
             <p>Comentarios: </p>
                 <pre class="pre-scrollable text-warning col-6 "> 
-                <blockquote class="blockquote-reverse">
-                <p>Recomiendo este libro.<footer style="font-style:italic; color:gray;">Jimena</footer></p>
-                <p>Muy buen libro.<footer style="font-style:italic; color:gray;">Romina</footer></p> 
-                <p>No entendi de que trataba, no lo recomiendo.<footer style="font-style:italic;  color:gray;">Lucio</footer></p> 
-                </blockquote>
+
+                
+                <?php
+                $consulta="SELECT *  FROM comentario WHERE borradoLogico=0 AND idLibro=$idLibro";
+                $query = mysqli_query($conexion,$consulta);               
+                while ($mostrar = mysqli_fetch_array($query)) {
+                $auxIdPerfil=$mostrar["idPerfil"];
+                $sql="SELECT nombrePerfil,idPerfil FROM perfil WHERE idPerfil=$auxIdPerfil";
+                $query2= mysqli_query($conexion,$sql);
+                $name=mysqli_fetch_array($query2);
+                ?>
+                <div>             
+                <p><?= $mostrar["textoComentario"] ?><footer style="font-style:italic; color:gray;"><?= $name["nombrePerfil"] ?></footer></p>
+                 <?php
+                if($_SESSION["IDPERFIL"]==$name["idPerfil"]){
+                ?>
+                <form action="borrarComentario.php" method="POST">
+                    <input type="submit" name="borrar Comentario" value="borrarComentario">
+                    <input type="hidden" name="nombreLibro" id="nombreLibro" value="<?= $nombreLibro ?>">
+                    <input type="hidden" name="idPerfil" id="idPerfil" value="<?= $_SESSION["IDPERFIL"] ?>" dissable>
+                    <input type="hidden" name="idLibro" id="idLibro" value="<?= $idLibro ?>" dissable>
+                    
+                </form>
+                    
+                <?php
+                }
+                ?>
+
+            </div>
+                <hr>
+                <?php
+                }
+                ?>
                 </pre>
-            </div> 
+        </div> 
         </div> 
     </div>   
     

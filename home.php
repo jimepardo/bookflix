@@ -73,7 +73,7 @@
                                         }
                                         ?>
                                 </div>
-                            <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="miLista.php">Mi lista</a> </li>
                             </li>
                         </ul>
                             <!--Buscar-->
@@ -149,7 +149,7 @@
                                         }
                                         ?>
                                     </div>
-                                    <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" href="miLista.php">Mi lista</a> </li>
                                 </li>
                             </ul>
 

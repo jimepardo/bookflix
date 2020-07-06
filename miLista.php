@@ -27,7 +27,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bookflix - Novedades</title>
+    <title>Bookflix</title>
     <link rel="icon" href="img/logo2.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
@@ -36,9 +36,8 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <!-- Bootstrap CSS -->
-    <!-- CSS only -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <?php     
     if (isset($_SESSION['PERMISO'])) {   
    
@@ -55,8 +54,8 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                     <div class="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto text-center">
-                            <li class="nav-item"> <a class="nav-link" href="home.php">Inicio </a> </li>
-                            <li class="nav-item active"> <a class="nav-link" href="novedades.php">Novedades</a> </li>
+                            <li class="nav-item active"> <a class="nav-link" href="home.php">Inicio </a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="novedades.php">Novedades</a> </li>
                             <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                 <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="generos.php">Todos</a>
@@ -74,20 +73,19 @@
                                         }
                                         ?>
                                 </div>
-                            <li class="nav-item"> <a class="nav-link" href="miLista.php">Mi lista</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
                             </li>
                         </ul>
                             <!--Buscar-->
-                        <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
-                            <input class="form-control mr-sm-2 " type="search" name="busca" value="<?php if(isset($_POST['busca'])) echo $_POST['busca'];?>" autocomplete="on" placeholder="Buscar..." aria-label="Search"> 
-                            <button class="btn btn-outline-danger my-2 my-sm-0" name="enviar" type="submit">
-                                <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
-                                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
-                                </svg>
-                            </button> 
-                        </form>
-
+                       <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
+                        <input class="form-control mr-sm-2 " type="search" name="busca" value="<?php if(isset($_POST['busca'])) echo $_POST['busca'];?>" autocomplete="on" placeholder="Buscar..." aria-label="Search"> 
+                        <button class="btn btn-outline-danger my-2 my-sm-0" name="enviar" type="submit">
+                            <svg class="bi bi-search" width="1.4em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
+                                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
+                            </svg>
+                        </button> 
+                    </form>
                     <ul class="navbar-nav d-flex flex-row justify-content-center ">
 
                         <li class="nav-item ">
@@ -132,8 +130,8 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                         <div class="collapse navbar-collapse " id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto text-center">
-                                <li class="nav-item"> <a class="nav-link" href="home.php">Inicio </a> </li>
-                                <li class="nav-item active"> <a class="nav-link" href="novedades.php">Novedades</a> </li>
+                                <li class="nav-item active"> <a class="nav-link" href="home.php">Inicio </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="novedades.php">Novedades</a> </li>
                                 <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Géneros </a>
                                     <div class="dropdown-menu text-center " aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="generos.php">Todos</a>
@@ -151,7 +149,7 @@
                                         }
                                         ?>
                                     </div>
-                                    <li class="nav-item"> <a class="nav-link" href="miLista.php">Mi lista</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
                                 </li>
                             </ul>
 
@@ -218,109 +216,103 @@
 		<?php
             break;
         }  
-
      
 	}else{
-        header("Location: home.php");
-    }
+    ?>
+                <!--Esta es la barra de navegacion para los usuarios no registrados  -->
+            <div class="barranavegacionNoReg">
+                <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
+                    <a class="navbar-brand" href="home.php">
+                        <object data="img/Recurso 1.svg" width=130px type="image/svg+xml">  
+                <!-- Imagen alternativa si el SVG no puede cargarse -->
+                
+                <img src="img/logo1.png" width=110px alt="Imagen PNG alternativa">
+                </object></a>
+                    <!-- esto es para decirle q cree el boton al costado cuando se colapse-->
+                    
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <a href="login.php"><button type="button" class="btn btn-outline-danger " style="margin-right: 25px; text-align: center;">Iniciar Sesión</button></a>
+                            <a href="registrarse.php"><button type="button" class="btn btn-danger" style="margin-right: 10px; text-align: center;">Registrarse</button></a>
+        
+                        </ul>
+        
+                    </div>
+                </nav>
+            </div>
+ <?php
+}
  ?>
 </head>
 
 <body style="background-color: #221f1f;">
-   
-    <?php        
-        $sql="SELECT novedadlibro.idNovedadLibro, libro.idLibro, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro, novedadlibro.fechaNovedad FROM libro INNER JOIN novedadlibro ON libro.idLibro = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.idLibro=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE()"; 
-        $query= mysqli_query($conexion,$sql); 
-        $totalResultados= mysqli_num_rows($query);
-        if ($totalResultados > 0){ 
-        ?>
-        <!--primer slide -->
-        <div class="netflix-slider mx-5">                
-            <h2 class="titulos">Novedades </h2>
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <?php  while ($name = mysqli_fetch_array($query)) {
-                            $titulo= $name['nombreLibro'];
-                            $desc= $name['descripcion'];
-                        ?>
-                        <div class="swiper-slide">
-                            <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" style="height:400px; width:800px" src="/bookflix/bookImages/<?php echo $name['portadaLibro']?>" alt="Card image cap">
-                                <div class="card-body">
-                                    <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:center;"><?php echo recortar_texto($titulo, 50)?></p>
-                                    <p class="card-text" style="color:#221f1f; font-size:13px; text-align:left;"><?php echo recortar_texto($desc, 45)?></p>
-                                   <?php if ($_SESSION['PERMISO'] == 1 || $_SESSION['PERMISO'] == 2 ){?>
-                                    <a href="detallelibro.php?nombreLibro=<?php echo $name['nombreLibro'];?>&idLibro=<?php echo $name['idLibro'];?>"> <button  type="button" class="btn btn-outline-danger justify-center" style="font-size:13px;">Ver detalle</button></a><br><br>
-                                <?php }?>
-                                    
-                                    <p class="card-date" style="color:#221f1f; font-size:11px; text-align:center;">Fecha: <?php echo $name['fechaNovedad']?></p>
-                                </div> <!--fin card-body-->
-                            </div> <!--fin card-->
-                        </div> <!--fin swiper-slide-->
-                        <?php 
-                        } ?><!--fin while-php-->
-                        </div> <!--fin swiper-wraper-->
-                        <!-- Add Pagination -->
-                        <div class="swiper-pagination"></div> 
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                </div> <!--fin swiper-container-->
-        </div> <!--fin netflix-slider-->
-        <?php 
-    } /* fin if resultado*/
-    else{?> <!-- si no tiene novedades muestra -->
-        <h2 class="titulos"> Novedades</h2>
-        <div style="color:white; text-size:20px; margin-left: 20px;">No hay novedades en el dia de hoy</div>
-        <?php
-        }  /* fin del else del resultado */  ?> 
+             
+    <?php
+    if(isset($_SESSION['PERMISO'])){
+        if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2) || ($_SESSION['PERMISO'] == 3)){
+            /* cualquier usuario registrado, sea basico/premium/administrador puede ver novedades*/ ?>
+            <?php        
+                $idPerfil=$_SESSION["IDPERFIL"];
+                $sql="SELECT libro.* FROM libro 
+                INNER JOIN favoritos ON libro.idLibro = favoritos.idLibro   
+                WHERE libro.borradoLogico = 0 AND libro.idLibro=favoritos.idLibro AND favoritos.borradoLogico=0 AND favoritos.idPerfil = $idPerfil "; 
+                $query= mysqli_query($conexion,$sql); 
+                $totalResultados= mysqli_num_rows($query);
+                if ($totalResultados > 0){ 
+                ?>
+                <!--primer slide -->
+                <div class="netflix-slider mx-5">                
+                    <h2 class="titulos">Mis Favoritos ! </h2>
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <?php  while ($name = mysqli_fetch_array($query)) {
+                                    $titulo= $name['nombreLibro'];
+                                    $desc= $name['descripcionLibro'];
+                                ?>
+                                <div class="swiper-slide">
+                                    <div class="card" style="width: 18rem;">
+                                        
+                                        <img class="card-img-top " style="height:400px; width:800px" src="/bookflix/bookImages/<?php echo $name['portadaLibro']?>" alt="Card image cap">
 
-        <!--novedades generales-->
-    <?php        
-    $sql="SELECT n.idGeneral, n.descripcion, n.fechaNovedad FROM novedadgeneral n WHERE n.borradoLogico = 0 AND n.fechaNovedad = CURRENT_DATE()"; 
-    $query= mysqli_query($conexion,$sql); 
-    $totalResultados= mysqli_num_rows($query);
-    if ($totalResultados > 0){ 
-    ?>
-    <br><br>
-        <!--primer slide -->
-        <div class="netflix-slider mx-5">                
-            <h2 class="titulos">Novedades Generales </h2>
-            <div class="swiper-container ">
-                <div class="swiper-wrapper ">
-                    <?php  while ($name = mysqli_fetch_array($query)) {
-                        $desc= $name['descripcion']; 
-                        $fecha= $name['fechaNovedad']; ?>
-                    <div class="swiper-slide">
-                        <!--<div class="row ">-->
-                            <div class="card col-sm d-flex align-items-center " style="width: 18rem;">
-                                <div class="card-body ">
-                                    <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:16px; text-align:left;">Novedad</p>
-                                    <p class="card-text" style="color:#221f1f; font-size:15px; text-align:left;"><?php echo recortar_texto($desc, 30)?></p>
-                                    <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha: <?php echo $fecha?></p>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#vermasng" data-whatever="<?php echo $desc?>">Ver mas</button>                                 
-                                </div> <!--fin card-body-->
-                            </div> <!--fin card-->
-                    <!--    </div>-->
-                        
-                        
-                    </div> <!--fin swiper-slide-->
-                    <?php  } ?><!--fin while-php-->
-                </div> <!--fin swiper-wraper-->
-                <!-- Add Pagination -->
-                <div class="swiper-pagination"></div> 
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-            </div> <!--fin swiper-container-->
-        </div> <!--fin netflix-slider-->
-        <?php 
-    } /* fin if resultado*/
-    else{?> <!-- si no tiene novedades muestra -->
-        <h2 class="titulos"> Novedades Generales</h2>
-        <div style="color:white; text-size:20px; margin-left: 20px;">No hay novedades en el dia de hoy</div>
-        <?php }  ?> <!--fin del else del resultado -->   
+                                        <div class="card-body">
+                                            <p class="card-title" style= "font-weight: bold; color:#221f1f; font-size:14px; text-align:left;"><?php echo recortar_texto($titulo, 25)?></p>
+                                            <p class="card-text" style="color:#221f1f; font-size:13px; text-align:left;"><?php echo recortar_texto($desc, 56)?></p>
+                                            
+                                            <?php if ($_SESSION['PERMISO'] == 1 || $_SESSION['PERMISO'] == 2 ){?>
+                                            <a href="detallelibro.php?nombreLibro=<?php echo $name['nombreLibro'];?>&idLibro=<?php echo $name['idLibro'];?>" class="btn btn-outline-danger ">Ver detalle</a>
+                                           <!-- <a> <button type="button" class="btn btn-danger" style="font-size:13px;">Agregar a Mi lista</button></a>--><br><br>
+                                       <?php }?>
+                                            <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha Hasta: <?php echo $name['fechaHasta']?></p>
+                                           
+                                        </div> <!--fin card-body-->
+                                    </div> <!--fin card-->
+                                </div> <!--fin swiper-slide-->
+                                <?php 
+                                } ?><!--fin while-php-->
+                                </div> <!--fin swiper-wraper-->
+                                <!-- Add Pagination -->
+                                <div class="swiper-pagination"></div> 
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                        </div> <!--fin swiper-container-->
+                </div> <!--fin netflix-slider-->
+                <?php 
+            } /* fin if resultado*/
+            else{?> <!-- si no tiene novedades muestra -->
+                <h2 class="titulos">Mis Favoritos ! </h2>
+                <div style="color:white; text-size:20px; margin-left: 20px;">No posee libros agregados como favoritos  </div>
+                <?php
+                }/* fin del else del resultado */
+            }/* termina el if del permiso */
+            } /* if de seteo del permiso */ 
+            ?>
+                 
 
 
-       
+
+
+      
 
     <!-- Swiper -->
     
@@ -385,18 +377,18 @@
 
 
     <!--Scripts de bootstrap -->
-    <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js " integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n " crossorigin="anonymous "></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js " integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo " crossorigin="anonymous "></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js " integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6 " crossorigin="anonymous "></script>
     <!-- pie de pagina -->
     <br><br>
     <hr width="92.5% " color="gray ">
     <footer>
-    <a class="pfrecuentes" href="preguntasfrecuentes.php" style="margin-left:65px; color:gray;"><u>Preguntas Frecuentes</u></a>
+    <a class="pfrecuentes" href="preguntasfrecuentes.php" style="margin-left:65px;"><u>Preguntas Frecuentes</u></a>
+        <hr>
+        <hr>
     </footer>
-    
-     <script type="text/javascript">
+    <script type="text/javascript">
      $(document).ready(function(){
         $(document).on('show.bs.modal', '#vermasng', function (e) {
             var button= $(e.relatedTarget);
@@ -411,7 +403,7 @@
      });
        
     </script> 
-
+    
 </body>
 
 </html>
