@@ -63,7 +63,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 5://baja y ocultar
-        $consulta = "UPDATE editorial SET borradoParanoagregar='1' WHERE idEditorial='$id' ";		
+        $consulta = "UPDATE editorial SET borradoParanoagregar='1', borradoLogico='1' WHERE idEditorial='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         

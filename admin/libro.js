@@ -16,9 +16,9 @@ $(document).ready(function(){
             {"render": function(data,type,full){
                 var eventId = full['borradoLogico'];
                 if(eventId == '0')
-                return 'No esta borrado';
+                return 'Activo';
                 else   
-                    return 'Borrado';
+                    return 'No Activo';
                }},
             {"data": "portadaLibro"},
             {"data": "fechaLanzamiento"},

@@ -21,8 +21,7 @@
                         <tr>
                             <th hidden>ID Autor</th>
                             <th>Nombre autor</th>
-                            <th>Borrado sin ocultar libros</th>
-                            <th>Borrado para ocultar libros</th>  
+                            <th>Estado</th>                        
                             <th>Acciones</th>
                         </tr>
                     </thead>

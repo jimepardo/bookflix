@@ -13,18 +13,18 @@ tablaAutor = $('#tablaAutor').DataTable({
         {"data": "nombreAutor"},
         {"render": function(data,type,full){
             var eventId = full['borradoLogico'];
-            if(eventId == '0')
-            return 'No esta borrado';
-            else   
-                return 'Borrado sin ocultar libros';
+            var eventId2= full['borradoParanoagregar'];
+            if((eventId == '0') && (eventId2 == '0'))
+            return 'Activo';
+            else{
+                if ((eventId == '1') && (eventId2 == '0')){
+                    return 'No activo, NO se ocultan libros';
+                }else{
+                    return 'No activo, SI se ocultan libros';
+                }
+            }
            }},
-        {"render": function(data,type,full){
-            var eventId = full['borradoParanoagregar'];
-            if(eventId == '0')
-            return 'No esta borrado para ocultar libros';
-            else   
-                return 'Borrado ocultando libros';
-           }},
+        
         {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button><button class='btn btn-dark btn-sm btnBorrarF'><i class='material-icons'>Borrar y ocultar</i></button></div></div>"
     }], 
      

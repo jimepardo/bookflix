@@ -23,7 +23,7 @@
                                 <th>ISBN</th>
                                 <th>Nombre libro</th>
                                 <th>Descripción del libro</th>                  
-                                <th>Borrado</th>
+                                <th>Estado</th>
                                 <th>Portada path</th>  
                                 <th>Fecha lanzamiento</th>
                                 <th hidden>Genero ID</th>

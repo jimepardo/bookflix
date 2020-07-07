@@ -21,8 +21,7 @@
                         <tr>
                             <th hidden>ID Editorial</th>
                             <th>Nombre editorial</th>
-                            <th>Borrado sin ocultar libros</th>                                
-                            <th>Borrado ocultando libros</th>  
+                            <th>Estado</th>  
                             <th>Acciones</th>
                         </tr>
                     </thead>

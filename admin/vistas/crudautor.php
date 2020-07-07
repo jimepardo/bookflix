@@ -63,7 +63,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;   
     case 5://baja
-        $consulta = "UPDATE autor SET borradoParanoagregar='1' WHERE idAutor='$id' ";		
+        $consulta = "UPDATE autor SET borradoParanoagregar='1', borradoLogico='1' WHERE idAutor='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
