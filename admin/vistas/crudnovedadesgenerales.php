@@ -35,7 +35,7 @@ switch($opcion){
         if($desde < $hoy){
             $data="error";
         }else{
-            $consulta = "UPDATE novedadgeneral SET descripcion='$descripcion', fechaNovedad='$desde' WHERE idGeneral='$id' and borradoLogico=0 ";        
+            $consulta = "UPDATE novedadgeneral SET descripcion='$descripcion', fechaNovedad='$desde' WHERE idGeneral='$id' and borradoLogico='0' ";        
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();        
             

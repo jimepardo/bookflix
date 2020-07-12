@@ -16,6 +16,7 @@ $libro = (isset($_POST['libro'])) ? $_POST['libro'] : '';
 $fechaD = (isset($_POST['fechaD'])) ? $_POST['fechaD'] : '';
 $fechaH = (isset($_POST['fechaH'])) ? $_POST['fechaH'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
+//$ter = (isset($_POST['ter'])) ? $_POST['ter'] : '';
 
 if($fechaH=="0000-00=00"){
     $hasta="9999-12-31";
@@ -53,7 +54,7 @@ function compararFechas1($primera, $segunda)// desde y hasta del capitulo
 
 switch($opcion){
     case 1: //alta
-        $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
+        $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro' AND borradoLogico='0' ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         if ($data=$resultado->fetch()){
@@ -91,7 +92,7 @@ switch($opcion){
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();       
                                 
-                                $consulta = "SELECT c.*,l.nombreLibro, l.idLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";              
+                                $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.borradoLogico, l.terminar FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' AND l.borradoLogico='0' ";              
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();
                                 $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -113,13 +114,17 @@ switch($opcion){
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
         $fechas= $resultado2->fetch();*/
-        $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
+        /*$consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         if($data=$resultado->fetchAll(PDO::FETCH_ASSOC)){
             $data="error4";
-        }else{
-      
+        }else{*/
+            if (isset($_POST['ter'])){
+                $termina= '1';
+            }else{
+                $termina='0';
+            }
             $result= compararFechas1($fechaD,$fechaH);
             if($result < 0){
                 $data="error3";  
@@ -144,13 +149,13 @@ switch($opcion){
 
                                     //Mover imagen del directorio temporal al directorio escogido
                                     move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino.$nombrePdf);
-
-                                    $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo= '$nombre', pdf='$nombrePdf', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico='0'   ";  
+                                    
+                                    $consulta = "UPDATE capitulo, libro SET capitulo.numeroCapitulo='$num', capitulo.nombreCapitulo= '$nombre', capitulo.pdf='$nombrePdf', capitulo.fechaDesde='$fechaD', capitulo.fechaHasta='$fechaH', libro.terminar='$termina' WHERE capitulo.idCapitulo='$id' AND capitulo.borradoLogico='0'   ";  
 
                                     $resultado = $conexion->prepare($consulta);
                                     $resultado->execute();       
                                     
-                                    $consulta = "SELECT c.*,l.nombreLibro, l.idLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";              
+                                    $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";              
                                     $resultado = $conexion->prepare($consulta);
                                     $resultado->execute();
                                     $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -163,9 +168,12 @@ switch($opcion){
                         }else{
                             $consulta = "UPDATE capitulo SET numeroCapitulo='$num', nombreCapitulo= '$nombre', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idCapitulo='$id' AND borradoLogico='0'   ";     
                             $resultado = $conexion->prepare($consulta);
+                            $resultado->execute(); 
+                            $consulta = "UPDATE libro SET terminar='$termina' WHERE idLibro='$libro' AND borradoLogico='0'   ";     
+                            $resultado = $conexion->prepare($consulta);
                             $resultado->execute();       
                             
-                            $consulta = "SELECT c.*,l.nombreLibro, l.idLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";              
+                            $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";              
                             $resultado = $conexion->prepare($consulta);
                             $resultado->execute();
                             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -174,7 +182,7 @@ switch($opcion){
          //   }
        // }
        
-        }
+     //   }
         break;        
     case 3://verifica que el capitulo no este siendo leido
         $consulta = "SELECT COUNT(*) as cantidad FROM leyendo ley INNER JOIN capitulo c ON (c.idCapitulo=ley.idCapitulo) WHERE ley.idLibro='$libro' AND ley.idCapitulo='$id' AND ley.borradoLogico='0' AND c.numeroCapitulo='$num'";       
@@ -187,7 +195,7 @@ switch($opcion){
          
         break;        
     case 4:    
-        $consulta = "SELECT c.*,l.nombreLibro, l.idLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) ";
+        $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -197,7 +205,7 @@ switch($opcion){
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();                 
         
-        $consulta = "SELECT c.*,l.nombreLibro, l.idLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";       
+        $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

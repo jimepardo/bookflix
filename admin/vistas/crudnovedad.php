@@ -32,13 +32,13 @@ switch($opcion){
         if($desde < $hoy){
             $data="error";
         }else{
-            $consulta = "UPDATE novedadlibro SET descripcion='$descripcion', fechaNovedad='$desde', idLibro='$novedad' WHERE idNovedadLibro='$id' and borradoLogico=0 ";        
+            $consulta = "UPDATE novedadlibro SET  descripcion='$descripcion', fechaNovedad='$desde', idLibro='$novedad' WHERE idNovedadLibro='$id' and borradoLogico=0 ";        
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();        
             
-           // $consulta = "SELECT n.*, l.nombreLibro, l.idLibro FROM novedadlibro n INNER JOIN libro l ON (l.idLibro=n.idLibro) WHERE l.idNovedadLibro='$id' ";       
-           // $resultado = $conexion->prepare($consulta);
-           // $resultado->execute();
+            $consulta = "SELECT n.*, l.nombreLibro, l.idLibro FROM novedadlibro n INNER JOIN libro l ON (l.idLibro=n.idLibro) WHERE l.idNovedadLibro='$id' ";       
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         }
         break;        

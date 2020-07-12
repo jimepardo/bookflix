@@ -58,7 +58,7 @@ switch($opcion){
         if ( $result < 0 ) {
                 $data="error2";                
         }else{
-            $consulta="SELECT ISBN FROM libro WHERE ISBN= $isbn";
+            $consulta="SELECT ISBN FROM libro WHERE ISBN= $isbn AND borradoLogico='0'";
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();
             if ($data= $resultado->fetch()){
@@ -98,6 +98,11 @@ switch($opcion){
                 
         break;
     case 2: //modificación
+        if (isset($_POST['ter'])){
+            $termina= '1';
+        }else{
+            $termina='0';
+        }
         $result= compararFechas($fechaD,$fechaH);
         if ( $result < 0 ) {
                 $data="error2";
@@ -119,7 +124,8 @@ switch($opcion){
                         //Mover imagen del directorio temporal al directorio escogido
                         move_uploaded_file($_FILES['portada']['tmp_name'], $carpetaDestino.$nombreImagen);
                         //realizo la insercion
-                        $consulta = "UPDATE libro SET nombreLibro='$nombre', descripcionLibro='$desc', portadaLibro='$nombreImagen', idGenero='$idGen', idAutor='$idAu', idEditorial='$idEd', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idLibro='$id' AND borradoLogico=0   ";     
+                              
+                        $consulta = "UPDATE libro SET nombreLibro='$nombre', descripcionLibro='$desc', portadaLibro='$nombreImagen', idGenero='$idGen', idAutor='$idAu', idEditorial='$idEd', fechaDesde='$fechaD', fechaHasta='$fechaH', terminar='$termina' WHERE idLibro='$id' AND borradoLogico=0   ";     
                         $resultado = $conexion->prepare($consulta);
                         $resultado->execute();       
                         
@@ -135,7 +141,7 @@ switch($opcion){
                 }
 
             }else{
-                $consulta = "UPDATE libro SET nombreLibro='$nombre', descripcionLibro='$desc', idGenero='$idGen', idAutor='$idAu', idEditorial='$idEd', fechaDesde='$fechaD', fechaHasta='$fechaH' WHERE idLibro='$id' AND borradoLogico=0   ";     
+                $consulta = "UPDATE libro SET nombreLibro='$nombre', descripcionLibro='$desc', idGenero='$idGen', idAutor='$idAu', idEditorial='$idEd', fechaDesde='$fechaD', fechaHasta='$fechaH', terminar='$termina' WHERE idLibro='$id' AND borradoLogico=0   ";     
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();       
                 
