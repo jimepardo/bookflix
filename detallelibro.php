@@ -263,12 +263,38 @@
                 <?php $cant=mysqli_num_rows($consulta2); 
                 if ($cant == 1){
                     $mostrar2=mysqli_fetch_array($consulta2)?>
-
+                    <?php
+                        $sqlEstaLeido="SELECT count(*) as count FROM leidos WHERE idLibro='".$mostrar2['idLibro']."' AND idCapitulo='".$mostrar2['idCapitulo']."' AND idPerfil='".$_SESSION["IDPERFIL"]."' ";
+                        $queryEstaLeido=mysqli_query($conexion,$sqlEstaLeido);
+                        $estaLeido=mysqli_fetch_array($queryEstaLeido); 
+                        if ($estaLeido["count"]<1) {
+                    ?>
                      <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-danger">Leer libro </a>
+                    <?php
+                    }else{
+                    ?>
+                     <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-success">Leer libro </a>
+                    <?php
+                    }
+                    ?>
 <?php           }else{ 
                     if($cant>1){
                      while($mostrar2=mysqli_fetch_array($consulta2)) {?>
+                     <?php
+                        $sqlEstaLeido="SELECT count(*) as count FROM leidos WHERE idLibro='".$mostrar2['idLibro']."' AND idCapitulo='".$mostrar2['idCapitulo']."' AND idPerfil='".$_SESSION["IDPERFIL"]."' ";
+                        $queryEstaLeido=mysqli_query($conexion,$sqlEstaLeido);
+                        $estaLeido=mysqli_fetch_array($queryEstaLeido);
+                        if ($estaLeido["count"]<1) {
+                     ?>
                     <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
+                    <?php
+                    }else{
+                    ?>
+                        <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-success">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
+                    <?php
+                    }
+                    ?>
+
                 <?php 
                      }
                     }else{
@@ -309,7 +335,7 @@
                 <p class="clasif">Vista previa:</p>
                 <?php 
 
-                $sql6= "SELECT l.idLibro FROM libro l INNER JOIN vistaprevia v ON (v.idLibro=l.idLibro) WHERE v.idLibro='".$_GET['idLibro']."' ";
+                $sql6= "SELECT l.idLibro FROM libro l INNER JOIN vistaprevia v ON (v.idLibro=l.idLibro)  WHERE v.idLibro='".$_GET['idLibro']."' ";
                 $query6=mysqli_query($conexion, $sql6);
                 $mostrar6=mysqli_fetch_array($query6);
                 $cant6=mysqli_num_rows($query6);

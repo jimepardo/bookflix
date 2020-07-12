@@ -36,9 +36,9 @@ switch($opcion){
             $resultado = $conexion->prepare($consulta);
             $resultado->execute();        
             
-            $consulta = "SELECT n.*, l.nombreLibro, l.idLibro FROM novedadlibro n INNER JOIN libro l ON (l.idLibro=n.idLibro) WHERE l.idNovedadLibro='$id' ";       
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute();
+           // $consulta = "SELECT n.*, l.nombreLibro, l.idLibro FROM novedadlibro n INNER JOIN libro l ON (l.idLibro=n.idLibro) WHERE l.idNovedadLibro='$id' ";       
+           // $resultado = $conexion->prepare($consulta);
+           // $resultado->execute();
             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         }
         break;        
