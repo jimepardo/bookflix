@@ -7,7 +7,7 @@
     $consulta= "SELECT * FROM libro l INNER JOIN genero g ON (l.idGenero=g.idGenero) INNER JOIN autor a ON (l.idAutor=a.idAutor) INNER JOIN editorial e ON (l.idEditorial=e.idEditorial) WHERE l.idLibro ='".$_GET['id']."' ";
     $query = mysqli_query($conexion,$consulta);
     $mostrar = mysqli_fetch_array($query, MYSQLI_ASSOC);
-
+    $nombreLibro=$mostrar['nombreLibro'];//para mandarle al terminar de leer.
     //traerme los pdf de todos los capitulos
     $consulta2=mysqli_query($conexion,"SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['id']."'AND c.nombreCapitulo= '".$_GET['nombrepdf']."' ");
    // $mostrar2=mysqli_fetch_array($consulta2);
@@ -61,7 +61,8 @@
                                         }
                                         ?>
                                 </div>
-                            <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="miLista.php">Mi lista</a> </li>
+                             <li class="nav-item"> <a class="nav-link" href="miHistorial.php">Mi Historial</a> </li>
                             </li>
                         </ul>
 
@@ -137,7 +138,8 @@
                                         }
                                         ?>
                                     </div>
-                                    <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" href="miLista.php">Mi lista</a> </li>
+                                     <li class="nav-item"> <a class="nav-link" href="miHistorial.php">Mi Historial</a> </li>
                                 </li>
                             </ul>
                             <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
@@ -240,9 +242,20 @@
 
                 }                
             }
-
-            
-        ?>
+                $idPerfil=$_SESSION["IDPERFIL"];
+                $idLibro=$_GET["id"];
+                $idCap=$_GET["num"];
+                $sqlLeidos="SELECT count(*)as count FROM leidos WHERE idPerfil=$idPerfil AND idLibro=$idLibro AND idCapitulo=$idCap AND borradoLogico=0";
+                $queryLeidos=mysqli_query($conexion,$sqlLeidos);
+                $mostrarLeidos=mysqli_fetch_array($queryLeidos);
+                if ($mostrarLeidos["count"]==0) {
+        ?>      
+                <div>
+                    <a href="terminarLeer.php?idPerfil=<?=$idPerfil?>&idLibro=<?=$idLibro?>&idCap=<?=$idCap?>&nombreLibro=<?=$nombreLibro?>" class="btn btn-success">Terminar la lectura</a>
+                </div>
+                <?php
+                }
+                ?>        
                 <a href="<?=$_SERVER['HTTP_REFERER'] ?>"> <button class="btn btn-outline-secondary" id="boton" style="position: fixed; width: 80px; height: 80px">Volver atras</button></a>
                 <iframe id="frame" class="" src="pdfs/<?php echo $mostrar3['pdf']?>#toolbar=0&navpanes=0&scrollbar=0&page=0" style="width: 100%;height: 650px" ></iframe>
                 

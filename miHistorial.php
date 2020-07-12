@@ -74,7 +74,7 @@
                                         ?>
                                 </div>
                             <li class="nav-item"> <a class="nav-link" href="miLista.php">Mi lista</a> </li>
-                             <li class="nav-item"> <a class="nav-link" href="miHistorial.php">Mi Historial</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="miHistorial.php">Mi Historial</a> </li>
                             </li>
                         </ul>
                             <!--Buscar-->
@@ -151,7 +151,7 @@
                                         ?>
                                     </div>
                                     <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
-                                     <li class="nav-item"> <a class="nav-link" href="miHistorial.php">Mi Historial</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" href="miHistorial.php">Mi Historial</a> </li>
                                 </li>
                             </ul>
 
@@ -257,15 +257,15 @@
             <?php        
                 $idPerfil=$_SESSION["IDPERFIL"];
                 $sql="SELECT libro.* FROM libro 
-                INNER JOIN favoritos ON libro.idLibro = favoritos.idLibro   
-                WHERE libro.borradoLogico = 0 AND libro.idLibro=favoritos.idLibro AND favoritos.borradoLogico=0 AND favoritos.idPerfil = $idPerfil "; 
+                INNER JOIN historial ON libro.idLibro = historial.idLibro   
+                WHERE libro.borradoLogico = 0 AND libro.idLibro=historial.idLibro AND historial.borradoLogico=0 AND historial.idPerfil = $idPerfil "; 
                 $query= mysqli_query($conexion,$sql); 
                 $totalResultados= mysqli_num_rows($query);
                 if ($totalResultados > 0){ 
                 ?>
                 <!--primer slide -->
                 <div class="netflix-slider mx-5">                
-                    <h2 class="titulos">Mis Favoritos ! </h2>
+                    <h2 class="titulos">Mi Historial ! </h2>
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                                 <?php  while ($name = mysqli_fetch_array($query)) {
@@ -302,8 +302,8 @@
                 <?php 
             } /* fin if resultado*/
             else{?> <!-- si no tiene novedades muestra -->
-                <h2 class="titulos">Mis Favoritos ! </h2>
-                <div style="color:white; text-size:20px; margin-left: 20px;">No posee libros agregados como favoritos  </div>
+                <h2 class="titulos">Mi historial ! </h2>
+                <div style="color:white; text-size:20px; margin-left: 20px;">No ha terminado ningun libro aun !  </div>
                 <?php
                 }/* fin del else del resultado */
             }/* termina el if del permiso */

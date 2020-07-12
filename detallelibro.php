@@ -64,6 +64,7 @@
                                         ?>
                                 </div>
                             <li class="nav-item"> <a class="nav-link" href="miLista.php">Mi lista</a> </li>
+                             <li class="nav-item"> <a class="nav-link" href="miHistorial.php">Mi Historial</a> </li>
                             </li>
                         </ul>
 
@@ -140,6 +141,7 @@
                                         ?>
                                     </div>
                                     <li class="nav-item"> <a class="nav-link" href="miLista.php">Mi lista</a> </li>
+                                     <li class="nav-item"> <a class="nav-link" href="miHistorial.php">Mi Historial</a> </li>
                                 </li>
                             </ul>
                             <form class="form-inline my-2 my-lg-0" action="busqueda.php" method="POST"> 
