@@ -9,10 +9,10 @@ $(document).ready(function(){
             "dataSrc":""
         },
         "columns":[
-            {"data": "idLibro","bSearchable": false, "bVisible": false},
-            {"data": "ISBN"},
-            {"data": "nombreLibro"},
-            {"data": "descripcionLibro"},
+            {"data": "idLibro","bSearchable": false, "bVisible": false},//0
+            {"data": "ISBN"},//1
+            {"data": "nombreLibro"},//2
+            {"data": "descripcionLibro"},//3
             {"render": function(data,type,full){
                 var eventId = full['borradoLogico'];
                 if(eventId == '0')
@@ -20,25 +20,33 @@ $(document).ready(function(){
                 else   
                     return 'No Activo';
                }},
-            {"data": "portadaLibro"},
-            {"data": "fechaLanzamiento"},
-            {"data": "idGenero","bSearchable": false, "bVisible": false},
+            {"data": "portadaLibro"},//4
+            {"data": "fechaLanzamiento"}, //5
+            {"data": "idGenero","bSearchable": false, "bVisible": false}, //6
             {"render": function(data,type,full){
                 var eventId = full['nombreGenero'];
                 return eventId;
             }},
-            {"data": "idAutor","bSearchable": false, "bVisible": false},
+            {"data": "idAutor","bSearchable": false, "bVisible": false},//7
             {"render": function(data,type,full){
                 var eventId = full['nombreAutor'];
                 return eventId;
             }},
-            {"data": "idEditorial","bSearchable": false, "bVisible": false},
+            {"data": "idEditorial","bSearchable": false, "bVisible": false},//8
             {"render": function(data,type,full){
                 var eventId = full['nombreEditorial'];
                 return eventId;
             }},
-            {"data": "fechaDesde"},
-            {"data": "fechaHasta"},
+            {"data": "fechaDesde"},//9
+            {"data": "fechaHasta"},//10
+            {"render": function(data,type,full){
+                var eventId = full['terminar'];
+                var eventId2 = full['borradoLogico'];
+                if(eventId == '0' && eventId2=='0')
+                return 'SI';
+                else
+                    return 'NO';
+               }},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button></div></div>"
         }],
    
@@ -99,11 +107,16 @@ $(document).ready(function(){
                                 }else{
                                     if (data == "error6"){
                                         alertify.notify('¡Error! Formato invalido', 'error',3);
-                                    }else{                                      
-                                        alertify.notify('¡Cambios guardados exitosamente!','success',3);
-                                        tablaLibros.ajax.reload(null, false); 
-                                        document.getElementById("isbn").disabled = false;  
-                                        $("#modalCRUD").modal("hide"); 
+                                    }else{ 
+                                        if(data == "borrado"){
+                                            alertify.notify('¡Error! No puede modificar si se borro', 'error',3)
+                                        }else{
+                                            alertify.notify('¡Cambios guardados exitosamente!','success',3);
+                                            tablaLibros.ajax.reload(null, false); 
+                                            document.getElementById("isbn").disabled = false;  
+                                            document.getElementById("ter").disabled = false;  
+                                            $("#modalCRUD").modal("hide"); 
+                                        }                                    
                                     }
                                 }
                             }
@@ -126,6 +139,11 @@ $(document).ready(function(){
 $("#btnNuevo").click(function(){
     opcion = 1; //alta
     id=null;
+    
+    
+    //document.getElementById("ter").style.display="none";
+ 
+    document.getElementById("ter").disabled = true;  
     $("#formLibros").trigger("reset");
     $(".modal-header").css("background-color", "#CE0909");
     $(".modal-header").css("color", "#F5F5F1");
@@ -139,18 +157,23 @@ $(document).on("click", ".btnEditar", function(){
     fila = $(this).closest("tr");
     var data = $('#tablaLibros').DataTable().row(fila).data();//con esta linea accedo a toda una fila de la tabla
     console.log(data["idLibro"]); //con esta linea imprimo la columna escondida del ID,asi el cliente no la ve
-
+    if (data["borradoLogico"] == '0'){
+        ter=data["terminar"];
+        if (ter ==1){
+            $('#ter').prop('checked', true);
+        }
+    
     isbn = fila.find('td:eq(0)').text();
     nombre = fila.find('td:eq(1)').text();
     desc = fila.find('td:eq(2)').text();
     portada = fila.find('td:eq(3)').text();
-    fechaD = fila.find('td:eq(5)').text();
-    fechaH = fila.find('td:eq(6)').text();
-   
+    fechaD = fila.find('td:eq(9)').text();
+    fechaH = fila.find('td:eq(10)').text();
+    
     idGen=data["idGenero"];
     idAu=data["idAutor"];
     idEd=data["idEditorial"];
-      
+    $("#ter").val(data["terminar"]);   
     $("#id").val(data["idLibro"]);
     $("#isbn").val(isbn);
     $("#nombre").val(nombre);
@@ -169,7 +192,10 @@ $(document).on("click", ".btnEditar", function(){
     $(".modal-title").text("Modificar libro");            
     $("#modalCRUD").modal("show");  
   //  document.getElementById("portada").disabled=true; 
-   document.getElementById("isbn").disabled=true;    
+   document.getElementById("isbn").disabled=true; 
+}else{
+    alertify.notify('¡Error! El libro ya se borró, no puede modificar','error',3);
+}   
 });
    
 

@@ -21,7 +21,7 @@
                             <th>ID Novedad</th>
                             <th>Descripcion</th>     
                             <th>Fecha de publicación</th>                            
-                            <th>Borrado Lógico</th>
+                           
                             <th>Acciones</th>
                         </tr>
                     </thead>

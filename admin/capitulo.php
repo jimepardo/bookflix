@@ -24,11 +24,12 @@
                                 <th hidden>ID Capitulo</th>
                                 <th>N° capitulo</th>
                                 <th>Nombre capitulo</th>
-                                <th>Borrado</th>                  
+                                <th>Estado</th>                  
                                 <th>Archivo PDF</th>
                                 <th hidden>ID Libro</th>
                                 <th>Disponible desde</th>
                                 <th>Disponible hasta</th>
+                                <th>Agregar Capitulos</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -63,7 +64,7 @@
                                     <select class="custom-select" id="libro" name="libro" required>
                                         <option value="">Seleccione un libro</option>
                                         <?php  
-                                        $consulta = "SELECT idLibro,ISBN,nombreLibro FROM libro WHERE borradoLogico=0";
+                                        $consulta = "SELECT idLibro,ISBN,nombreLibro FROM libro WHERE borradoLogico=0 AND terminar=0";
                                         $resultado = $conexion->prepare($consulta);
                                         $resultado->execute();        
                                         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -123,6 +124,13 @@
                         echo $hoy;?>> 
                                 </div>  
                             </div>   
+                        </div>
+                        <div class="row">
+                            <div class="form-check">
+                            <label for="ter" class="form-check-label">Terminar de cargar capitulos </label> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                            <input type="checkbox" class="form-check-input" name="ter" id="ter">
+                                
+                            </div>
                         </div>
                     </div> <!--modal body-->
                     <div class="modal-footer">

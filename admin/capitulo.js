@@ -19,14 +19,22 @@ $(document).ready(function(){
             {"render": function(data,type,full){
                 var eventId = full['borradoLogico'];
                 if(eventId == '0')
-                return 'No esta borrado';
+                return 'Activo';
                 else   
-                    return 'Capitulo Borrado';
+                    return 'No activo';
                }},
             {"data": "pdf"},
             {"data": "idLibro" ,"bSearchable": false, "bVisible": false},
             {"data": "fechaDesde"},
             {"data": "fechaHasta"},
+            {"render": function(data,type,full){
+                var eventId = full['terminar'];
+                var eventId2 = full['borradoLogico'];
+                if(eventId == '0' && eventId2=='0')
+                return 'SI';
+                else
+                    return 'NO';
+               }},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button></div></div>"
         }],
         
@@ -114,6 +122,7 @@ $(document).ready(function(){
 $("#btnNuevo").click(function(){
     opcion = 1; //alta
     id=null;
+        
     $("#pdf").attr("required", true);
     $("#formcap").trigger("reset");
     $(".modal-header").css("background-color", "#CE0909");
@@ -130,8 +139,14 @@ $(document).on("click", ".btnEditar", function(){
     var data = $('#tablaCap').DataTable().row(fila).data();//cpn esta linea accedo a toda una fila de la tabla
    // console.log(data); //con esta linea imprimo la columna escondida del ID,asi el cliente no la ve
 
+
     libro=data["idLibro"];
     id=data["idCapitulo"];
+    ter=data["terminar"];
+    if (ter ==1){
+        $('#ter').prop('checked', true);
+    }
+    
     num = fila.find('td:eq(1)').text();
     nombre = fila.find('td:eq(2)').text();
     pdf = fila.find('td:eq(3)').text();
@@ -141,7 +156,8 @@ $(document).on("click", ".btnEditar", function(){
   //  console.log(data["idCapitulo"]);
    // console.log(num);    
    // console.log(data["idLibro"]);
-        
+   
+    $("#ter").val(data["terminar"]);    
     $("#id").val(data["idCapitulo"]);
     $("#libro").val(data["idLibro"]);
     $("#num").val(num);

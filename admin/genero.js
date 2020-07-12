@@ -14,9 +14,9 @@ $(document).ready(function(){
             {"render": function(data,type,full){
                 var eventId = full['borradoLogico'];
                 if(eventId == '0')
-                return 'No esta borrado';
+                return 'Activo';
                 else   
-                    return 'Género borrado';
+                    return 'No activo';
                }},
             
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-secondary btn-sm btnEditar'><i class='material-icons'>Modificar</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>Borrar</i></button></div></div>"

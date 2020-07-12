@@ -42,15 +42,19 @@ $(document).ready(function(){
     
     $("#formNov").submit(function(e){
         e.preventDefault();    
-       // novedad = $.trim($("#novedad").val());
-        descripcion =$.trim($("#descripcion").val());
-        desde = $.trim($("#desde").val());
+        var form_data2 = new FormData(document.getElementById("formNov")); 
+        console.log(Array.from(form_data2));
+        form_data2.getAll("formNov");
+        form_data2.append("opcion", opcion); 
 
         $.ajax({
             url: "vistas/crudnovedad.php",
             type: "POST",
             dataType: "json",
-            data: {novedad:novedad, descripcion:descripcion, desde:desde, id:id, opcion:opcion},
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data2,
             success: function(data){
                 if (data=="error") {
                     alertify.notify('¡Error! La fecha de publicacion no puede ser menor a la del dia de hoy','error',3);
@@ -85,7 +89,7 @@ $(document).ready(function(){
         id=data["idNovedadLibro"];
         novedad=data["idLibro"];
         console.log(data["idLibro"]);
-        console.log(data["idNovedadLibro"]);
+      //  console.log(data["idNovedadLibro"]);
       
     
         descripcion = fila.find('td:eq(1)').text();

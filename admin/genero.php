@@ -21,7 +21,7 @@
                         <tr>
                             <th hidden>ID Género</th>
                             <th>Nombre género</th>
-                            <th>Borrado</th>                                
+                            <th>Estado</th>                                
                             <th>Acciones</th>
                         </tr>
                     </thead>

@@ -34,6 +34,7 @@
                                 <th>Editorial</th>
                                 <th>Disponible desde</th>
                                 <th>Disponible hasta</th>
+                                <th>Agregar Capitulos</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -172,6 +173,18 @@
                         echo $hoy;?>> 
                                 </div>  
                             </div>   
+                        </div>
+                        <div class="row">
+                        <div class="form-check">
+                                <label for="ter" class="form-check-label">Terminar de cargar capitulos </label> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <input type="checkbox" class="form-check-input" name="ter" id="ter">
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="form-group">
+                                
+                                </div>
+                                
                         </div>
                     </div> <!--modal body-->
                     <div class="modal-footer">
