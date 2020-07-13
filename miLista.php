@@ -27,7 +27,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bookflix</title>
+    <title>Bookflix - Mi Lista</title>
     <link rel="icon" href="img/logo2.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
@@ -61,7 +61,7 @@
                                     <a class="dropdown-item" href="generos.php">Todos</a>
                                     <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>"<?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
@@ -150,7 +150,7 @@
                                         }
                                         ?>
                                     </div>
-                                    <li class="nav-item"> <a class="nav-link" href="#">Mi lista</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" href="miLista.php">Mi lista</a> </li>
                                      <li class="nav-item"> <a class="nav-link" href="miHistorial.php">Mi Historial</a> </li>
                                 </li>
                             </ul>
@@ -265,7 +265,7 @@
                 ?>
                 <!--primer slide -->
                 <div class="netflix-slider mx-5">                
-                    <h2 class="titulos">Mis Favoritos ! </h2>
+                    <h2 class="titulos">Mis Favoritos ☆ </h2>
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                                 <?php  while ($name = mysqli_fetch_array($query)) {
@@ -302,8 +302,8 @@
                 <?php 
             } /* fin if resultado*/
             else{?> <!-- si no tiene novedades muestra -->
-                <h2 class="titulos">Mis Favoritos ! </h2>
-                <div style="color:white; text-size:20px; margin-left: 20px;">No posee libros agregados como favoritos  </div>
+                <h2 class="titulos">Mis Favoritos ☆ </h2>
+                <div style="color:white; text-size:20px; margin-left: 20px;">No posee libros agregados como favoritos</div>
                 <?php
                 }/* fin del else del resultado */
             }/* termina el if del permiso */

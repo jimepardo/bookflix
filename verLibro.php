@@ -4,12 +4,12 @@
     require_once "claseSesion.php";
     $sesion = new manejadorSesiones;
    
-    $consulta= "SELECT * FROM libro l INNER JOIN genero g ON (l.idGenero=g.idGenero) INNER JOIN autor a ON (l.idAutor=a.idAutor) INNER JOIN editorial e ON (l.idEditorial=e.idEditorial) WHERE l.idLibro ='".$_GET['id']."' ";
+    $consulta= "SELECT * FROM libro l INNER JOIN genero g ON (l.idGenero=g.idGenero) INNER JOIN autor a ON (l.idAutor=a.idAutor) INNER JOIN editorial e ON (l.idEditorial=e.idEditorial) WHERE l.idLibro ='".$_GET['id']."'";
     $query = mysqli_query($conexion,$consulta);
     $mostrar = mysqli_fetch_array($query, MYSQLI_ASSOC);
     $nombreLibro=$mostrar['nombreLibro'];//para mandarle al terminar de leer.
     //traerme los pdf de todos los capitulos
-    $consulta2=mysqli_query($conexion,"SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['id']."'AND c.nombreCapitulo= '".$_GET['nombrepdf']."' ");
+    $consulta2=mysqli_query($conexion,"SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro= l.idLibro) WHERE ((libro.fechaDesde BETWEEN libro.fechaDesde AND libro.fechaHasta) OR (libro.fechaHasta='0000-00-00')) AND l.idLibro ='".$_GET['id']."'AND c.nombreCapitulo= '".$_GET['nombrepdf']."' ");
    // $mostrar2=mysqli_fetch_array($consulta2);
 ?>
 <!DOCTYPE html>
@@ -49,7 +49,7 @@
                                     <a class="dropdown-item" href="generos.php">Todos</a>
                                     <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>" <?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
@@ -126,7 +126,7 @@
                                         <a class="dropdown-item" href="generos.php">Todos</a>
                                         <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>" <?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
@@ -251,7 +251,7 @@
                 if ($mostrarLeidos["count"]==0) {
         ?>      
                 <div>
-                    <a href="terminarLeer.php?idPerfil=<?=$idPerfil?>&idLibro=<?=$idLibro?>&idCap=<?=$idCap?>&nombreLibro=<?=$nombreLibro?>" class="btn btn-success">Terminar la lectura</a>
+                    <a href="terminarLeer.php?idPerfil=<?=$idPerfil?>&idLibro=<?=$idLibro?>&idCap=<?=$idCap?>&nombreLibro=<?=$nombreLibro?>" class="btn btn-success mb-2">Terminar la lectura</a>
                 </div>
                 <?php
                 }

@@ -61,7 +61,7 @@
                                     <a class="dropdown-item" href="generos.php">Todos</a>
                                     <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>"<?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
@@ -255,7 +255,7 @@
         if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2) || ($_SESSION['PERMISO'] == 3)){
             /* cualquier usuario registrado, sea basico/premium/administrador puede ver novedades*/ ?>
             <?php        
-                $sql="SELECT novedadlibro.idNovedadLibro, libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro, novedadlibro.fechaNovedad, libro.idLibro FROM libro INNER JOIN novedadlibro ON libro.idLibro = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.idLibro=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE()"; 
+                $sql="SELECT novedadlibro.idNovedadLibro, libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro, novedadlibro.fechaNovedad, libro.idLibro FROM libro INNER JOIN novedadlibro ON libro.idLibro = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.idLibro=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE() AND ((libro.fechaDesde BETWEEN libro.fechaDesde AND libro.fechaHasta) OR (libro.fechaHasta='0000-00-00'))"; 
                 $query= mysqli_query($conexion,$sql); 
                 $totalResultados= mysqli_num_rows($query);
                 if ($totalResultados > 0){ 
@@ -299,12 +299,12 @@
                 <?php 
             } /* fin if resultado*/
             else{?> <!-- si no tiene novedades muestra -->
-                <h2 class="titulos"> Novedades</h2>
-                <div style="color:white; text-size:20px; margin-left: 20px;">No hay novedades en el dia de hoy  </div>
+                <h2 class="titulos pl-5 ml-3"> Novedades</h2>
+                <div style="color:white; text-size:20px;" class="ml-4 pl-5">No hay novedades en el dia de hoy  <br><br></div>
                 <?php
                 }  /* fin del else del resultado */?>
                  <?php        
-               $sql="SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY RAND() LIMIT 1 ";
+               $sql="SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND ((l.fechaDesde BETWEEN l.fechaDesde AND l.fechaHasta) OR (l.fechaHasta='0000-00-00'))) ORDER BY RAND() LIMIT 1 ";
                 $query= mysqli_query($conexion,$sql); 
                 $name = mysqli_fetch_array($query) 
                 ?>
@@ -314,7 +314,7 @@
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                                 <?php  
-                                $sql2="SELECT * FROM libro l INNER JOIN genero g ON (g.idGenero=l.idGenero) WHERE l.idGenero= '".$name['idGenero']."' AND l.borradoLogico=0";
+                                $sql2="SELECT * FROM libro l INNER JOIN genero g ON (g.idGenero=l.idGenero) WHERE l.idGenero= '".$name['idGenero']."' AND l.borradoLogico='0' AND ((l.fechaDesde BETWEEN l.fechaDesde AND l.fechaHasta) OR (l.fechaHasta='0000-00-00'))";
                                 $query2=mysqli_query($conexion,$sql2);
                                 while ($name2 = mysqli_fetch_array($query2)) {
                                     $titulo= $name2['nombreLibro'];
@@ -347,7 +347,7 @@
              /* fin if resultado*/ /*continuar leyendo*/
              if(($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2)){?>
               <?php        
-                $sql="SELECT DISTINCT ley.idPerfil, ley.idCapitulo,ley.idLibro, c.nombreCapitulo,c.numeroCapitulo, l.nombreLibro,l.descripcionLibro,l.portadaLibro FROM leyendo ley INNER JOIN libro l ON (l.idLibro=ley.idLibro) INNER JOIN capitulo c ON (c.idLibro=ley.idLibro) WHERE ley.borradoLogico=0 AND c.idCapitulo=ley.idCapitulo AND ley.idPerfil='".$_SESSION['IDPERFIL']."' ORDER BY `l`.`nombreLibro` ASC"; 
+                $sql="SELECT DISTINCT ley.idPerfil, ley.idCapitulo,ley.idLibro, c.nombreCapitulo,c.numeroCapitulo, l.nombreLibro,l.descripcionLibro,l.portadaLibro FROM leyendo ley INNER JOIN libro l ON (l.idLibro=ley.idLibro) INNER JOIN capitulo c ON (c.idLibro=ley.idLibro) WHERE ley.borradoLogico=0 AND c.idCapitulo=ley.idCapitulo AND ley.idPerfil='".$_SESSION['IDPERFIL']."' AND l.borradoLogico='0' AND ((l.fechaDesde BETWEEN l.fechaDesde AND l.fechaHasta) OR (l.fechaHasta='0000-00-00')) ORDER BY l.nombreLibro ASC"; 
                 $query= mysqli_query($conexion,$sql); 
                 $totalResultados= mysqli_num_rows($query);
                 if ($totalResultados > 0){ 
@@ -391,15 +391,15 @@
                 <?php 
             } /* fin if resultado*/
             else{?> <!-- si no tiene novedades muestra --><br>
-                <h2 class="titulos pl-5"> Continuar leyendo</h2>
-                <div style="color:white; text-size:20px; margin-left: 20px;" class="pl-5">Todavia no ha leído ningún libro, es un buen momento para hacerlo</div>
+                <h2 class="titulos pl-5 ml-2"> Continuar leyendo</h2>
+                <div style="color:white; text-size:20px;" class="ml-3 pl-5">Todavia no ha leído ningún libro, es un buen momento para hacerlo</div>
                 <?php
                 }  /* fin del else del resultado */
         }
         }/* fin if permisos 1 2 3  */
     } /* fin if del permiso, sino tiene permiso, no esta registrado */    
     else{ 
-        $sql="SELECT novedadlibro.idNovedadLibro, libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro, novedadlibro.fechaNovedad, libro.idLibro FROM libro INNER JOIN novedadlibro ON libro.idLibro = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.idLibro=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE()"; 
+        $sql="SELECT novedadlibro.idNovedadLibro, libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro, novedadlibro.fechaNovedad, libro.idLibro FROM libro INNER JOIN novedadlibro ON libro.idLibro = novedadlibro.idLibro WHERE libro.borradoLogico = 0 AND libro.idLibro=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE() AND ((libro.fechaDesde BETWEEN libro.fechaDesde AND libro.fechaHasta) OR (libro.fechaHasta='0000-00-00'))"; 
         $query= mysqli_query($conexion,$sql); 
         $totalResultados= mysqli_num_rows($query);
         if ($totalResultados > 0){ 
@@ -437,8 +437,8 @@
         <?php 
         } /* termina el if de totalresultado */
         else{?> <!-- si no tiene novedades muestra -->
-        <h2 class="titulos"> Novedades</h2>
-        <div style="color:white; text-size:20px; margin-left: 20px;">No hay novedades en el dia de hoy</div>
+        <h2 class="titulos pl-5 ml-3"> Novedades</h2>
+        <div style="color:white; text-size:20px;" class="ml-4 pl-5">No hay novedades en el dia de hoy</div>
         <?php
         }  /* fin del else del resultado */
     }?> <!-- fin else del permiso-->

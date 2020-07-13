@@ -195,42 +195,6 @@
     ?>
                
 </head>
-<script type="text/javascript">(function(d, t, e, m){
-    
-    // Async Rating-Widget initialization.
-    window.RW_Async_Init = function(){
-                
-        RW.init({
-            huid: "460630",
-            uid: "3a59ce7fc2c5a23294d5606d2ca4411f",
-            source: "website",
-            options: {
-                "advanced": {
-                    "font": {
-                        "italic": true,
-                        "type": "arial"
-                    }
-                },
-                "size": "medium",
-                "lng": "es",
-                "style": "oxygen",
-                "isDummy": false
-            } 
-        });
-        RW.render();
-    };
-        // Append Rating-Widget JavaScript library.
-    var rw, s = d.getElementsByTagName(e)[0], id = "rw-js",
-        l = d.location, ck = "Y" + t.getFullYear() + 
-        "M" + t.getMonth() + "D" + t.getDate(), p = l.protocol,
-        f = ((l.search.indexOf("DBG=") > -1) ? "" : ".min"),
-        a = ("https:" == p ? "secure." + m + "js/" : "js." + m);
-    if (d.getElementById(id)) return;              
-    rw = d.createElement(e);
-    rw.id = id; rw.async = true; rw.type = "text/javascript";
-    rw.src = p + "//" + a + "external" + f + ".js?ck=" + ck;
-    s.parentNode.insertBefore(rw, s);
-    }(document, new Date(), "script", "rating-widget.com/"));</script>
 <body style="background-color: #221f1f;">
   
     <header>
@@ -362,7 +326,7 @@
                     <input type="hidden" name="idPerfil" id="idPerfil" value="<?= $_SESSION["IDPERFIL"] ?>">
                     <input type="hidden" name="idLibro" id="idLibro" value="<?= $idLibro?> " >
                     <input type="hidden" name="nombrePerfil" id="nombrePerfil" value="<?= $nombreLibro ?>">
-                    <input type="submit" name="submit" value="agregar a favoritos :D">
+                    <button type="submit" class="btn btn-outline-warning">Agregar a Mi lista de Favoritos ☆</button>
                 </form>
             <?php
             }else{
@@ -371,8 +335,8 @@
                     <input type="hidden" name="opcion" id="opcion" value="1">
                     <input type="hidden" name="idPerfil" id="idPerfil" value="<?= $_SESSION["IDPERFIL"] ?>">
                     <input type="hidden" name="idLibro" id="idLibro" value="<?= $idLibro?> " >
-                     <input type="hidden" name="nombrePerfil" id="nombrePerfil" value="<?= $nombreLibro ?>">
-                    <input type="submit" name="submit" value="quitar de favoritos :C ">
+                    <input type="hidden" name="nombrePerfil" id="nombrePerfil" value="<?= $nombreLibro ?>">
+                    <button type="submit" class="btn btn-outline-warning">Borrar de Mi lista de Favoritos ★</button>
                 </form>
             <?php
             }
@@ -388,15 +352,16 @@
                 $queryCalificacion=mysqli_query($conexion, $consultaCalificacion);
                 $mostrarCalificacion=mysqli_fetch_array($queryCalificacion);
             ?>
-            <div class="flex-row"><br>
-                <p class="clasif">Calificar:</p>
+            
+            <div class="row"> 
                 <form method="POST" action="calificarLibro.php">
                 <input type="hidden" name="idPerfil" id="idPerfil" value="<?= $_SESSION["IDPERFIL"] ?>">
                 <input type="hidden" name="idLibro" id="idLibro" value="<?= $idLibro?> " >
                 <input type="hidden" name="nombrePerfil" id="nombrePerfil" value="<?= $nombreLibro ?>">
                 <input type="hidden" name="actualizacion" id="actualizacion" value="<?= $mostrarCalificacion["count"] ?>">
                 <div class="form-group">
-                <select name="calificacion" id="calificacion">
+                    <label for="clasif" class="col-form-label">Calificar:</label>
+                <select class="custom-select" name="calificacion" id="calificacion">
                     <option value="0">Seleccione una calificacion</option>
                     <option value="1" <?php if($mostrarCalificacion["numero"]==1){ ?> selected <?php } ?> >★</option>
                     <option value="2" <?php if($mostrarCalificacion["numero"]==2){ ?> selected <?php } ?>>★★</option>
@@ -404,23 +369,23 @@
                     <option value="4" <?php if($mostrarCalificacion["numero"]==4){ ?> selected <?php } ?>>★★★★</option>
                     <option value="5" <?php if($mostrarCalificacion["numero"]==5){ ?> selected <?php } ?>>★★★★★</option>
                 </select> 
-                <input type="submit" name="submit" value="calificar">
+                 <button type="submit" class="btn btn-outline-light mt-2">Calificar</button>
                 </div>
             </form>
             </div>
            <br>
         <form id="comentar" method="POST" action="cargarComentario.php"> 
-            <p>Comentar :</p>
+            <p>Comentar:</p>
             <input type="hidden" name="nombreLibro" id="nombreLibro" value="<?= $nombreLibro ?>">
             <input type="hidden" name="idLibro" id="idLibro" value="<?= $idLibro ?>">
             <input type="hidden" name="idPerfil" id="idPerfil" value="<?= $_SESSION["IDPERFIL"] ?>">
             <textarea id="comentario" name="comentario" style="height:200px ;width: 500px"></textarea>
             <br>  
-            <input type="submit" name="submit-comentar" value="Cargar Comentario">
+            <button type="submit" name="submit-comentar" class="btn btn-outline-light mt-2">Comentar</button>
             <?php
             if(isset($_GET["ERR_COMENT"])){
             ?>
-            <div class="alert alert-danger" style="width: 500px"> <?= $_GET["ERR_COMENT"] ?></div>
+            <div class="alert alert-danger mt-2" style="width: 500px"> <?= $_GET["ERR_COMENT"] ?></div>
             <?php
             }
             ?>
@@ -434,43 +399,23 @@
         ?>
         <br>
         <br>
-        <div class="flex-row "> 
-            <p>Comentarios: </p>
-                <pre class="pre-scrollable text-warning col-6 "> 
-
-                
-                <?php
-                $consulta="SELECT *  FROM comentario WHERE borradoLogico=0 AND idLibro=$idLibro";
+        <div class="flex-row"> 
+            <p>Comentarios: </p> <pre class="pre-scrollable text-danger col-6 "> 
+                <?php $consulta="SELECT *  FROM comentario WHERE borradoLogico=0 AND idLibro=$idLibro";
                 $query = mysqli_query($conexion,$consulta);               
                 while ($mostrar = mysqli_fetch_array($query)) {
                 $auxIdPerfil=$mostrar["idPerfil"];
                 $sql="SELECT nombrePerfil,idPerfil FROM perfil WHERE idPerfil=$auxIdPerfil";
                 $query2= mysqli_query($conexion,$sql);
                 $name=mysqli_fetch_array($query2);
-                ?>
-                <div>             
-                <p><?= $mostrar["textoComentario"] ?><footer style="font-style:italic; color:gray;"><?= $name["nombrePerfil"] ?></footer></p>
-                 <?php
-                if($_SESSION["IDPERFIL"]==$name["idPerfil"]){
-                ?>
-                <form action="borrarComentario.php" method="POST">
-                    <input type="submit" name="borrar Comentario" value="borrarComentario">
+                ?><div><p style="color:#f5f5f1;"><?= $mostrar["textoComentario"] ?><footer style="font-style:italic; color:#e50914;"><?= $name["nombrePerfil"] ?></footer></p>_____
+                 <?php if($_SESSION["IDPERFIL"]==$name["idPerfil"]){?>
+                    <form action="borrarComentario.php" method="POST"><button type="submit" name="borrar-Comentario" class="btn btn-outline-light" style="font-family: Helvetica, Arial, sans-serif; ">Borrar comentario</button>
                     <input type="hidden" name="nombreLibro" id="nombreLibro" value="<?= $nombreLibro ?>">
                     <input type="hidden" name="idPerfil" id="idPerfil" value="<?= $_SESSION["IDPERFIL"] ?>" dissable>
                     <input type="hidden" name="idLibro" id="idLibro" value="<?= $idLibro ?>" dissable>
-                    
-                </form>
-                    
-                <?php
-                }
-                ?>
-
-            </div>
-                <hr>
-                <?php
-                }
-                ?>
-                </pre>
+                </form><?php } ?></div><?php  } ?>
+            </pre>
         </div> 
         </div> 
     </div>   

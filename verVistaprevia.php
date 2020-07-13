@@ -9,7 +9,8 @@
     $mostrar = mysqli_fetch_array($query, MYSQLI_ASSOC);
 
     //traerme los pdf de todos los capitulos
-    $consulta2=mysqli_query($conexion,"SELECT pdf FROM libro l INNER JOIN vistaprevia c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['idLibro']."' ");
+    $consulta2=mysqli_query($conexion,"SELECT pdf FROM libro l INNER JOIN vistaprevia c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['idLibro']."' AND ((l.fechaDesde BETWEEN l.fechaDesde AND l.fechaHasta) OR (l.fechaHasta='0000-00-00'))
+");
    // $mostrar2=mysqli_fetch_array($consulta2);
 
     $query3=mysqli_query($conexion,"SELECT * FROM novedadlibro n WHERE n.idLibro='".$_GET['idLibro']."' ");
