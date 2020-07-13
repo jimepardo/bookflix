@@ -92,7 +92,7 @@ switch($opcion){
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();       
                                 
-                                $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.borradoLogico, l.terminar FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' AND l.borradoLogico='0' ";              
+                                $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.borradoLogico AS borradoLibro, l.terminar FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' AND l.borradoLogico='0' ";              
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();
                                 $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -155,7 +155,7 @@ switch($opcion){
                                     $resultado = $conexion->prepare($consulta);
                                     $resultado->execute();       
                                     
-                                    $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";              
+                                    $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico AS borradoLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";              
                                     $resultado = $conexion->prepare($consulta);
                                     $resultado->execute();
                                     $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -173,7 +173,7 @@ switch($opcion){
                             $resultado = $conexion->prepare($consulta);
                             $resultado->execute();       
                             
-                            $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";              
+                            $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico AS borradoLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";              
                             $resultado = $conexion->prepare($consulta);
                             $resultado->execute();
                             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -195,7 +195,7 @@ switch($opcion){
          
         break;        
     case 4:    
-        $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) ";
+        $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico as borradoLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -205,7 +205,7 @@ switch($opcion){
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();                 
         
-        $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";       
+        $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico AS borradoLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) WHERE c.idCapitulo='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
