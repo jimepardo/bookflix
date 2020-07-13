@@ -114,12 +114,12 @@ switch($opcion){
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
         $fechas= $resultado2->fetch();*/
-        /*$consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
+        $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         if($data=$resultado->fetchAll(PDO::FETCH_ASSOC)){
             $data="error4";
-        }else{*/
+        }else{
             if (isset($_POST['ter'])){
                 $termina= '1';
             }else{
