@@ -143,7 +143,8 @@ $("#btnNuevo").click(function(){
     
     //document.getElementById("ter").style.display="none";
  
-    document.getElementById("ter").disabled = true;  
+    document.getElementById("ter").disabled = true; 
+    $("#fechaD").attr("required", true); 
     $("#formLibros").trigger("reset");
     $(".modal-header").css("background-color", "#CE0909");
     $(".modal-header").css("color", "#F5F5F1");
@@ -186,7 +187,7 @@ $(document).on("click", ".btnEditar", function(){
     $("#idEd").val(data["idEditorial"]);
     $("#fechaD").val(fechaD);
     $("#fechaH").val(fechaH);
-        
+    $("#fechaD").removeAttr("required");    
     $(".modal-header").css("background-color", "#7D7A7A");
     $(".modal-header").css("color", "#F5F5F1");
     $(".modal-title").text("Modificar libro");            

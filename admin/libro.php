@@ -160,7 +160,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="fechaD" class="col-form-label">Fecha Desde</label>
-                                    <input class="form-control" type="date" value="" id="fechaD" name="fechaD" required min=<?php 
+                                    <input class="form-control" type="date" value="" id="fechaD" name="fechaD" min=<?php 
                         $hoy=date("Y-m-d");
                         echo $hoy;?>>     
                                 </div>

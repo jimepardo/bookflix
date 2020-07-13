@@ -3,13 +3,31 @@
     session_start();
     require_once "claseSesion.php";
     $sesion = new manejadorSesiones;
-   
+    
+    $idl=$_GET['idLibro'];
     $consulta= "SELECT * FROM libro l INNER JOIN genero g ON (l.idGenero=g.idGenero) INNER JOIN autor a ON (l.idAutor=a.idAutor) INNER JOIN editorial e ON (l.idEditorial=e.idEditorial) WHERE l.idLibro ='".$_GET['idLibro']."' ";
     $query = mysqli_query($conexion,$consulta);
     $mostrar = mysqli_fetch_array($query, MYSQLI_ASSOC);
 
+    $consulta10= "SELECT l.fechaHasta, l.fechaDesde FROM libro l WHERE l.idLibro ='".$_GET['idLibro']."' AND l.borradoLogico='0'";
+    $query10 = mysqli_query($conexion,$consulta10);
+    $mostrar10 = mysqli_fetch_array($query10, MYSQLI_ASSOC);
+    $libroDesde= $mostrar10['fechaDesde'];
+    $libroHasta= $mostrar10['fechaHasta'];
+     if($libroHasta == '0000-00-00'){
+        //el capitulo tiene vencimiento O NO 
+        $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND (c.fechaDesde>='$libroDesde' AND c.fechaDesde<= CURRENT_DATE()) AND ( CURRENT_DATE()<= c.fechaHasta OR c.fechaHasta='0000-00-00') " );
+        $mostrar2 = mysqli_fetch_array($consulta2, MYSQLI_ASSOC);
+
+     }else{
+        //el capitulo tiene vencimiento y tiene que compararse con el libro.fechaHasta
+        $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND (c.fechaDesde BETWEEN '$libroDesde' AND CURRENT_DATE()) AND (c.fechaHasta!='0000-00-00' AND c.fechaHasta BETWEEN CURRENT_DATE() AND '$libroHasta')  " );
+   
+        $mostrar2 = mysqli_fetch_array($consulta12, MYSQLI_ASSOC);
+     }
+
     //traerme los pdf de todos los capitulos
-    $consulta2=mysqli_query($conexion,"SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['idLibro']."' AND c.borradoLogico='0' ");
+   // $consulta2=mysqli_query($conexion,"SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['idLibro']."' AND c.borradoLogico='0' ");
    // $mostrar2=mysqli_fetch_array($consulta2);
     $nombreLibro=$mostrar['nombreLibro'];
     $idLibro=$mostrar['idLibro'];
