@@ -20,17 +20,19 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <?php     
-    if (isset($_SESSION['PERMISO'])) {
+    if (isset($_SESSION['PERMISO']) && $_SESSION['PERMISO'] !=0) {
         if ($_SESSION['PERMISO'] ==1 || $_SESSION['PERMISO'] == 2){
             header("Location: home.php");
         }
         if ($_SESSION['PERMISO'] == 3){
             header("Location: admin/index.php");
         }
-    }else{ ?>
+    }
+    else{
+     ?>
     <div class="barranavegacion">
         <nav class="navbar fixed-top navbar-expand-lg navbar-toggleable-sm navbar-dark" style="background-color:#221f1f;">
-            <a class="navbar-brand" href="home.php">
+            <a class="navbar-brand" href="login.php">
                 <object data="img/Recurso 1.svg" width=130px type="image/svg+xml">  
         <!-- Imagen alternativa si el SVG no puede cargarse -->                
         <img src="img/logo1.png" width=110px alt="Imagen PNG alternativa">
@@ -60,6 +62,13 @@
         <div class="d-flex justify-content-center"> 
         <?php if (isset($_GET['ERROR'])){?>
         <div class="alert alert-warning">Su suscripcion ha vencido, por favor vuelva a elegir un plan y cargar su tarjeta</div>
+        <br><br><br>
+        <?php  }
+         ?>
+        </div>
+        <div class="d-flex justify-content-center"> 
+        <?php if (isset($_GET['completar'])){?>
+        <div class="alert alert-warning">Termine de completar los datos, por favor vuelva a elegir un plan y cargar su tarjeta</div>
         <br><br><br>
         <?php  }
          ?>

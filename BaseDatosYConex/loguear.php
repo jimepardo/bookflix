@@ -7,7 +7,7 @@
 	$sesion->iniciarSesion($_POST['email'],$_POST['pass']);
 	switch ($_SESSION['PERMISO']) {
 		case 0:
-			header("Location: ../listaprecios.php/completar");
+			header("Location: ../listaprecios.php?completar");
 			break;
 		case 1:
 			if (validarSuscripcion($conexion)) {
