@@ -139,7 +139,7 @@
                                         <a class="dropdown-item" href="generos.php">Todos</a>
                                         <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0) ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>"<?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
@@ -216,7 +216,7 @@
         if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2)){
             /* cualquier usuario registrado, sea basico/premium puede ver generos*/ ?>
             <?php        
-               $sql="SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND ((libro.fechaDesde BETWEEN libro.fechaDesde AND libro.fechaHasta) OR (libro.fechaHasta='0000-00-00')) ) ORDER BY nombreGenero";
+               $sql="SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND ((l.fechaDesde BETWEEN l.fechaDesde AND l.fechaHasta) OR (l.fechaHasta='0000-00-00')) ) ORDER BY nombreGenero";
                 $query= mysqli_query($conexion,$sql); 
                 while ($name = mysqli_fetch_array($query)){
                 $totalResultados= mysqli_num_rows($query);
