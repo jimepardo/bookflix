@@ -138,6 +138,8 @@ $(document).on("click", ".btnEditar", function(){
 
     var data = $('#tablaCap').DataTable().row(fila).data();//cpn esta linea accedo a toda una fila de la tabla
    // console.log(data); //con esta linea imprimo la columna escondida del ID,asi el cliente no la ve
+
+    if (data["borradoLogico"] == 0){
     libro=data["idLibro"];
     id=data["idCapitulo"];
     ter=data["terminar"];
@@ -169,7 +171,10 @@ $(document).on("click", ".btnEditar", function(){
     $(".modal-title").text("Modificar capitulo");            
     $("#modalCRUD").modal("show");  
     
-   document.getElementById("libro").disabled=true;    
+   document.getElementById("libro").disabled=true;   
+   }else{
+        alertify.notify('¡Error! El capitulo ya se borró','error',3);
+    } 
 });
 
 
