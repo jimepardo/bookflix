@@ -114,7 +114,8 @@ switch($opcion){
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
         $fechas= $resultado2->fetch();*/
-        $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND idLibro='$libro'";
+
+        $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND borradoLogico='0' AND idLibro='$libro' AND NOT EXISTS (SELECT * FROM capitulo WHERE idCapitulo='$id' AND numeroCapitulo='$num') ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         if($data=$resultado->fetchAll(PDO::FETCH_ASSOC)){
@@ -182,7 +183,7 @@ switch($opcion){
          //   }
        // }
        
-     //   }
+        }
         break;        
     case 3://verifica que el capitulo no este siendo leido
         $consulta = "SELECT COUNT(*) as cantidad FROM leyendo ley INNER JOIN capitulo c ON (c.idCapitulo=ley.idCapitulo) WHERE ley.idLibro='$libro' AND ley.idCapitulo='$id' AND ley.borradoLogico='0' AND c.numeroCapitulo='$num'";       
