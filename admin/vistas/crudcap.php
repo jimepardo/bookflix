@@ -195,7 +195,7 @@ switch($opcion){
          
         break;        
     case 4:    
-        $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar, l.borradoLogico FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) ";
+        $consulta = "SELECT c.*,l.nombreLibro, l.idLibro, l.terminar,l.borradoLogico as borradoLibro FROM capitulo c INNER JOIN libro l ON (c.idLibro=l.idLibro) ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

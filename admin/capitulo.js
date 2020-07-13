@@ -138,8 +138,6 @@ $(document).on("click", ".btnEditar", function(){
 
     var data = $('#tablaCap').DataTable().row(fila).data();//cpn esta linea accedo a toda una fila de la tabla
    // console.log(data); //con esta linea imprimo la columna escondida del ID,asi el cliente no la ve
-
-
     libro=data["idLibro"];
     id=data["idCapitulo"];
     ter=data["terminar"];
