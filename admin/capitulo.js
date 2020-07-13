@@ -29,7 +29,7 @@ $(document).ready(function(){
             {"data": "fechaHasta"},
             {"render": function(data,type,full){
                 var eventId = full['terminar'];
-                var eventId2 = full['borradoLogico'];
+                var eventId2 = full['borradoLibro'];
                 if(eventId == '0' && eventId2=='0')
                 return 'SI';
                 else
