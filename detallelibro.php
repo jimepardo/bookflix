@@ -235,7 +235,36 @@
                     <p class=" gen "><i>Editorial: <?php echo $mostrar['nombreEditorial']?></i></p>
                     <p class=" gen lanza"><i>Fecha de lanzamiento: &nbsp; <?php echo $mostrar['fechaLanzamiento']?></i></p>
                     <p class=" gen lanza "><i>Disponibilidad desde el <br> <?php echo $mostrar['fechaDesde']?> &nbsp;a&nbsp;  <?php if((isset($mostrar['fechaHasta'])) && ($mostrar['fechaHasta'] != "0000-00-00")) echo $mostrar['fechaHasta']; else{ echo "Indefinidamente"; }?> </i></p>
-                    <p class=" gen"><i>Calificación: ★★★★★</i></p>
+                    <?php
+                    $sqlPromedio="SELECT AVG(numero)as prom FROM calificacion 
+                    INNER JOIN libro ON libro.idLibro=calificacion.idLibro 
+                    WHERE libro.idLibro=$idLibro";
+                    $queryPromedio=mysqli_query($conexion,$sqlPromedio);
+                    $mostrarPromedio=mysqli_fetch_array($queryPromedio);
+                    $i = $mostrarPromedio["prom"];
+                    round($i);
+                    switch ($i) {
+                        case NULL:
+                                echo "<p class=\" gen\"><i>Calificación: No hay calificacion</i></p>";
+                            break;
+                        case 1:
+                                echo "<p class=\" gen\"><i>Calificación: ★</i></p>";
+                            break;
+                        case 2:
+                                echo "<p class=\" gen\"><i>Calificación: ★★</i></p>";
+                            break;
+                        case 3:
+                                echo "<p class=\" gen\"><i>Calificación: ★★★</i></p>";
+                            break;
+                        case 4:
+                                echo "<p class=\" gen\"><i>Calificación: ★★★★</i></p>";
+                            break;
+                        case 5:
+                                echo "<p class=\" gen\"><i>Calificación: ★★★★★</i></p>";
+                            break;
+                    }
+                    ?>
+                    
                 </div>
             </aside>
         </section>

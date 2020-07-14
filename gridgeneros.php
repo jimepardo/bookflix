@@ -218,7 +218,10 @@
     
 
 <?php 
-    $consulta1="SELECT * FROM genero g INNER JOIN libro l ON (g.idGenero=l.idGenero) WHERE g.idGenero= '".$_GET['idGenero']."' ";
+    $consulta1="SELECT * FROM genero g INNER JOIN libro l ON (g.idGenero=l.idGenero)
+    INNER JOIN editorial on l.idEditorial=editorial.idEditorial
+    INNER JOIN autor on autor.idAutor=l.idAutor
+     WHERE editorial.borradoParanoagregar='0' AND autor.borradoParanoagregar='0' AND g.idGenero= '".$_GET['idGenero']."' ";
     $query1= mysqli_query($conexion, $consulta1);
 ?>
 <div class="container-fluid">
