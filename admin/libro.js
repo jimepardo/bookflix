@@ -162,6 +162,7 @@ $(document).on("click", ".btnEditar", function(){
         ter=data["terminar"];
         if (ter ==1){
             $('#ter').prop('checked', true);
+             document.getElementById("ter").disabled=true; 
         }
     
     isbn = fila.find('td:eq(0)').text();
