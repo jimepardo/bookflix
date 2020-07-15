@@ -17,13 +17,10 @@
      if(empty($libroHasta)){ // el libro no tiene vencimiento
         //el capitulo tiene vencimiento O NO 
         $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND c.fechaDesde>='$libroDesde' AND (c.fechaDesde BETWEEN '$libroDesde' AND CURRENT_DATE()) AND (c.fechaHasta>=CURRENT_DATE() OR c.fechaHasta IS NULL) " );
-      //  $mostrar2 = mysqli_fetch_array($consulta2, MYSQLI_ASSOC);
-       // echo "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND c.fechaDesde>='$libroDesde' AND c.fechaDesde<= CURRENT_DATE() AND (c.fechaHasta>=CURRENT_DATE() OR c.fechaHasta IS NULL) ";
+      
      }else{
         //el capitulo tiene vencimiento y tiene que compararse con el libro.fechaHasta
         $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND (c.fechaDesde BETWEEN '$libroDesde' AND CURRENT_DATE()) AND (c.fechaHasta is NULL OR (c.fechaHasta BETWEEN CURRENT_DATE() AND '$libroHasta') )  " );
-   
-     //   $mostrar2 = mysqli_fetch_array($consulta2, MYSQLI_ASSOC);
      }
 
     //traerme los pdf de todos los capitulos
@@ -234,7 +231,7 @@
                     <p class=" gen "><i>Autor: <?php echo $mostrar['nombreAutor']?></i></p>
                     <p class=" gen "><i>Editorial: <?php echo $mostrar['nombreEditorial']?></i></p>
                     <p class=" gen lanza"><i>Fecha de lanzamiento: &nbsp; <?php echo $mostrar['fechaLanzamiento']?></i></p>
-                    <p class=" gen lanza "><i>Disponibilidad desde el <br> <?php echo $mostrar['fechaDesde']?> &nbsp;a&nbsp;  <?php if((isset($mostrar['fechaHasta'])) && (!empty($mostrar['fechaHasta']))) echo $mostrar['fechaHasta']; else{ echo "Indefinidamente"; }?> </i></p>
+                    <p class=" gen lanza "><i>Disponibilidad desde el <br> <?php echo $mostrar['fechaDesde']?> &nbsp;a&nbsp;  <?php if((isset($mostrar['fechaHasta'])) && (!empty($mostrar['fechaHasta']))) echo $mostrar['fechaHasta']; else{ echo "∞"; }?> </i></p>
                     <?php
                     $sqlPromedio="SELECT AVG(numero)as prom FROM calificacion 
                     INNER JOIN libro ON libro.idLibro=calificacion.idLibro 
@@ -341,7 +338,7 @@
 
             </div>
              <div class="flex-row"><br>
-                <p class="clasif">Vista previa:</p>
+                <h5 class="clasif">Vista previa:</h5>
                 <?php 
 
                 $sql6= "SELECT l.idLibro FROM libro l INNER JOIN vistaprevia v ON (v.idLibro=l.idLibro)  WHERE v.idLibro='$idl' ";
@@ -405,7 +402,7 @@
                 <input type="hidden" name="nombrePerfil" id="nombrePerfil" value="<?= $nombreLibro ?>">
                 <input type="hidden" name="actualizacion" id="actualizacion" value="<?= $mostrarCalificacion["count"] ?>">
                 <div class="form-group">
-                    <label for="clasif" class="col-form-label">Calificar:</label>
+                    <label for="clasif" class="col-form-label"><h5>Calificar:<h5></label>
                 <select class="custom-select" name="calificacion" id="calificacion">
                     <option value="0">Seleccione una calificacion</option>
                     <option value="1" <?php if($mostrarCalificacion["numero"]==1){ ?> selected <?php } ?> >★</option>
@@ -450,7 +447,7 @@
             } ?>
         <br> <br>
         <div class="flex-row"> 
-            <p>Comentarios: </p> <pre class="pre-scrollable text-danger col-6 "> 
+            <h5>Comentarios: </h5> <pre class="pre-scrollable text-danger col-6 "> 
                 <?php $consulta="SELECT *  FROM comentario WHERE borradoLogico=0 AND idLibro=$idLibro";
                 $query = mysqli_query($conexion,$consulta);               
                 while ($mostrar = mysqli_fetch_array($query)) {
