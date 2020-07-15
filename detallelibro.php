@@ -5,7 +5,7 @@
     $sesion = new manejadorSesiones;
     
     $idl=$_GET['idLibro'];
-    $consulta= "SELECT * FROM libro l INNER JOIN genero g ON (l.idGenero=g.idGenero) INNER JOIN autor a ON (l.idAutor=a.idAutor) INNER JOIN editorial e ON (l.idEditorial=e.idEditorial) WHERE l.idLibro ='".$_GET['idLibro']."' ";
+    $consulta= "SELECT * FROM libro l INNER JOIN genero g ON (l.idGenero=g.idGenero) INNER JOIN autor a ON (l.idAutor=a.idAutor) INNER JOIN editorial e ON (l.idEditorial=e.idEditorial) WHERE l.idLibro ='$idl' ";
     $query = mysqli_query($conexion,$consulta);
     $mostrar = mysqli_fetch_array($query, MYSQLI_ASSOC);
 
@@ -14,16 +14,14 @@
     $mostrar10 = mysqli_fetch_array($query10, MYSQLI_ASSOC);
     $libroDesde= $mostrar10['fechaDesde'];
     $libroHasta= $mostrar10['fechaHasta'];
-
-     if(empty($libroHasta)){
-
+     if(empty($libroHasta)){ // el libro no tiene vencimiento
         //el capitulo tiene vencimiento O NO 
-        $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND c.fechaDesde>='$libroDesde' AND c.fechaDesde<= CURRENT_DATE() AND (c.fechaHasta>=CURRENT_DATE() OR c.fechaHasta IS NULL) " );
+        $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND c.fechaDesde>='$libroDesde' AND (c.fechaDesde BETWEEN '$libroDesde' AND CURRENT_DATE()) AND (c.fechaHasta>=CURRENT_DATE() OR c.fechaHasta IS NULL) " );
       //  $mostrar2 = mysqli_fetch_array($consulta2, MYSQLI_ASSOC);
        // echo "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND c.fechaDesde>='$libroDesde' AND c.fechaDesde<= CURRENT_DATE() AND (c.fechaHasta>=CURRENT_DATE() OR c.fechaHasta IS NULL) ";
      }else{
         //el capitulo tiene vencimiento y tiene que compararse con el libro.fechaHasta
-        $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND (c.fechaDesde BETWEEN '$libroDesde' AND CURRENT_DATE()) AND (c.fechaHasta is NULL OR c.fechaHasta BETWEEN CURRENT_DATE() AND '$libroHasta' )  " );
+        $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND (c.fechaDesde BETWEEN '$libroDesde' AND CURRENT_DATE()) AND (c.fechaHasta is NULL OR (c.fechaHasta BETWEEN CURRENT_DATE() AND '$libroHasta') )  " );
    
      //   $mostrar2 = mysqli_fetch_array($consulta2, MYSQLI_ASSOC);
      }
@@ -236,7 +234,7 @@
                     <p class=" gen "><i>Autor: <?php echo $mostrar['nombreAutor']?></i></p>
                     <p class=" gen "><i>Editorial: <?php echo $mostrar['nombreEditorial']?></i></p>
                     <p class=" gen lanza"><i>Fecha de lanzamiento: &nbsp; <?php echo $mostrar['fechaLanzamiento']?></i></p>
-                    <p class=" gen lanza "><i>Disponibilidad desde el <br> <?php echo $mostrar['fechaDesde']?> &nbsp;a&nbsp;  <?php if((isset($mostrar['fechaHasta'])) && ($mostrar['fechaHasta'] != "0000-00-00")) echo $mostrar['fechaHasta']; else{ echo "Indefinidamente"; }?> </i></p>
+                    <p class=" gen lanza "><i>Disponibilidad desde el <br> <?php echo $mostrar['fechaDesde']?> &nbsp;a&nbsp;  <?php if((isset($mostrar['fechaHasta'])) && (!empty($mostrar['fechaHasta']))) echo $mostrar['fechaHasta']; else{ echo "Indefinidamente"; }?> </i></p>
                     <?php
                     $sqlPromedio="SELECT AVG(numero)as prom FROM calificacion 
                     INNER JOIN libro ON libro.idLibro=calificacion.idLibro 
@@ -300,24 +298,19 @@
                         $queryEstaLeido=mysqli_query($conexion,$sqlEstaLeido);
                         $estaLeido=mysqli_fetch_array($queryEstaLeido);
 
-                        if ($estaLeido["count"]<1) {
-                     ?>
-                    <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
-                    <?php
-                    }else{
-                    ?>
-                        <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-success">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
-                    <?php
-                    }
-                    ?>
-
+                        if ($estaLeido['count']<1) { ?>
+                            <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-dangeroutline-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
+                        <?php
+                        }else{ ?>
+                            <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-success">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
+                        <?php } ?>
                 <?php 
                      }
                     }else{
+                        ?><h4>Leer</h4> <?php 
                         echo $mostrar="No hay nada para leer";
                     }
-                }
-                ?>
+                } ?>
             </div>
             <div class="flex-row">            
                     <br>
@@ -351,7 +344,7 @@
                 <p class="clasif">Vista previa:</p>
                 <?php 
 
-                $sql6= "SELECT l.idLibro FROM libro l INNER JOIN vistaprevia v ON (v.idLibro=l.idLibro)  WHERE v.idLibro='".$_GET['idLibro']."' ";
+                $sql6= "SELECT l.idLibro FROM libro l INNER JOIN vistaprevia v ON (v.idLibro=l.idLibro)  WHERE v.idLibro='$idl' ";
                 $query6=mysqli_query($conexion, $sql6);
                 $mostrar6=mysqli_fetch_array($query6);
                 $cant6=mysqli_num_rows($query6);
@@ -426,8 +419,15 @@
             </form>
             </div>
            <br>
+           <?php 
+            } 
+                $consulta20=mysqli_query($conexion, "SELECT * FROM comentario WHERE idPerfil='$idperf' AND borradoLogico='0' AND idLibro=$idl ");
+                $comentarios=mysqli_fetch_array($consulta20);
+                $coments=mysqli_num_rows($consulta20);
+                if ($mostrarHistorial["count"]!=0){ 
+                    if($coments == 0){ ?>
         <form id="comentar" method="POST" action="cargarComentario.php"> 
-            <p>Comentar:</p>
+            <h5>Comentar:</h5>
             <input type="hidden" name="nombreLibro" id="nombreLibro" value="<?= $nombreLibro ?>">
             <input type="hidden" name="idLibro" id="idLibro" value="<?= $idLibro ?>">
             <input type="hidden" name="idPerfil" id="idPerfil" value="<?= $_SESSION["IDPERFIL"] ?>">
@@ -435,22 +435,20 @@
             <br>  
             <button type="submit" name="submit-comentar" class="btn btn-outline-light mt-2">Comentar</button>
             <?php
-            if(isset($_GET["ERR_COMENT"])){
-            ?>
-            <div class="alert alert-danger mt-2" style="width: 500px"> <?= $_GET["ERR_COMENT"] ?></div>
-            <?php
-            }
-            ?>
+            if(isset($_GET["ERR_COMENT"])){ ?>
+                <div class="alert alert-danger mt-2" style="width: 500px"> <?= $_GET["ERR_COMENT"] ?></div>  
+            <?php }?> 
         </form>
-        <?php
-        }else{
-            ?>
-            <div class="alert alert-warning" style="width: 600px;"> Debe terminar de leer el libro antes de comentarlo o calificarlo !</div>
-            <?php
-        }
-        ?>
-        <br>
-        <br>
+            <?php }else{ ?>
+                <h5>Comentar:</h3>
+                <p>Ya realizó su comentario, si quiere cambiarlo, primero debe borrarlo</p>
+             <?php 
+            }
+        }else{ ?>
+            <div class="alert alert-warning mt-2" style="width: 600px;"> Debe terminar de leer el libro antes de comentarlo o calificarlo !</div>
+                <?php 
+            } ?>
+        <br> <br>
         <div class="flex-row"> 
             <p>Comentarios: </p> <pre class="pre-scrollable text-danger col-6 "> 
                 <?php $consulta="SELECT *  FROM comentario WHERE borradoLogico=0 AND idLibro=$idLibro";
