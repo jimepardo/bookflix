@@ -17,6 +17,10 @@ $fechaD = (isset($_POST['fechaD'])) ? $_POST['fechaD'] : '';
 $fechaH = (isset($_POST['fechaH'])) ? $_POST['fechaH'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 //$ter = (isset($_POST['ter'])) ? $_POST['ter'] : '';
+if (empty($fechaH))
+    $fechaH="NULL";
+else
+    $fechaH="'$fechaH'";
 
 if($fechaH=="0000-00=00"){
     $hasta="9999-12-31";
@@ -24,16 +28,19 @@ if($fechaH=="0000-00=00"){
 
 function compararFechas1($primera, $segunda)// desde y hasta del capitulo
  {
-  if ($segunda == '0000-00-00' || empty($segunda)) {
+
+    
+  if ($segunda == 'NULL' || empty($segunda)) {
       return 0;
-  }else if($primera == '0000-00-00' || empty($primera)){
+  }else if($primera == '0000-00-00' || empty($primera) || $primera== 'NULL'){
         return -1;
   }else{
       $valoresPrimera = explode ("-", $primera);   
       $valoresSegunda = explode ("-", $segunda); 
       $anyoPrimera    = intval($valoresPrimera[0]);  
       $mesPrimera  = intval($valoresPrimera[1]);  
-      $diaPrimera   = intval($valoresPrimera[2]); 
+      $diaPrimera   = intval($valoresPrimera[2]);
+
       $anyoSegunda   = intval($valoresSegunda[0]);  
       $mesSegunda = intval($valoresSegunda[1]);  
       $diaSegunda  = intval($valoresSegunda[2]);
@@ -60,7 +67,7 @@ switch($opcion){
         if ($data=$resultado->fetch()){
             $data="error4";
         }else{
-           $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro'";
+           $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro' ";
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
         $fechas= $resultado2->fetch();
@@ -70,8 +77,9 @@ switch($opcion){
             $data="error3";  
         }else{
             $result2=compararFechas1($fechas['fechaDesde'],$fechaD);
+       
             if ($result2 < 0){
-                $data="error2";
+                $data="error2"; 
             }else{
                 $result3=compararFechas1($fechaH,$fechas['fechaHasta']);
                 if ($result3 < 0){
@@ -88,7 +96,7 @@ switch($opcion){
 
                                 //Mover imagen del directorio temporal al directorio escogido
                                 move_uploaded_file($_FILES['pdf']['tmp_name'], $carpetaDestino.$nombrePdf);
-                                $consulta = "INSERT INTO capitulo (numeroCapitulo, nombreCapitulo, borradoLogico, pdf, idLibro, fechaDesde, fechaHasta) VALUES('$num', '$nombre', '0', '$nombrePdf', '$libro', '".$fechaD."', '".$fechaH."')";       
+                                $consulta = "INSERT INTO capitulo (numeroCapitulo, nombreCapitulo, borradoLogico, pdf, idLibro, fechaDesde, fechaHasta) VALUES('$num', '$nombre', '0', '$nombrePdf', '$libro', '".$fechaD."', ".$fechaH.")";       
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();       
                                 

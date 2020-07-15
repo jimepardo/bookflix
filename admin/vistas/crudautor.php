@@ -65,7 +65,10 @@ switch($opcion){
     case 5://baja
         $consulta = "UPDATE autor SET borradoParanoagregar='1', borradoLogico='1' WHERE idAutor='$id' ";		
         $resultado = $conexion->prepare($consulta);
-        $resultado->execute();        
+        $resultado->execute(); 
+        $consulta = "UPDATE libro SET borradoLogico='1' WHERE idAutor='$id' ";        
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();          
         
         $consulta = "SELECT * FROM autor WHERE idAutor='$id'";       
         $resultado = $conexion->prepare($consulta);

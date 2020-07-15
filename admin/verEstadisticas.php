@@ -8,7 +8,7 @@
     <?php   
         $consulta= "SELECT DISTINCT l.nombreLibro, l.idLibro, ley.idPerfil, COUNT( ley.idLibro) as cant 
         FROM libro l LEFT JOIN leyendo ley ON (ley.idLibro=l.idLibro)
-        WHERE l.borradoLogico='0' AND (ley.borradoLogico='0' OR NOT EXISTS (Select *
+        WHERE l.borradoLogico='0' AND terminar='1' AND (ley.borradoLogico='0' OR NOT EXISTS (Select *
                                            From Libro 
                                            Where  l.borradoLogico='1' AND ley.borradoLogico='1' ))
         GROUP BY l.idLibro
@@ -41,7 +41,7 @@
                         <?php } 
                         }else{?>                   
                             <br> 
-                            <h5> &nbsp<?php echo "No se encontraron resultados para su búsqueda"?></h5>
+                            <h5> &nbsp<?php echo "No se encontraron resultados"?></h5>
                             <?php }?>
                     </table>                    
                 </div>

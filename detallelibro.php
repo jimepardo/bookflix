@@ -14,16 +14,18 @@
     $mostrar10 = mysqli_fetch_array($query10, MYSQLI_ASSOC);
     $libroDesde= $mostrar10['fechaDesde'];
     $libroHasta= $mostrar10['fechaHasta'];
-     if($libroHasta == '0000-00-00'){
-        //el capitulo tiene vencimiento O NO 
-        $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND (c.fechaDesde>='$libroDesde' AND c.fechaDesde<= CURRENT_DATE()) AND (  c.fechaHasta='0000-00-00') " );
-        $mostrar2 = mysqli_fetch_array($consulta2, MYSQLI_ASSOC);
 
+     if(empty($libroHasta)){
+
+        //el capitulo tiene vencimiento O NO 
+        $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND c.fechaDesde>='$libroDesde' AND c.fechaDesde<= CURRENT_DATE() AND (c.fechaHasta>=CURRENT_DATE() OR c.fechaHasta IS NULL) " );
+      //  $mostrar2 = mysqli_fetch_array($consulta2, MYSQLI_ASSOC);
+       // echo "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND c.fechaDesde>='$libroDesde' AND c.fechaDesde<= CURRENT_DATE() AND (c.fechaHasta>=CURRENT_DATE() OR c.fechaHasta IS NULL) ";
      }else{
         //el capitulo tiene vencimiento y tiene que compararse con el libro.fechaHasta
-        $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND (c.fechaDesde BETWEEN '$libroDesde' AND CURRENT_DATE()) AND (c.fechaHasta!='0000-00-00' AND c.fechaHasta BETWEEN CURRENT_DATE() AND '$libroHasta')  " );
+        $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND (c.fechaDesde BETWEEN '$libroDesde' AND CURRENT_DATE()) AND (c.fechaHasta is NULL OR c.fechaHasta BETWEEN CURRENT_DATE() AND '$libroHasta' )  " );
    
-        $mostrar2 = mysqli_fetch_array($consulta2, MYSQLI_ASSOC);
+     //   $mostrar2 = mysqli_fetch_array($consulta2, MYSQLI_ASSOC);
      }
 
     //traerme los pdf de todos los capitulos
@@ -270,12 +272,13 @@
         </section>
         <div class="container-fluid">
             <div class="flex-row">
-                <h4>Capitulos</h4>
+               
                 <?php $cant=mysqli_num_rows($consulta2); 
                 if ($cant == 1){
+                     ?><h4>Libro</h4><?php
                     $mostrar2=mysqli_fetch_array($consulta2)?>
                     <?php
-                        $sqlEstaLeido="SELECT count(*) as count FROM leidos WHERE idLibro='".$mostrar2['idLibro']."' AND idCapitulo='".$mostrar2['idCapitulo']."' AND idPerfil='".$_SESSION["IDPERFIL"]."' ";
+                        $sqlEstaLeido="SELECT count(*) as count FROM leidos WHERE idLibro='$idl' AND idCapitulo='".$mostrar2['idCapitulo']."' AND idPerfil='".$_SESSION["IDPERFIL"]."' ";
                         $queryEstaLeido=mysqli_query($conexion,$sqlEstaLeido);
                         $estaLeido=mysqli_fetch_array($queryEstaLeido); 
                         if ($estaLeido["count"]<1) {
@@ -290,11 +293,13 @@
                     ?>
 <?php           }else{ 
                     if($cant>1){
+                        ?> <h4>Capitulos</h4> <?php
                      while($mostrar2=mysqli_fetch_array($consulta2)) {?>
                      <?php
-                        $sqlEstaLeido="SELECT count(*) as count FROM leidos WHERE idLibro='".$mostrar2['idLibro']."' AND idCapitulo='".$mostrar2['idCapitulo']."' AND idPerfil='".$_SESSION["IDPERFIL"]."' ";
+                        $sqlEstaLeido="SELECT count(*) as count FROM leidos WHERE idLibro='$idl' AND idCapitulo='".$mostrar2['idCapitulo']."' AND idPerfil='".$_SESSION["IDPERFIL"]."' ";
                         $queryEstaLeido=mysqli_query($conexion,$sqlEstaLeido);
                         $estaLeido=mysqli_fetch_array($queryEstaLeido);
+
                         if ($estaLeido["count"]<1) {
                      ?>
                     <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
