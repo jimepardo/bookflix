@@ -20,7 +20,7 @@
       
      }else{
         //el capitulo tiene vencimiento y tiene que compararse con el libro.fechaHasta
-        $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND (c.fechaDesde BETWEEN '$libroDesde' AND CURRENT_DATE()) AND (c.fechaHasta is NULL OR (c.fechaHasta BETWEEN CURRENT_DATE() AND '$libroHasta') ) AND l.terminar='1' " );
+        $consulta2=mysqli_query($conexion, "SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro=l.idLibro) WHERE l.idLibro ='$idl' AND l.borradoLogico='0' AND c.borradoLogico='0' AND (c.fechaDesde BETWEEN '$libroDesde' AND CURRENT_DATE()) AND (c.fechaHasta is NULL OR (c.fechaHasta BETWEEN CURRENT_DATE() AND '$libroHasta') ) AND l.terminar='1' ORDER BY c.numeroCapitulo ASC" );
      }
 
     //traerme los pdf de todos los capitulos
@@ -296,7 +296,7 @@
                         $estaLeido=mysqli_fetch_array($queryEstaLeido);
 
                         if ($estaLeido['count']<1) { ?>
-                            <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-dangeroutline-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
+                            <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-danger">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>
                         <?php
                         }else{ ?>
                             <a href="verLibro.php?&id=<?php echo $mostrar2['idLibro'];?>&nombrePerfil=<?php echo $_SESSION['IDPERFIL'];?>&nombrepdf=<?php echo $mostrar2['nombreCapitulo'];?>&num=<?php echo $mostrar2['idCapitulo'];?>" class=" btn btn-outline-success">Capitulo <?php echo $mostrar2['numeroCapitulo']; ?>  </a>

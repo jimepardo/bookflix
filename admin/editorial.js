@@ -102,7 +102,7 @@ $(document).ready(function(){
     });
     
     $(document).on("click", ".btnBorrar", function(){
-        opcion = 3; //eliminar    
+        opcion = 6; //eliminar      
         fila = $(this).closest("tr"); 
         var data = $('#tablaEditorial').DataTable().row(fila).data();  
         id=data["idEditorial"];
@@ -118,24 +118,52 @@ $(document).ready(function(){
                     dataType: "json",
                     data: {id:id, opcion:opcion},      
                 success: function(data) {
-                    if (data== "error"){
-                        alertify.notify('¡Error! La editorial ya se borro','error',3);
+                    if (data== "errorleyendo"){
+                        var respuesta2 = confirm("¿Está seguro de borrar la editorial "+nombre+"? Hay personas que estan leyendo libros de la editorial "+nombre);
+                        if (respuesta2){
+                            $.ajax({
+                                url: "vistas/crudeditorial.php",
+                                type: "POST",
+                                dataType: "json",
+                                data: {id:id, opcion:3},      
+                            success: function() {
+                                alertify.notify('¡Editorial borrada exitosamente, se mantienen los libros con esta editorial!','success',3); 
+                                tablaEditorial.ajax.reload(null,false);
+                            }
+                            });
+                        }else{
+                            alertify.notify('Cancelado','error',3);
+                        }
                     }else{
-                        alertify.notify('¡Editorial borrada exitosamente!','success',3); 
-                        tablaEditorial.ajax.reload(null,false);                  
+                        var respuesta3 =confirm("¿Está seguro de borrar la editorial "+nombre+"? NO hay personas que esten leyendo libros de la editorial "+nombre);
+                        if (respuesta3){
+                            $.ajax({
+                                url: "vistas/crudeditorial.php",
+                                type: "POST",
+                                dataType: "json",
+                                data: {id:id, opcion:3},      
+                            success: function() {
+                                alertify.notify('¡Capitulo borrado exitosamente!','success',3); 
+                                tablaCap.ajax.reload(null,false);
+                            }
+                            });
+                        }else{
+                            alertify.notify('Cancelado','error',3);
+                        }
                     }
                 }
-                });	
+                }); 
             }else{
                 alertify.notify('Cancelado','error',3);
             }
-        }else{
-            alertify.notify('¡Error! La editorial ya se borro','error',3);
+        }
+        else{
+            alertify.notify('¡Error! La editorial ya se borro sin ocultar los libros de esta editorial','error',3);
         }
      });
 
      $(document).on("click", ".btnBorrarF", function(){
-        opcion = 5; //eliminar y ocultar libros   
+        opcion = 6; //eliminar y ocultar libros   
         fila = $(this).closest("tr"); 
         var data = $('#tablaEditorial').DataTable().row(fila).data();  
         id=data["idEditorial"];
@@ -151,12 +179,39 @@ $(document).ready(function(){
                     dataType: "json",
                     data: {id:id, opcion:opcion},      
                 success: function(data) {
-                    if (data== "error"){
-                        alertify.notify('¡Error! La editorial ya se borro para ocultar los libros de esta editorial','error',3);
+                    if (data== "errorleyendo"){
+                        var respuesta2 = confirm("¿Está seguro de borrar la editorial "+nombre+"? Hay personas que estan leyendo libros de la editorial "+nombre);
+                        if (respuesta2){
+                            $.ajax({
+                                url: "vistas/crudeditorial.php",
+                                type: "POST",
+                                dataType: "json",
+                                data: {id:id, opcion:5},      
+                            success: function() {
+                                alertify.notify('¡Editorial borrada exitosamente, ocultando libros!','success',3); 
+                                tablaEditorial.ajax.reload(null,false);
+                            }
+                            });
+                        }else{
+                            alertify.notify('Cancelado','error',3);
+                        }
                     }else{
-                        alertify.notify('¡Editorial borrada exitosamente, ocultando libros!','success',3); 
-                        tablaEditorial.ajax.reload(null,false);                  
-                }
+                        var respuesta3 =confirm("¿Está seguro de borrar la editorial "+nombre+"? NO hay personas que esten leyendo libros de la editorial "+nombre);
+                        if (respuesta3){
+                            $.ajax({
+                                url: "vistas/crudeditorial.php",
+                                type: "POST",
+                                dataType: "json",
+                                data: {id:id, opcion:5},      
+                            success: function() {
+                                alertify.notify('¡Capitulo borrado exitosamente!','success',3); 
+                                tablaCap.ajax.reload(null,false);
+                            }
+                            });
+                        }else{
+                            alertify.notify('Cancelado','error',3);
+                        }
+                    }
                 }
                 });	
             }else{
@@ -168,4 +223,6 @@ $(document).ready(function(){
         }
      });
     
+    
+
     });

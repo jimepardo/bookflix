@@ -65,14 +65,27 @@ switch($opcion){
     case 5://baja y ocultar
         $consulta = "UPDATE editorial SET borradoParanoagregar='1', borradoLogico='1' WHERE idEditorial='$id' ";		
         $resultado = $conexion->prepare($consulta);
-        $resultado->execute();        
+        $resultado->execute();   
+        $consulta = "UPDATE libro SET borradoLogico='1' WHERE idEditorial='$id' ";        
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();         
         
         $consulta = "SELECT * FROM editorial WHERE idEditorial='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC); 
                                 
-        break;     
+        break;  
+    case 6://preguntar si alguien esta leyendo esta editorial
+
+        $consulta = "SELECT COUNT(*) as cantidad FROM editorial e INNER JOIN libro l ON (e.idEditorial=l.idEditorial) INNER JOIN leyendo ley ON (l.idLibro=ley.idLibro) WHERE e.idEditorial='$id' AND e.idEditorial=l.idEditorial AND l.idLibro=ley.idLibro AND ley.borradoLogico='0' ";   
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute(); 
+        $data= $resultado->fetchAll(PDO::FETCH_ASSOC);
+        if ($data[0]["cantidad"]> 0){
+            $data="errorleyendo";
+        }
+        break;          
 }
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
