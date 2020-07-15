@@ -22,9 +22,6 @@ if (empty($fechaH))
 else
     $fechaH="'$fechaH'";
 
-if($fechaH=="0000-00=00"){
-    $hasta="9999-12-31";
-}
 
 function compararFechas1($primera, $segunda)// desde y hasta del capitulo
  {

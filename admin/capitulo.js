@@ -98,7 +98,7 @@ $(document).ready(function(){
                                         alertify.notify('¡Cambios guardados exitosamente!','success',3);
                                         tablaCap.ajax.reload(null, false); 
                                         document.getElementById("libro").disabled = false;
-                                          
+                                        document.getElementById("ter").disabled=false;   
                                         $("#modalCRUD").modal("hide");                                         
                                     }
                                 }
@@ -145,6 +145,7 @@ $(document).on("click", ".btnEditar", function(){
     ter=data["terminar"];
     if (ter ==1){
         $('#ter').prop('checked', true);
+        document.getElementById("ter").disabled=true; 
     }
     
     num = fila.find('td:eq(1)').text();
