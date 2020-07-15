@@ -78,13 +78,13 @@ $(document).ready(function(){
            success: function(data){  
                console.log(data);
                 if (data=="error1"){
-                    alertify.notify('¡Error! La fecha HASTA cuando esta disponible el capitulo es MAYOR a la fecha HASTA cuando esta disponible el libro', 'error',6);
+                    alertify.notify('¡Error! La fecha HASTA del capitulo es MAYOR a la fecha HASTA del libro', 'error',6);
                 }else{
                     if (data=="error2"){
-                        alertify.notify('¡Error! La fecha DESDE cuando esta disponible el capitulo es MENOR a la fecha a partir de cuando esta disponible el libro ', 'error',6);
+                        alertify.notify('¡Error! La fecha DESDE el capitulo es MENOR a la fecha DESDE del libro ', 'error',6);
                     }else{
                         if (data=="error3"){
-                            alertify.notify('¡Error! La fecha inicio es superior a la fecha de fin ', 'error',6);
+                            alertify.notify('¡Error! La fecha DESDE del capitulo es MAYOR a la fecha HASTA del capitulo', 'error',6);
                         }else{
                             if (data=="error4"){
                                 alertify.notify('¡Error! El numero de capitulo ingresado para el libro seleccionado ya existe', 'error',6);

@@ -17,10 +17,12 @@ $fechaD = (isset($_POST['fechaD'])) ? $_POST['fechaD'] : '';
 $fechaH = (isset($_POST['fechaH'])) ? $_POST['fechaH'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 //$ter = (isset($_POST['ter'])) ? $_POST['ter'] : '';
-if (empty($fechaH))
+if (empty($fechaH)){
     $fechaH="NULL";
-else
+}
+else{
     $fechaH="'$fechaH'";
+}
 
 
 function compararFechas1($primera, $segunda)// desde y hasta del capitulo
@@ -60,19 +62,39 @@ function compararFechasD($libro, $capitulo)// libroDesde y capituloDesde
     if ($libro<=$capitulo){
         return 1;//sigue ejecutando
     }else{
-        return -1; // error
+        return -1; // error libroDesde>capDesde
     }
  }
 
  function compararFechasDH($desde, $hasta)// capituloDesde y capituloHasta
  {
-    if (empty($hasta)){
-        return 1;
+    if ($hasta=="NULL"){
+        return 1; // sigo ejecutando
     }else{
-        
+        if($desde<=$hasta){
+            return 1; // sigue ejecutando
+        }else{
+            return -1; // sino error desde> hasta
+        } 
     }
  }
 
+function compararFechasHH($capitulo, $libro)// capituloHasta y libroHasta
+{
+    if ($capitulo == "NULL"){
+        if (empty($libro) || $libro == "NULL"){
+            return 1; // sigo ejecutando
+        }else{
+            return -1; //error capituloHasta > libroHasta
+        }
+    }else{
+        if ($capitulo <= $libro){
+            return 1; // sigo ejecutando 
+        }else{
+            return -1; //error capituloHasta > libroHasta
+        }
+    }
+}
 
 switch($opcion){
     case 1: //alta
@@ -88,18 +110,17 @@ switch($opcion){
         $fechas= $resultado2->fetch();
         $libroDesde=$fechas['fechaDesde'];
         $libroHasta=$fechas['fechaHasta'];
-        $result= compararFechas($fechaD,$fechaH);
+        $result= compararFechasD($libroDesde,$fechaD);
         if($result < 0){
-            $data="error3";  
+            $data="error2";  // libroDesde> capituloDesde
         }else{
-            $result2=compararFechasD($libroDesde,$fechaD);
-       
+            $result2=compararFechasHH($fechaH,$libroHasta);
             if ($result2 < 0){
-                $data="error2"; 
+                $data="error1"; //capituloDesde > capituloHasta
             }else{
-                $result3=compararFechas1($fechaH,$libroHasta);
+                $result3=compararFechasDH($fechaD,$fechaH);
                 if ($result3 < 0){
-                    $data="error1";
+                    $data="error3"; // capituloHasta > libroHasta
                 }else{
                         $nomPdf=$_FILES['pdf']["name"];
                         $tipoPdf=$_FILES['pdf']['type'];
