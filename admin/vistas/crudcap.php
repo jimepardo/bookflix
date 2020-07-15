@@ -32,7 +32,7 @@ function compararFechas1($primera, $segunda)// desde y hasta del capitulo
     
   if ($segunda == 'NULL' || empty($segunda)) {
       return 0;
-  }else if($primera == '0000-00-00' || empty($primera) || $primera== 'NULL'){
+  }else if( empty($primera) || $primera== 'NULL'){
         return -1;
   }else{
       $valoresPrimera = explode ("-", $primera);   
