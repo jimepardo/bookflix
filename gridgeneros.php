@@ -21,7 +21,7 @@
         return $resultado;
         }
 
-     $consulta2="SELECT g.nombreGenero FROM genero g WHERE g.idGenero= '".$_GET['idGenero']."' AND g.borradoLogico='0' ";
+     $consulta2="SELECT g.nombreGenero FROM genero g WHERE g.idGenero= '".$_GET['idGenero']."' ";
     $query2= mysqli_query($conexion, $consulta2);
     $data=mysqli_fetch_array($query2);    
 ?>
@@ -30,7 +30,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bookflix - <?php echo $data['nombreGenero']?></title>
+    <title>Bookflix - Género <?php echo $data['nombreGenero']?></title>
     <link rel="icon" href="img/logo2.png" style="width:10px;"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
         <!-- Link Swiper's CSS -->
@@ -219,9 +219,9 @@
 
 <?php 
     $consulta1="SELECT * FROM genero g INNER JOIN libro l ON (g.idGenero=l.idGenero)
-    INNER JOIN editorial on l.idEditorial=editorial.idEditorial
-    INNER JOIN autor on autor.idAutor=l.idAutor
-     WHERE l.terminar='1' AND editorial.borradoParanoagregar='0' AND autor.borradoParanoagregar='0' AND g.idGenero= '".$_GET['idGenero']."' ";
+    INNER JOIN editorial e on l.idEditorial=e.idEditorial
+    INNER JOIN autor a on a.idAutor=l.idAutor
+     WHERE l.terminar='1' AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0' AND l.borradoLogico='0' AND ((l.fechaDesde<=l.fechaHasta) OR (l.fechaHasta IS NULL )) AND l.fechaDesde<=CURRENT_DATE() AND g.idGenero='".$_GET['idGenero']."'";
     $query1= mysqli_query($conexion, $consulta1);
 ?>
 <div class="container-fluid">

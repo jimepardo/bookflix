@@ -216,11 +216,12 @@
         if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2)){
             /* cualquier usuario registrado, sea basico/premium puede ver generos*/ ?>
             <?php        
-               $sql="SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.terminar='1' AND l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0' AND ((l.fechaDesde BETWEEN l.fechaDesde AND l.fechaHasta) OR (l.fechaHasta='0000-00-00')) ) ORDER BY nombreGenero";
+               $sql="SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.terminar='1' AND l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0' AND ((l.fechaDesde<=l.fechaHasta) OR (l.fechaHasta IS NULL )) AND l.fechaDesde<=CURRENT_DATE() ) ORDER BY nombreGenero";
                 $query= mysqli_query($conexion,$sql); 
                 while ($name = mysqli_fetch_array($query)){
                 $totalResultados= mysqli_num_rows($query);
                 if ($totalResultados > 0){ 
+                    $idgen=$name['idGenero'];
                 ?>
                 <!--primer slide -->
                 <div class="netflix-slider mx-5">                
@@ -229,9 +230,9 @@
                             <div class="swiper-wrapper">
                                 <?php  
                                 $sql2="SELECT * FROM libro l INNER JOIN genero g ON (g.idGenero=l.idGenero) 
-                                INNER JOIN editorial ON editorial.idEditorial=l.idEditorial
-                                INNER JOIN autor ON autor.idAutor=l.idAutor
-                                WHERE l.terminar='1' AND autor.borradoParanoagregar='0' AND autor.borradoParanoagregar='0' AND l.idGenero= '".$name['idGenero']."' AND l.borradoLogico=0";
+                                INNER JOIN editorial e ON e.idEditorial=l.idEditorial
+                                INNER JOIN autor a ON a.idAutor=l.idAutor
+                                WHERE l.terminar='1' AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0' AND l.idGenero= '$idgen' AND l.borradoLogico='0' AND ((l.fechaDesde<=l.fechaHasta) OR (l.fechaHasta IS NULL )) AND l.fechaDesde<=CURRENT_DATE()";
                                 $query2=mysqli_query($conexion,$sql2);
                                 while ($name2 = mysqli_fetch_array($query2)) {
                                     $titulo= $name2['nombreLibro'];
@@ -258,13 +259,13 @@
                                 <div class="swiper-button-prev"></div>
                         </div> <!--fin swiper-container-->
                 </div> <!--fin netflix-slider-->
-
+<br><br>
                 <?php 
                 
             } /* fin if resultado*/
             else{?> <!-- si no tiene novedades muestra -->
                 <h2 class="titulos"> <?php echo $name['nombreGenero']?></h2>
-                <div style="color:#221f1f; text-size:20px; margin-left: 20px;">No hay libros de este g</div>
+                <div style="color:#221f1f; text-size:20px; margin-left: 20px;">No hay libros de este genero</div>
             
                 <?php
                 }
@@ -272,32 +273,7 @@
         }/* fin if permisos 1 2 3  */
     } /* fin if del permiso, sino tiene permiso, no esta registrado */  
 ?>
-    <!-- Swiper -->
-    <!--slides 
-    <div class="netflix-slider mx-5">
-        <h2 class="titulo">--><?php// echo $name["nombreGenero"]?> <!--</h2>
-        <div class="swiper-container">
-            <div class="swiper-wrapper">-->
-                <?php  
-                  //  for ($i=0; $i < 7 ; $i++) { 
-                 ?>
-                  <!--  
-                <div class="swiper-slide"><img src="img/3.jpg" alt="X-Men"></div>
-                  -->
-                <?php 
-             //   }
-                ?>
-      <!--      </div>-->
-            <!-- Add Pagination -->
-            <!-- <div class="swiper-pagination"></div> -->
-      <!--      <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-    </div>-->
-   
-   
-
-     <!-- Logout Modal-->
+    <!-- Logout Modal-->
      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog" role="document">
             <div class="modal-content" >

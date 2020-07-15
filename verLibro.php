@@ -9,7 +9,7 @@
     $mostrar = mysqli_fetch_array($query, MYSQLI_ASSOC);
     $nombreLibro=$mostrar['nombreLibro'];//para mandarle al terminar de leer.
     //traerme los pdf de todos los capitulos
-    $consulta2=mysqli_query($conexion,"SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro= l.idLibro) WHERE ((libro.fechaDesde BETWEEN libro.fechaDesde AND libro.fechaHasta) OR (libro.fechaHasta='0000-00-00')) AND l.idLibro ='".$_GET['id']."'AND c.nombreCapitulo= '".$_GET['nombrepdf']."' ");
+    $consulta2=mysqli_query($conexion,"SELECT * FROM libro l INNER JOIN capitulo c ON (c.idLibro= l.idLibro) WHERE ((l.fechaDesde<=l.fechaHasta) OR (l.fechaHasta IS NULL )) AND l.fechaDesde<=CURRENT_DATE() AND l.idLibro ='".$_GET['id']."'AND c.nombreCapitulo= '".$_GET['nombrepdf']."' ");
    // $mostrar2=mysqli_fetch_array($consulta2);
 ?>
 <!DOCTYPE html>
@@ -49,7 +49,7 @@
                                     <a class="dropdown-item" href="generos.php">Todos</a>
                                     <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0' AND l.terminar='1') ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>" <?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
@@ -126,7 +126,7 @@
                                         <a class="dropdown-item" href="generos.php">Todos</a>
                                         <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0' AND l.terminar='1') ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>" <?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
