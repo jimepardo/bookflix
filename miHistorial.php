@@ -61,7 +61,7 @@
                                     <a class="dropdown-item" href="generos.php">Todos</a>
                                     <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar='0' AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar='0' AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.terminar='1' AND l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>"<?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
@@ -138,7 +138,7 @@
                                         <a class="dropdown-item" href="generos.php">Todos</a>
                                         <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar='0' AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar='0' AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.terminar='1' AND l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>"<?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
@@ -260,7 +260,7 @@
                 INNER JOIN historial ON libro.idLibro = historial.idLibro 
                 INNER JOIN autor ON autor.idAutor= libro.idAutor
                 INNER JOIN editorial ON editorial.idEditorial =libro.idEditorial
-                WHERE editorial.borradoParanoagregar='0' AND autor.borradoParanoagregar='0' AND libro.borradoLogico = 0 AND libro.idLibro=historial.idLibro AND historial.borradoLogico=0 AND historial.idPerfil = $idPerfil "; 
+                WHERE l.terminar='1' AND editorial.borradoParanoagregar='0' AND autor.borradoParanoagregar='0' AND libro.borradoLogico = 0 AND libro.idLibro=historial.idLibro AND historial.borradoLogico=0 AND historial.idPerfil = $idPerfil "; 
                 $query= mysqli_query($conexion,$sql); 
                 $totalResultados= mysqli_num_rows($query);
                 if ($totalResultados > 0){ 
