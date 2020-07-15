@@ -55,6 +55,24 @@ function compararFechas1($primera, $segunda)// desde y hasta del capitulo
   }
 }
 
+function compararFechasD($libro, $capitulo)// libroDesde y capituloDesde
+ {
+    if ($libro<=$capitulo){
+        return 1;//sigue ejecutando
+    }else{
+        return -1; // error
+    }
+ }
+
+ function compararFechasDH($desde, $hasta)// capituloDesde y capituloHasta
+ {
+    if (empty($hasta)){
+        return 1;
+    }else{
+        
+    }
+ }
+
 
 switch($opcion){
     case 1: //alta
@@ -68,17 +86,18 @@ switch($opcion){
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
         $fechas= $resultado2->fetch();
-        
-        $result= compararFechas1($fechaD,$fechaH);
+        $libroDesde=$fechas['fechaDesde'];
+        $libroHasta=$fechas['fechaHasta'];
+        $result= compararFechas($fechaD,$fechaH);
         if($result < 0){
             $data="error3";  
         }else{
-            $result2=compararFechas1($fechas['fechaDesde'],$fechaD);
+            $result2=compararFechasD($libroDesde,$fechaD);
        
             if ($result2 < 0){
                 $data="error2"; 
             }else{
-                $result3=compararFechas1($fechaH,$fechas['fechaHasta']);
+                $result3=compararFechas1($fechaH,$libroHasta);
                 if ($result3 < 0){
                     $data="error1";
                 }else{
