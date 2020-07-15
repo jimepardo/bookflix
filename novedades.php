@@ -231,7 +231,7 @@
 <body style="background-color: #221f1f;">
    
     <?php        
-        $sql="SELECT novedadlibro.idNovedadLibro, libro.idLibro, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro, novedadlibro.fechaNovedad FROM libro INNER JOIN novedadlibro ON libro.idLibro = novedadlibro.idLibro INNER JOIN editorial ON (editorial.idEditorial=libro.idEditorial) INNER JOIN autor ON (autor.idAutor=libro.idAutor) WHERE l.terminar='1' AND libro.borradoLogico = 0 AND autor.borradoParanoagregar='0'AND editorial.borradoParanoagregar='0' AND libro.idLibro=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE() AND ((libro.fechaDesde BETWEEN libro.fechaDesde AND libro.fechaHasta) OR (libro.fechaHasta='0000-00-00'))"; 
+        $sql="SELECT novedadlibro.idNovedadLibro, libro.ISBN, libro.nombreLibro, novedadlibro.descripcion, libro.portadaLibro, novedadlibro.fechaNovedad, libro.idLibro FROM libro INNER JOIN novedadlibro ON libro.idLibro = novedadlibro.idLibro WHERE libro.terminar='1' AND libro.borradoLogico = 0 AND libro.idLibro=novedadlibro.idLibro AND novedadlibro.fechaNovedad = CURRENT_DATE() AND ((libro.fechaDesde<=libro.fechaHasta) OR (libro.fechaHasta IS NULL )) AND libro.fechaDesde<=CURRENT_DATE()"; 
         $query= mysqli_query($conexion,$sql); 
         $totalResultados= mysqli_num_rows($query);
         if ($totalResultados > 0){ 

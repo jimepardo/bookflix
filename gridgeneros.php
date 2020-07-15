@@ -21,7 +21,7 @@
         return $resultado;
         }
 
-     $consulta2="SELECT g.nombreGenero FROM genero g WHERE g.idGenero= '".$_GET['idGenero']."' ";
+     $consulta2="SELECT g.nombreGenero FROM genero g WHERE g.idGenero= '".$_GET['idGenero']."' AND g.borradoLogico='0' ";
     $query2= mysqli_query($conexion, $consulta2);
     $data=mysqli_fetch_array($query2);    
 ?>
