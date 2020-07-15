@@ -65,7 +65,8 @@ $(document).ready(function(){
        // console.log(Array.from(form_data2));
         form_data2.getAll("formcap");
         form_data2.append("opcion", opcion); 
-        //form_data2.append("libro", libro);                          
+        if (opcion == 2){
+        form_data2.append("libro", libro);   }                       
         console.log(Array.from(form_data2));    
         $.ajax({
             url: "vistas/crudcap.php",            

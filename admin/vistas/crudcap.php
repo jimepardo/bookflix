@@ -21,7 +21,7 @@ if (empty($fechaH)){
     $fechaH="NULL";
 }
 else{
-    $fechaH="'$fechaH'";
+    //$fechaH="'$fechaH'";
 }
 
 
@@ -81,6 +81,10 @@ function compararFechasD($libro, $capitulo)// libroDesde y capituloDesde
 
 function compararFechasHH($capitulo, $libro)// capituloHasta y libroHasta
 {
+
+    if(empty($libro) || $libro == "NULL"){
+        return 1;
+    }
     if ($capitulo == "NULL"){
         if (empty($libro) || $libro == "NULL"){
             return 1; // sigo ejecutando
@@ -116,16 +120,15 @@ switch($opcion){
         }else{
             $result2=compararFechasHH($fechaH,$libroHasta);
             if ($result2 < 0){
-                $data="error1"; //capituloDesde > capituloHasta
+                $data="error1"; //capituloDesde > libroHasta
             }else{
                 $result3=compararFechasDH($fechaD,$fechaH);
                 if ($result3 < 0){
-                    $data="error3"; // capituloHasta > libroHasta
+                    $data="error3"; // capituloHasta > capituloHasta
                 }else{
                         $nomPdf=$_FILES['pdf']["name"];
                         $tipoPdf=$_FILES['pdf']['type'];
-                        $tamanio=$_FILES['pdf']['size'];
-                    
+                        $tamanio=$_FILES['pdf']['size'];                  
                         $nombrePdf= $num."-".$nomPdf;
                         if ($tamanio<= 1262074){
                             if ($tipoPdf=="application/pdf") {    // compara que sea un tipo correcto de imagen   
@@ -159,30 +162,37 @@ switch($opcion){
         $resultado2 = $conexion->prepare($consulta2);
         $resultado2->execute();
         $fechas= $resultado2->fetch();*/
-
+        if (isset($_POST['ter'])){
+                $termina= '1';
+        }else{
+                $termina='0';
+        }
+        
+        $consulta2="SELECT DISTINCT fechaDesde, fechaHasta FROM libro WHERE idLibro='$libro' ";
+        $resultado2 = $conexion->prepare($consulta2);
+        $resultado2->execute();
+        $fechas= $resultado2->fetch();
+        $libroDesde=$fechas['fechaDesde'];
+        $libroHasta=$fechas['fechaHasta'];
         $consulta="SELECT * FROM capitulo WHERE numeroCapitulo='$num' AND borradoLogico='0' AND idLibro='$libro' AND NOT EXISTS (SELECT * FROM capitulo WHERE idCapitulo='$id' AND numeroCapitulo='$num') ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         if($data=$resultado->fetchAll(PDO::FETCH_ASSOC)){
             $data="error4";
         }else{
-            if (isset($_POST['ter'])){
-                $termina= '1';
-            }else{
-                $termina='0';
-            }
-            $result= compararFechas1($fechaD,$fechaH);
+            
+            $result= compararFechasD($libroDesde,$fechaD);
             if($result < 0){
-                $data="error3";  
+                $data="error2";  // libroDesde> capituloDesde
             }else{
-            /* $result= compararFechas1($fechaD,$fechas['fechaDesde']);
-                if ($result < 0){
-                    $data="error2";
+                $result2=compararFechasHH($fechaH,$libroHasta);
+                if ($result2 < 0){
+                    $data="error1"; //capituloDesde > libroHasta
                 }else{
-                    $result3=compararFechas1($fechaH,$fechas['fechaHasta']);
+                    $result3=compararFechasDH($fechaD,$fechaH);
                     if ($result3 < 0){
-                        $data="error1";
-                    }else{*/
+                        $data="error3"; // capituloHasta > capituloHasta
+                    }else{
                         if ($_FILES['pdf']['name'] != null){
                             $nomPdf=$_FILES['pdf']["name"];
                             $tipoPdf=$_FILES['pdf']['type'];
@@ -225,8 +235,8 @@ switch($opcion){
                             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                         }
                     }
-         //   }
-       // }
+                }
+            }
        
         }
         break;        
