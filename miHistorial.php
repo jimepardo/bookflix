@@ -256,11 +256,11 @@
             /* cualquier usuario registrado, sea basico/premium/administrador puede ver novedades*/ ?>
             <?php        
                 $idPerfil=$_SESSION["IDPERFIL"];
-                $sql="SELECT libro.* FROM libro 
-                INNER JOIN historial ON libro.idLibro = historial.idLibro 
-                INNER JOIN autor ON autor.idAutor= libro.idAutor
-                INNER JOIN editorial ON editorial.idEditorial =libro.idEditorial
-                WHERE l.terminar='1' AND editorial.borradoParanoagregar='0' AND autor.borradoParanoagregar='0' AND libro.borradoLogico = 0 AND libro.idLibro=historial.idLibro AND historial.borradoLogico=0 AND historial.idPerfil = $idPerfil "; 
+                $sql="SELECT l.* FROM libro l
+                INNER JOIN historial h ON l.idLibro = h.idLibro 
+                INNER JOIN autor a ON a.idAutor= l.idAutor
+                INNER JOIN editorial e ON e.idEditorial =l.idEditorial
+                WHERE l.terminar='1' AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0' AND l.borradoLogico='0' AND l.idLibro=h.idLibro AND h.borradoLogico='0' AND h.idPerfil=$idPerfil AND ((l.fechaDesde<=l.fechaHasta) OR (l.fechaHasta IS NULL )) AND l.fechaDesde<=CURRENT_DATE() "; 
                 $query= mysqli_query($conexion,$sql); 
                 $totalResultados= mysqli_num_rows($query);
                 if ($totalResultados > 0){ 
@@ -287,7 +287,7 @@
                                             <a href="detallelibro.php?nombreLibro=<?php echo $name['nombreLibro'];?>&idLibro=<?php echo $name['idLibro'];?>" class="btn btn-outline-danger ">Ver detalle</a>
                                            <!-- <a> <button type="button" class="btn btn-danger" style="font-size:13px;">Agregar a Mi lista</button></a>--><br><br>
                                        <?php }?>
-                                            <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha Hasta: <?php echo $name['fechaHasta']?></p>
+                                            <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha Hasta: <?php if((isset($name['fechaHasta'])) && (!empty($name['fechaHasta']))) echo $name['fechaHasta']; else{ echo "∞";}?></p>
                                            
                                         </div> <!--fin card-body-->
                                     </div> <!--fin card-->
@@ -310,15 +310,9 @@
                 }/* fin del else del resultado */
             }/* termina el if del permiso */
             } /* if de seteo del permiso */ 
-            ?>
-                 
+            ?>      
 
 
-
-
-      
-
-    <!-- Swiper -->
     
     <!-- Swiper JS -->
     <script src="package/js/swiper.min.js"></script>

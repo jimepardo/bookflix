@@ -138,7 +138,7 @@
                                         <a class="dropdown-item" href="generos.php">Todos</a>
                                         <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar=0 AND borradoParanoagregar='0' AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.terminar='1' AND l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico='0' AND borradoParanoagregar='0' AND borradoParanoagregar='0' AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.terminar='1' AND l.idGenero=genero.idGenero AND l.borradoLogico='0' AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>"<?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
@@ -257,10 +257,10 @@
             <?php        
                 $idPerfil=$_SESSION["IDPERFIL"];
                 $sql="SELECT libro.* FROM libro 
-                INNER JOIN favoritos ON libro.idLibro = favoritos.idLibro 
+                INNER JOIN favoritos ON libro.idLibro=favoritos.idLibro 
                 INNER JOIN editorial ON editorial.idEditorial=libro.idEditorial
                 INNER JOIN autor ON autor.idAutor=libro.idAutor
-                WHERE libro.terminar='1' AND autor.borradoParanoagregar='0' AND editorial.borradoParanoagregar='0' AND libro.borradoLogico = 0 AND libro.idLibro=favoritos.idLibro AND favoritos.borradoLogico=0 AND favoritos.idPerfil = $idPerfil "; 
+                WHERE libro.terminar='1' AND autor.borradoParanoagregar='0' AND editorial.borradoParanoagregar='0' AND libro.borradoLogico='0' AND libro.idLibro=favoritos.idLibro AND favoritos.borradoLogico=0 AND favoritos.idPerfil=$idPerfil AND ((libro.fechaDesde<=libro.fechaHasta) OR (libro.fechaHasta IS NULL )) AND libro.fechaDesde<=CURRENT_DATE() "; 
                 $query= mysqli_query($conexion,$sql); 
                 $totalResultados= mysqli_num_rows($query);
                 if ($totalResultados > 0){ 
@@ -287,7 +287,7 @@
                                             <a href="detallelibro.php?nombreLibro=<?php echo $name['nombreLibro'];?>&idLibro=<?php echo $name['idLibro'];?>" class="btn btn-outline-danger ">Ver detalle</a>
                                            <!-- <a> <button type="button" class="btn btn-danger" style="font-size:13px;">Agregar a Mi lista</button></a>--><br><br>
                                        <?php }?>
-                                            <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha Hasta: <?php echo $name['fechaHasta']?></p>
+                                            <p class="card-date" style="color:#221f1f; font-size:11px; text-align:left;">Fecha Hasta: <?php if((isset($name['fechaHasta'])) && (!empty($name['fechaHasta']))) echo $name['fechaHasta']; else{ echo "∞";}?></p>
                                            
                                         </div> <!--fin card-body-->
                                     </div> <!--fin card-->
@@ -311,14 +311,6 @@
             }/* termina el if del permiso */
             } /* if de seteo del permiso */ 
             ?>
-                 
-
-
-
-
-      
-
-    <!-- Swiper -->
     
     <!-- Swiper JS -->
     <script src="package/js/swiper.min.js"></script>

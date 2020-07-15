@@ -9,7 +9,7 @@
     $mostrar = mysqli_fetch_array($query, MYSQLI_ASSOC);
 
     //traerme los pdf de todos los capitulos
-    $consulta2=mysqli_query($conexion,"SELECT pdf FROM libro l INNER JOIN vistaprevia c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['idLibro']."' AND ((l.fechaDesde BETWEEN l.fechaDesde AND l.fechaHasta) OR (l.fechaHasta='0000-00-00')) ");
+    $consulta2=mysqli_query($conexion,"SELECT pdf FROM libro l INNER JOIN vistaprevia c ON (c.idLibro= l.idLibro) WHERE l.idLibro ='".$_GET['idLibro']."' AND ((l.fechaDesde<=l.fechaHasta) OR (l.fechaHasta IS NULL )) AND l.fechaDesde<=CURRENT_DATE() ");
    // $mostrar2=mysqli_fetch_array($consulta2);
 
    // $query3=mysqli_query($conexion,"SELECT * FROM novedadlibro n WHERE n.idLibro='".$_GET['idLibro']."' ");
@@ -52,7 +52,7 @@
                                     <a class="dropdown-item" href="generos.php">Todos</a>
                                     <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico='0' AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico='0' AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0' AND l.terminar='1' ) ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>" <?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
@@ -129,13 +129,12 @@
                                         <a class="dropdown-item" href="generos.php">Todos</a>
                                         <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico='0' AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico='0' AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0'AND l.terminar='1') ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>" <?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
                                                 echo ' selected > '.$valores['nombreGenero'].' </a>';
-                                            }else{
-                                                
+                                            }else{                                    
                                                 echo '>'.$valores['nombreGenero'].'</a>';
                                             }
                                         }
