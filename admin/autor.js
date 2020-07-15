@@ -103,12 +103,10 @@ $(document).on("click", ".btnEditar", function(){
 
 //botón BORRAR
 $(document).on("click", ".btnBorrar", function(){
-    opcion = 3; //eliminar    
+    opcion = 6; //eliminar    
     fila = $(this).closest("tr"); 
     var data = $('#tablaAutor').DataTable().row(fila).data();
     if (data["borradoLogico"] == 0){
-
-  
         id=data["idAutor"];
         nombre = fila.find('td:eq(0)').text();
         console.log(nombre);
@@ -120,24 +118,55 @@ $(document).on("click", ".btnBorrar", function(){
                 type: "POST",
                 dataType: "json",
                 data: {id:id, opcion:opcion},      
-            success: function() {
-                alertify.notify('¡Autor borrado exitosamente!','success',3); 
-                tablaAutor.ajax.reload(null,false);                  
+            success: function(data) {
+                if (data== "errorleyendo"){
+                    var respuesta2 = confirm("¿Está seguro de borrar el autor "+nombre+"? Hay personas que estan leyendo libros del autor "+nombre);
+                    if (respuesta2){
+                        $.ajax({
+                            url: "vistas/crudautor.php",
+                            type: "POST",
+                            dataType: "json",
+                            data: {id:id, opcion:3},      
+                        success: function() {
+                            alertify.notify('¡Autor borrado exitosamente, se mantienen los libros de este autor!','success',5); 
+                            tablaAutor.ajax.reload(null,false);
+                        }
+                        });
+                    }else{
+                        alertify.notify('Cancelado','error',3);
+                    }
+                }else{
+                    var respuesta3 =confirm("¿Está seguro de borrar el autor "+nombre+"? NO hay personas que esten leyendo libros del autor "+nombre);
+                    if (respuesta3){
+                        $.ajax({
+                            url: "vistas/crudautor.php",
+                            type: "POST",
+                            dataType: "json",
+                            data: {id:id, opcion:3},      
+                        success: function() {
+                            alertify.notify('¡Autor borrado exitosamente, se mantienen los libros de este autor!','success',5); 
+                            tablaAutor.ajax.reload(null,false);
+                        }
+                        });
+                    }else{
+                        alertify.notify('Cancelado','error',3);
+                    }
+                }
             }
-            });	
-        }else{
-            alertify.notify('Cancelado','error',3);
+            }); 
+            }else{
+                alertify.notify('Cancelado','error',3);
+            }
         }
-    }
-    else{
-        alertify.notify('¡Error! El autor ya se borró','error',3);
-    }
+        else{
+            alertify.notify('¡Error! El autor ya se borro, sin ocultar los libros de este autor','error',5);
+        }
  });
 
-
+ 
  //botón BORRAR para no agregar mas
 $(document).on("click", ".btnBorrarF", function(){
-    opcion = 5; //eliminar    
+    opcion = 6; //eliminar    
     fila = $(this).closest("tr"); 
     var data = $('#tablaAutor').DataTable().row(fila).data();  
     if (data["borradoParanoagregar"] == 0){
@@ -152,16 +181,49 @@ $(document).on("click", ".btnBorrarF", function(){
                 type: "POST",
                 dataType: "json",
                 data: {id:id, opcion:opcion},      
-            success: function() {
-                alertify.notify('¡Autor borrado exitosamente!','success',3); 
-                tablaAutor.ajax.reload(null,false);                  
+            success: function(data) {
+                if (data== "errorleyendo"){
+                    var respuesta2 = confirm("¿Está seguro de borrar el autor "+nombre+"? Hay personas que estan leyendo libros del autor "+nombre);
+                    if (respuesta2){
+                        $.ajax({
+                            url: "vistas/crudautor.php",
+                            type: "POST",
+                            dataType: "json",
+                            data: {id:id, opcion:5},      
+                        success: function() {
+                            alertify.notify('¡Autor borrado exitosamente, ocultando libros de este autor!','success',5); 
+                            tablaAutor.ajax.reload(null,false);
+                        }
+                        });
+                    }else{
+                        alertify.notify('Cancelado','error',3);
+                    }
+                }else{
+                    var respuesta3 =confirm("¿Está seguro de borrar el autor "+nombre+"? NO hay personas que esten leyendo libros del autor "+nombre);
+                    if (respuesta3){
+                        $.ajax({
+                            url: "vistas/crudautor.php",
+                            type: "POST",
+                            dataType: "json",
+                            data: {id:id, opcion:5},      
+                        success: function() {
+                            alertify.notify('¡Autor borrado exitosamente, ocultando libros de este autor!','success',5); 
+                            tablaAutor.ajax.reload(null,false);
+                        }
+                        });
+                    }else{
+                        alertify.notify('Cancelado','error',3);
+                    }
+                }
             }
-            });	
-        }else{
-            alertify.notify('Cancelado','error',3);
+            }); 
+            }else{
+                alertify.notify('Cancelado','error',3);
+            }
         }
-    }else{
-        alertify.notify('¡Error! El autor ya se borró','error',3);
-    }
+        else{
+            alertify.notify('¡Error! El autor ya se borro, ocultando los libros de este autor','error',5);
+        }
  });
+
 });

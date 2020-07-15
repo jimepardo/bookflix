@@ -62,7 +62,7 @@ switch($opcion){
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;   
-    case 5://baja
+    case 5://baja y ocultar libros
         $consulta = "UPDATE autor SET borradoParanoagregar='1', borradoLogico='1' WHERE idAutor='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
@@ -74,7 +74,16 @@ switch($opcion){
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);                           
-        break;         
+        break;
+    case 6:
+         $consulta = "SELECT COUNT(*) as cantidad FROM autor a INNER JOIN libro l ON (a.idAutor=l.idAutor) INNER JOIN leyendo ley ON (l.idLibro=ley.idLibro) WHERE a.idAutor='$id' AND a.idAutor=l.idAutor AND l.idLibro=ley.idLibro AND ley.borradoLogico='0' ";   
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute(); 
+        $data= $resultado->fetchAll(PDO::FETCH_ASSOC);
+        if ($data[0]["cantidad"]> 0){
+            $data="errorleyendo";
+        }
+    break;         
 }
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS

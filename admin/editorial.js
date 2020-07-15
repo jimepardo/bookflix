@@ -127,7 +127,7 @@ $(document).ready(function(){
                                 dataType: "json",
                                 data: {id:id, opcion:3},      
                             success: function() {
-                                alertify.notify('¡Editorial borrada exitosamente, se mantienen los libros con esta editorial!','success',3); 
+                                alertify.notify('¡Editorial borrada exitosamente, se mantienen los libros con esta editorial!','success',5); 
                                 tablaEditorial.ajax.reload(null,false);
                             }
                             });
@@ -143,7 +143,7 @@ $(document).ready(function(){
                                 dataType: "json",
                                 data: {id:id, opcion:3},      
                             success: function() {
-                                alertify.notify('¡Capitulo borrado exitosamente!','success',3); 
+                                alertify.notify('¡Editorial borrada exitosamente, se mantienen los libros con esta editorial!','success',5); 
                                 tablaCap.ajax.reload(null,false);
                             }
                             });
@@ -158,7 +158,7 @@ $(document).ready(function(){
             }
         }
         else{
-            alertify.notify('¡Error! La editorial ya se borro sin ocultar los libros de esta editorial','error',3);
+            alertify.notify('¡Error! La editorial ya se borro sin ocultar los libros de esta editorial','error',5);
         }
      });
 
@@ -188,7 +188,7 @@ $(document).ready(function(){
                                 dataType: "json",
                                 data: {id:id, opcion:5},      
                             success: function() {
-                                alertify.notify('¡Editorial borrada exitosamente, ocultando libros!','success',3); 
+                                alertify.notify('¡Editorial borrada exitosamente, ocultando libros!','success',4); 
                                 tablaEditorial.ajax.reload(null,false);
                             }
                             });
@@ -204,7 +204,7 @@ $(document).ready(function(){
                                 dataType: "json",
                                 data: {id:id, opcion:5},      
                             success: function() {
-                                alertify.notify('¡Capitulo borrado exitosamente!','success',3); 
+                                alertify.notify('¡Editorial borrado exitosamente, ocultando libros!','success',4); 
                                 tablaCap.ajax.reload(null,false);
                             }
                             });
@@ -219,7 +219,7 @@ $(document).ready(function(){
             }
         }
         else{
-            alertify.notify('¡Error! La editorial ya se borro para ocultar los libros de esta editorial','error',3);
+            alertify.notify('¡Error! La editorial ya se borro para ocultar los libros de esta editorial','error',4);
         }
      });
     
