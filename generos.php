@@ -62,7 +62,7 @@
                                     <a class="dropdown-item" href="generos.php">Todos</a>
                                     <div class="dropdown-divider"></div>
                                     <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar='0' AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar='0' AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.terminar='1' AND l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>"<?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
@@ -139,7 +139,7 @@
                                         <a class="dropdown-item" href="generos.php">Todos</a>
                                         <div class="dropdown-divider"></div>
                                         <?php
-                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar='0' AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
+                                        $query = mysqli_query ($conexion,"SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND borradoParanoagregar='0' AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.terminar='1' AND l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0') ORDER BY nombreGenero");
                                         while ($valores = mysqli_fetch_array($query,MYSQLI_ASSOC)) {?>
                                             <a class="dropdown-item" href="gridgeneros.php?idGenero=<?php echo $valores['idGenero'] ?>" value="<?php echo $valores['idGenero'] ?>"<?php 
                                             if (isset($_GET['genero']) && $valores['idGenero'] == $_GET['genero']){
@@ -216,7 +216,7 @@
         if (($_SESSION['PERMISO'] == 1) || ($_SESSION['PERMISO'] == 2)){
             /* cualquier usuario registrado, sea basico/premium puede ver generos*/ ?>
             <?php        
-               $sql="SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0' AND ((l.fechaDesde BETWEEN l.fechaDesde AND l.fechaHasta) OR (l.fechaHasta='0000-00-00')) ) ORDER BY nombreGenero";
+               $sql="SELECT nombreGenero, idGenero FROM genero WHERE borradoLogico = 0 AND EXISTS( SELECT * FROM libro l INNER JOIN editorial e ON (e.idEditorial=l.idEditorial) INNER JOIN autor a ON (a.idAutor=l.idAutor) WHERE l.terminar='1' AND l.idGenero=genero.idGenero AND l.borradoLogico=0 AND e.borradoParanoagregar='0' AND a.borradoParanoagregar='0' AND ((l.fechaDesde BETWEEN l.fechaDesde AND l.fechaHasta) OR (l.fechaHasta='0000-00-00')) ) ORDER BY nombreGenero";
                 $query= mysqli_query($conexion,$sql); 
                 while ($name = mysqli_fetch_array($query)){
                 $totalResultados= mysqli_num_rows($query);
@@ -228,7 +228,10 @@
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                                 <?php  
-                                $sql2="SELECT * FROM libro l INNER JOIN genero g ON (g.idGenero=l.idGenero) WHERE l.idGenero= '".$name['idGenero']."' AND l.borradoLogico=0";
+                                $sql2="SELECT * FROM libro l INNER JOIN genero g ON (g.idGenero=l.idGenero) 
+                                INNER JOIN editorial ON editorial.idEditorial=l.idEditorial
+                                INNER JOIN autor ON autor.idAutor=l.idAutor
+                                WHERE l.terminar='1' AND autor.borradoParanoagregar='0' AND autor.borradoParanoagregar='0' AND l.idGenero= '".$name['idGenero']."' AND l.borradoLogico=0";
                                 $query2=mysqli_query($conexion,$sql2);
                                 while ($name2 = mysqli_fetch_array($query2)) {
                                     $titulo= $name2['nombreLibro'];
