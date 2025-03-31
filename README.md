@@ -7,5 +7,5 @@ PHP, Javascript, Bootstrap
 
 ### Authors
 Software Engineer 2 course group from the Faculty of Informatics - UNLP:
-- Velazquez, Germán
+- Gargiulo, Lucio Ernesto
 - Pardo, Jimena
